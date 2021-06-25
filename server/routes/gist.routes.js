@@ -21,7 +21,7 @@ router.route("/api/gists/new/:userId")
     .post(authCtrl.REQUIRE_SIGNIN, gistCtrl.CREATE)
 
 router.route("/api/gists/feed/:userId")
-    .get(authCtrl.REQUIRE_SIGNIN, gistCtrl.LISTNEWFEEDS);
+    .get(gistCtrl.LISTNEWFEEDS);
 
 router.route('/api/gists/by/:userId/getCoos')    
     .get(authCtrl.REQUIRE_SIGNIN, gistCtrl.LISTBYUSER);

@@ -10,8 +10,8 @@ import PsuedoAds from "./../components/others/PsuedoAds"
 import {LISTNEWFEEDS} from "../apis/gist/api-gist"
 import {LIST} from "../apis/user/api-user"
 
-const MUHA = () =>{
-    const [gists, setGists] = useState([]);
+const MUHA = (props) =>{
+    const [gists, setGists] = useState(window.APP || []);
     const [members, setMembers] = useState([])
 
     const jwt = auth.isAuthenticated();

@@ -1,4 +1,4 @@
-const TEMPLATE = function ({markup, styles}) {
+const TEMPLATE = function ({markup, styles, context}) {
     return `
     <!DOCTYPE html>
     <html lang="en">
@@ -15,7 +15,14 @@ const TEMPLATE = function ({markup, styles}) {
     </head>
     <body>
         <div id="___root">${markup}</div>
-        <script type="text/javascript" src="../dist/bundle.js"></script>
+        <script>
+            window.APP = ${context}
+        </script>
+        <script
+            type="text/javascript"
+            src="../dist/bundle.js"
+        >
+        </script>
     </body>
     </html>
     `

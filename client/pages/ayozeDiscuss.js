@@ -27,7 +27,7 @@ const AYOZEDISCUSS = ({match}) => {
         <div>
             <h1>{gists.text}</h1>
             <p>{(new Date(gists.created).toLocaleTimeString())}</p>
-            <AyozeChat chats={gists.reactions} />
+            <AyozeChat chats={gists.reactions} id={gists._id} />
         </div>
     )
 };
