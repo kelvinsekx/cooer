@@ -11,7 +11,8 @@ import {LISTNEWFEEDS} from "../apis/gist/api-gist"
 import {LIST} from "../apis/user/api-user"
 
 const MUHA = (props) =>{
-    const [gists, setGists] = useState(window.APP || []);
+    const home = window.APP && window.APP.home
+    const [gists, setGists] = useState(home || []);
     const [members, setMembers] = useState([])
 
     const jwt = auth.isAuthenticated();

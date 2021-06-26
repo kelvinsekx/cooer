@@ -1,4 +1,4 @@
-const TEMPLATE = function ({markup, styles, context}) {
+const TEMPLATE = function ({markup, styles, context, where}) {
     return `
     <!DOCTYPE html>
     <html lang="en">
@@ -16,7 +16,9 @@ const TEMPLATE = function ({markup, styles, context}) {
     <body>
         <div id="___root">${markup}</div>
         <script>
-            window.APP = ${context}
+            window.APP = {
+                ${where}: ${context}
+            }
         </script>
         <script
             type="text/javascript"

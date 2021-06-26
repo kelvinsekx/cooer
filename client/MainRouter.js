@@ -1,65 +1,36 @@
 import React from "react";
 import {Route,Switch} from "react-router-dom";
 import styled from "styled-components"
-import Home from "./shared/Home";
 
 import Private from "./auth/PrivateRoute";
-import Muha from "./pages/muha";
-import Register from "./pages/register";
-import Street from "./pages/street";
-import Ayoze from "./pages/ayoze";
-import Discuss from "./pages/ayozeDiscuss";
-import Profile from "./user/profile"
-import EditProfile from "./pages/editProfile";
+
+import { NonProtectedRoutes as nRoutes, protectedRoutes as pRoutes } from "./routes";
 
 import Menu from "./components/menu"
 
 const MAINROUTER = () => 
 <div style={{fontFamily: "sans-serif", color: "#222"}}>
     <Switch>
-    <Route exact 
-            path="/" 
-            component={Home} />
-    <Route exact 
-            path="/register" 
-            component={Register} />
+        {nRoutes.map((route, i) => (
+            <Route  key={i}
+                exact
+                {...route} />
+        ))}
+
     <MAINSTYLES>
-    <div id="main">
+        <div id="main">
             <div className="menuMenu"><Menu /></div>
             <div className="body">
-                <Private 
-                    exact
-                    path="/home" 
-                    component={Muha}
-                />
-                <Private
-                    exact 
-                    path="/street" 
-                    component={Street}
-                />
-                <Private 
-                    exact
-                    path="/ayoze" 
-                    component={Ayoze}
-                />
-                <Private 
-                    exact
-                    path="/profile/:userId" 
-                    component={Profile}
-                />
-                <Private 
-                    exact
-                    path="/profile/:userId/edit" 
-                    component={EditProfile}
-                />
-                <Private 
-                    exact
-                    path="/ayoze/:gossiptitle/:gossipId" 
-                    component={Discuss}
-                />
+                {pRoutes.map(
+                    (route, i) => (
+                        <Private  key={i}
+                            exact
+                            {...route} />
+                    ))
+                }
             </div>
         </div>
-        </MAINSTYLES>
+    </MAINSTYLES>
     </Switch>
 </div>
 

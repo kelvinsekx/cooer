@@ -3,7 +3,7 @@ import styled from "styled-components"
 import auth from "./../../helpers/auth.helper"
 import { REACT} from "./../../apis/ayoze/ayoze-api"
 
-const ID = auth.isAuthenticated().user._id;
+const ID = auth.isAuthenticated() && auth.isAuthenticated().user._id;
 
 const CHATS = ({chats, id})=> {
     const [toggle, setToggle] = useState(false);

@@ -1,0 +1,47 @@
+import Home from "./shared/Home";
+import Register from "./pages/register";
+
+import Muha from "./pages/muha";
+import Street from "./pages/street";
+import Ayoze from "./pages/ayoze";
+import Discuss from "./pages/ayozeDiscuss";
+import Profile from "./user/profile"
+import EditProfile from "./pages/editProfile";
+
+export const NonProtectedRoutes = [
+    {
+        path: "/",
+        component: Home
+    },
+    {
+        path: "/register",
+        component: Register
+    }
+];
+
+export const protectedRoutes = [
+    {
+        path: "/home",
+        component: Muha
+    },
+    {
+        path: "/street",
+        component: Street
+    },
+    {
+        path: "/ayoze",
+        component: Ayoze
+    },
+    {
+        path: "/profile/:userId",
+        component: Profile
+    },
+    {
+        path: "/profile/:userId/edit",
+        component: EditProfile
+    },
+    {
+        path: "/ayoze/:gossiptitle/:gossipId",
+        component: Discuss
+    }
+]
