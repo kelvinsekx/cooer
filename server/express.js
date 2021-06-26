@@ -8,9 +8,10 @@ import cors from "cors";
 import helmet from "helmet";
 
 
-import devBundle from "./devBundle"
+//import devBundle from "./devBundle"
 const APP = express();
-devBundle.compile(APP)
+
+//devBundle.compile(APP)
 
 
 /*************
