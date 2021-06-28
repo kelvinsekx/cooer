@@ -4,12 +4,16 @@ import styled from "styled-components"
 
 import Private from "./auth/PrivateRoute";
 
-import { NonProtectedRoutes as nRoutes, protectedRoutes as pRoutes } from "./routes";
+import { NonProtectedRoutes as nRoutes, 
+        protectedRoutes as pRoutes } 
+from "./routes";
 
 import Menu from "./components/menu"
 
-const MAINROUTER = () => 
-<div style={{fontFamily: "sans-serif", color: "#222"}}>
+const MAINROUTER = (props) =>
+{
+    console.log(props)
+    return <div style={{fontFamily: "sans-serif", color: "#222"}}>
     <Switch>
         {nRoutes.map((route, i) => (
             <Route  key={i}
@@ -32,7 +36,8 @@ const MAINROUTER = () =>
         </div>
     </MAINSTYLES>
     </Switch>
-</div>
+</div> 
+} 
 
 const MAINSTYLES = styled.div`
 div#main{

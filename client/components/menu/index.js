@@ -43,7 +43,7 @@ const Menu = withRouter(({history})=> (
                         <span><FiLifeBuoy style={{fontSize: "130%"}}/></span>   <span>Trending</span>
                         </Link>
                     </li>
-                    <li onClick={()=>auth.clearJWT(()=>history.push("/?=__rd"))} className="navIconBtn">
+                    <li onClick={()=>auth.clearJWT(()=>history.push("/login/?__rd"))} className="navIconBtn">
                         <span><FiUserX style={{fontSize: "130%"}}/></span>   <span>Log out</span>
                     </li>
                 </ul>

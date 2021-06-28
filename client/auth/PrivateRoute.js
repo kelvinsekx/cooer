@@ -7,7 +7,7 @@ const PRIVATEROUTE = ({component: Component, ...rest})=>
 auth.isAuthenticated() ? 
 <Component {...props} /> : (
     <Redirect to={{
-        pathname: "/?=__rd", 
+        pathname: "/login", 
         state: {from: props.location}}} 
     />
 )

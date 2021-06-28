@@ -1,7 +1,7 @@
 import baseManager from "./baseManager";
 
 import API from "./apiManager"
-import client from "./clientManager"
+import client from "./clientManager";
 
 const newManager =  {
     configureDevEnv(app) {

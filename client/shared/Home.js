@@ -5,8 +5,6 @@ import {HomeStyled as Styles} from "./home.styled"
 import {Redirect} from "react-router-dom"
 
 const HOME = (props) => {
-    console.log(props)
-    if (props.location.search == "?=__rd"){
         return (
             <div>
                 <Styles>
@@ -15,10 +13,9 @@ const HOME = (props) => {
                 </Styles>
             </div>
         )
-    }else{
-        return <Redirect to ="/home" />
-    }
 
 }
+
+export const hm = ()=> <Redirect to ="/home" />
 
 export default HOME;

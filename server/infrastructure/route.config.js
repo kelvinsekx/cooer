@@ -1,17 +1,22 @@
 import fetch from "node-fetch"
-import { Cookie } from "tough-cookie"
 
-console.log(Cookie)
+
 const routes = [
     {
         path: "/home",
         component: 'Muha',
-        loadData: ()=>fetch(`http://localhost:4006/_v1/api/gists/feed/kelvin97`)
+        loadData: (match, req)=>{
+            console.log(req)
+            if(req.cookies){
+                console.log(req.cookies.user)
+            }
+            return fetch(`http://localhost:4006/_v1/api/gists/feed/${req.cookies.user}`)
+        }
     },
     {
         path: "/profile/:userId",
         component: 'Profile',
-        loadData: (match)=>fetch(`http://localhost:4006/_v1/api/users/${match.params.userId}`)
+        loadData: (match, req)=>fetch(`http://localhost:4006/_v1/api/users/${match.params.userId}`)
     },
 ]
 

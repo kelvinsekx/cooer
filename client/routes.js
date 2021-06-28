@@ -1,4 +1,4 @@
-import Home from "./shared/Home";
+import {default as Home, hm} from "./shared/Home";
 import Register from "./pages/register";
 
 import Muha from "./pages/muha";
@@ -11,6 +11,10 @@ import EditProfile from "./pages/editProfile";
 export const NonProtectedRoutes = [
     {
         path: "/",
+        component: hm
+    },
+    {
+        path: "/login",
         component: Home
     },
     {
