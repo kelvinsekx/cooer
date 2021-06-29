@@ -66,7 +66,7 @@ const MUHA = (props) =>{
             <div>
                 <PsuedoAds 
                     header={`Suggested Followers`}
-                    body={memebers.length < 1 ? "sorry no user yet":members.map((member, index)=> {
+                    body={members.length < 1 ? "sorry no user yet": members.map((member, index)=> {
                         return <div className="lilintro" key={index + member.username.substring(0, 1)}>
                         <div className="dp"></div>
                         <div><Link to={`/profile/${member.username}`}><p>{member.username}</p></Link></div>
