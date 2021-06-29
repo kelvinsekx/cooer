@@ -60,6 +60,9 @@ div#header {
 }
 @media (max-width: 750px) {
     width: 100%;
+    height:94vh;
+    overflow-y: scroll;
+           
 }
 @media (max-width: 1150px) {
     div#header {

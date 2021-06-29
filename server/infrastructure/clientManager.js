@@ -19,37 +19,54 @@ const client = {
             const promises = [];
             let matched;
 
-            routes.some(route => {
-                const match = matchPath(req.path, route);
-                matched = match;
-                if (match) promises.push(route.loadData(match, req));
-                return match;
-            })
+            const aMatch = routes.find(route => req.path == route.path)
 
-            Promise.all(promises)
-            .then(function (responses) {
-                // Get a BUFFER object from each of the responses
-                return Promise.all(responses.map(function (response) {
-                    return response.buffer();}))
-            })
-            .then(values=>{
-                return values[0]
-            })
-            .then(body => {
+            // routes.some(route => {
+            //     const match = matchPath(req.path, route);
+            //     matched = match;
+            //     if (match) promises.push(route.loadData(match, req));
+            //     return match;
+            // })
+
+            //Promise.all(promises)
+            if(aMatch) {
+                aMatch.loadData()
+                // .then(function (responses) {
+                //     // Get a BUFFER object from each of the responses
+                //     return Promise.all(responses.map(function (response) {
+                //         return response.buffer();}))
+                // })
+                .then(response=>{
+                    return response.buffer()
+                })
+                .then(body => {
+                    const markup = this.render(req, body, sheet)
+                    let URL = "unkg"
+                    URL = matched && matched.url.replace("/", '')
+    
+                    const styles = sheet.getStyleTags();
+    
+                    res.status(200).send(Template({
+                        where: URL,
+                        context: body,
+                        markup: markup, 
+                        styles: styles})
+                    );
+    
+                })
+            }else {
+                let body=""
                 const markup = this.render(req, body, sheet)
-                let URL = "unkg"
-                URL = matched && matched.url.replace("/", '')
 
                 const styles = sheet.getStyleTags();
 
                 res.status(200).send(Template({
-                    where: URL,
+                    where: '',
                     context: body,
                     markup: markup, 
                     styles: styles})
                 );
-
-            })
+            }
         })
 
         return router

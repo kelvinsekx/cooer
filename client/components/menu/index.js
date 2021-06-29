@@ -66,10 +66,8 @@ const isActive = (history, path) => {
 
 
 const Styles = styled.div`
-top:0;
 color: black;
 display: flex;
-position: sticky;
 background-color: white;
 border-right: 0.10rem solid rgba(0, 0, 0, 0.2);
 .navIconBtn{
@@ -135,6 +133,8 @@ nav{
     }
 }
 @media (min-width: 840px) {
+    position: relative;
+    top:0;
     min-height: 100vh;
     flex-direction: column;
     nav {
@@ -159,17 +159,17 @@ nav{
     }
 }
 @media (max-width: 540px) {
-    opaque: 2;
     flex-direction: row;
-    height: 5vh;
+    position: fixed;
+    height: 5.5vh;
+    width: 100vw;
     background-color: white;
     overflow-x: hidden;
     color: black;
-    bottom: -1px;
-    border-top: 1px solid rgba(0,0,0,0.4);
-    box-shadow: 3px 0 5px 4px rgba(150, 140, 140, 0.993);
+    bottom: -0.5px;
+    border-top: 0.1px solid rgba(0,0,0,0.4);
+    box-shadow: 1px 0 1px 1px rgba(150, 140, 140, 0.693);
     nav {
-        z-index: 100;
         flex-direction: row;
         div:nth-child(1){
             visibility: hidden;

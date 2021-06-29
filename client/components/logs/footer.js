@@ -5,10 +5,9 @@ import {Link} from "react-router-dom"
 const LogsFooter = () =>
 <Styles> 
 <footer>
-    <div><span>forgot password?</span></div>
-    <hr/>
+    <div className="forgotten">forgot password?</div>
     <div className="c_n_a">
-        <Link to="register">Create New Account</Link>
+        New here?,<Link to="/register">Create account</Link>
     </div>
 </footer>
 </Styles>;

@@ -22,7 +22,7 @@ const TEMPLATE = function ({markup, styles, context, where}) {
         </script>
         <script
             type="text/javascript"
-            src="../dist/bundle.js"
+            src="/dist/bundle.js"
         >
         </script>
     </body>

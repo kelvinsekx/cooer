@@ -2,7 +2,17 @@ import styled from "styled-components";
 
 export let registerPage = styled.div`
 display: flex;
-margin: 3.4rem auto 0 auto;
-flex-direction: row;
+justify-content: center;
+flex-direction: column;
+width:99.9vw;
+margin-top: 0px;
+border: none;
+gap: 1em;
 align-items: center;
+@media (min-width: 650px){
+    flex-direction: row;
+    width: 92vw;
+    margin: 2rem auto;
+    border: 1px solid rgba(90, 0, 0, 0.4);
+}
 `

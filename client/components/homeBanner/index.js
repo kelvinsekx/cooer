@@ -5,8 +5,8 @@ export default function Haha () {
     return (
     <Styles>
         <div>
-            <div>onstreet</div>
-            <p>onstreet will give you the window to a world of possibilities and dream.</p>
+            <div className="bd">cooer</div>
+            <p>cooer will give you the window to a world of possibilities and dreams...</p>
         </div>
     </Styles>
     )

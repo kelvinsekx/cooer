@@ -3,9 +3,11 @@ import styled from "styled-components"
 import auth from "./../../helpers/auth.helper"
 import { REACT} from "./../../apis/ayoze/ayoze-api"
 
+import $ from "../../helpers/gen.helpers"
+
 const ID = auth.isAuthenticated() && auth.isAuthenticated().user._id;
 
-const CHATS = ({chats, id})=> {
+const CHATS = ({chats, id, addToGists})=> {
     const [toggle, setToggle] = useState(false);
     const [text, setText] = useState("")
 
@@ -13,8 +15,12 @@ const CHATS = ({chats, id})=> {
         setText(e.target.value)
     }
 
-
-
+    const betterReact = ()=> {
+        REACT(
+            auth.isAuthenticated().user._id, 
+            auth.isAuthenticated().token, id, 
+            {text: text}).then(data => addToGists(data))
+    }
 
     if (typeof chats == "undefined"){
         chats = []
@@ -23,7 +29,7 @@ const CHATS = ({chats, id})=> {
         <div>
         {chats.length > 0 ? 
             <div>
-                {chats.map(chat => <div><StyledChatter id={chat.postedBy}>{chat.text}</StyledChatter></div>)}
+                {chats.map((chat, i) => <div key={i}><StyledChatter id={chat.postedBy}>{chat.text}</StyledChatter></div>)}
             </div> : 
             <StartAyoze />
         }
@@ -31,10 +37,7 @@ const CHATS = ({chats, id})=> {
             <div id="btn">
                 {toggle ?
                     <button onClick={()=> {
-                        REACT(
-                            auth.isAuthenticated().user._id, 
-                            auth.isAuthenticated().token, id, 
-                            {text: text});
+                        betterReact()
                         setToggle(!toggle)}
                     }>send</button>: 
                     <button onClick={()=> setToggle(!toggle)}>write</button>
@@ -52,7 +55,8 @@ const CHATS = ({chats, id})=> {
 
 const StyledChatter = styled.span`
  ${({id})=> {
-    if (id === ID ) return `
+    if (id === ID ){
+        return `
         display: inline-block;
         background-color: white;
         box-shadow: 2px 1px 2px 1px #666;
@@ -61,6 +65,17 @@ const StyledChatter = styled.span`
         font-size: 1.2em;
         min-height:2rem;
     `
+    } else {
+        return `
+        display: inline-block;
+        background-color: red;
+        box-shadow: 2px 1px 2px 1px #666;
+        padding: 0.1em 1em 0.2em 0.11em;
+        border-radius: 3px;
+        font-size: 1.2em;
+        min-height:2rem;
+    `
+    }
 }}
 `
 

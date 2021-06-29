@@ -6,31 +6,32 @@ export const StyledFooter = styled.div`
         display: flex;
         flex-direction: column;
         align-items: center;
-        div>span{
+        div.forgotten{
+            text-align: center;
+            width: 100%;
             color: #0e7713;
             font-size:109%;
-        }
-        hr{
-            border: 1px solid grey;
-            width: 100%;
+            padding-bottom: 1%;
+            border-bottom: 1px solid rgba(0,0,0,0.3);
         }
     }
     footer>.c_n_a{
-        font-size: 1.56rem;
-        background-color: rgba(19, 64, 212, 0.98);
+        padding-top: 0.45em;
+        font-size: 1.06rem;
         border-radius: 5px;
         border: none;
-        &:hover{
-            background-color: rgba(19, 64, 212, 0.9);
-        }
-        &:active{
-            background-color: rgba(19, 64, 212, 0.8);
-        }
+        color: black;
         a{
-            color: white;
+            background-color: rgba(19, 212, 106, 0.6);
             text-decoration: none;
             display: inline-block;
-            padding: 0.32em 0.87em;  
+            color: black;
+            &:hover{
+                background-color: rgba(19, 212, 106, 0.4);
+            }
+            &:active{
+                background-color: rgba(19, 212, 106, 0.3);
+            }  
         }
     }
 `;
@@ -38,7 +39,7 @@ export const StyledFooter = styled.div`
 export const StyledLogs = styled.div`
 // border: 2px solid red;
 background-color: white;
-height: 20rem;
+min-height: 20rem;
 padding: 3rem;
 border-radius: 5px;
 box-shadow: 3px 5px 40px 3px rgba(71, 67, 67, 0.2);
@@ -77,5 +78,9 @@ form{
             background-color: #0c420e;
         }
     }
+}
+
+@media (max-width: 950px){
+    
 }
 `

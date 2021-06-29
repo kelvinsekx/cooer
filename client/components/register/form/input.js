@@ -22,9 +22,8 @@ const INPUT = ({placeholder, type, name, value,handleChange, w, readOnly, minLen
 
 return (
 <Styles w={w} tr={recoll}>
-<div>
     <label htmlFor={placeholder}>
-        <div>{placeholder}</div>
+        <span>{placeholder}</span>
         <input 
             readOnly= {readOnly}
             placeholder={placeholder} 
@@ -39,7 +38,6 @@ return (
             onBlur={handleBlur}>
         </input>
     </label>
-</div>
 </Styles>
 )};
 

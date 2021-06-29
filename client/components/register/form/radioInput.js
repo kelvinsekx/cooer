@@ -4,6 +4,7 @@ import styled from "styled-components"
 const RADIO = ({value, handleChange, ID})=> {
     return (
         <Styles>
+        <label htmlFor={ID}>
             <input 
                 id={ID}
                 type="radio" 
@@ -11,22 +12,24 @@ const RADIO = ({value, handleChange, ID})=> {
                 name="gender"
                 onClick={handleChange("gender")}
             />
-        <label htmlFor={ID}>{value}</label>
-        <div className="ck"></div>
+            <div className="ck"></div>
+        {value}
+        </label>
         </Styles>
     )
 };
 
 let Styles = styled.div`
-font-size: 140%;
+font-size: 110%;
 cursor: pointer;
+label{
 div.ck{
     position: relative;
-    top: -1.38rem;
-    left: 0.92rem;
+    top: 0.18rem;
+    //left: 0.92rem;
     border: 2px solid #AAAAAA;
     border-radius: 50%;
-    height: 10px;
+    height: 13px;
     width: 13px;
     z-index: 2;
     transition: border .25s linear;
@@ -36,25 +39,26 @@ div.ck{
         position: relative;
         content: '';
         border-radius: 100%;
-        height: 8px;
-        width: 10px;
-        top: 5px;
-        left: 5px;
+        height: 5px;
+        width: 5px;
+        top: 2px;
+        // left: 5px;
         margin: auto;
         transition: background 0.25s linear;
         -webkit-transition: background 0.25s linear;
     }
 }
-
-label{
     font-weight: 300;
+    gap:0.1%;
     cursor: pointer;
     z-index:1000;
-    padding:0.1em 1rem;
+    padding:0.1em 0.54rem;
+    display: flex;
+    // flex-wrap: wrap;
 }
 
 input[type="radio"]{
-     visibility: hidden;
+    visibility: hidden;
     height: 1rem;
     width: 1rem;
     z-index: 90;

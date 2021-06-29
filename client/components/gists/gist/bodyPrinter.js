@@ -2,15 +2,19 @@ import React from "react";
 import styled from "styled-components"
 
 function printerProcess (text) {
-    let PATTERN, TM;
+    let PATTERN, TM, LINK, LM;
     PATTERN = /^@(\w+)/g;
+    LINK = /https?:\/\/(\w+):?(\w+)(\/(\w+))+/g;
+
     TM = PATTERN.exec(text);
+    LM = LINK.exec(text)
     if (TM) {
-        const NEWTEXT = text.replaceAll(PATTERN, `<a href="/profile/${TM[1]}">${TM[0]}</a>`)
-        return NEWTEXT;
-    }else {
-        return text;
+        text = text.replaceAll(PATTERN, `<a href="/profile/${TM[1]}">${TM[0]}</a>`)
     }
+    if(LM) {
+        text = text.replaceAll(LINK, `<a href="${LM[0]}">${LM[0]}</a>`)
+    }
+    return text;
 }
 const PRINTER = ({text}) => {
     text = printerProcess(text)

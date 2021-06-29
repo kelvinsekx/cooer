@@ -2,58 +2,77 @@ import styled, {css} from "styled-components";
 
 export const StyledRegisterForm = styled.div`
 box-shadow: 2px 4px 5px 4px rgba(150, 140, 140, 0.323);
-width: 36%;
+width: 90%;
 background-color: hsla(0, 0%, 100%, 0.87);
 border-radius: 5px;
-padding: 0.6rem 0.0001rem;
+border: 1px solid rgba(90, 0, 0, 0.4);
 display: flex;
 flex-direction: column;
 align-items: center;
+padding: 1em 0;
 a{
     display: inline-block;
-    color: red;
-    border: 1px solid red;
+    color: black;
+    background-color: rgba(19, 212, 106, 0.6);
+    padding:0 0.8em;
     text-decoration: none;
-    padding: 0.2em 2em;
-    margin-top: 0.6em;
 }
 div{
     background-color: white;
     form {
-        fieldset{
+        #fieldset{
             display: flex;
             flex-direction: column;
             align-items: center;
-            border: 0;
+            border: none !important;
+            flex-shrink: 1;
             legend{
                 color:#0e7713;
                 font-size: 130%;
             }
-            div{
-                padding: 0.09em 0;
+            div#formContent{
+                div.ytr{
+                    display: flex;
+                    justify-content: space-between;
+                }
+                div.gendo{
+                    div{
+                        display: flex;
+                    }
+                }
             }
             button{
                 margin: 2.345rem 0px;
-                font-size: 1.5rem;
+                font-size: 1rem;
                 color: white;
                 background-color: #0e7713;
                 border: 0px;
-                border-radius: 5px;
-                padding: 0.2em 1em;
-                padding-bottom: 0.34em;
+                border-radius: 2px;
+                width: 70%;
+                padding: 0.2em 0;
             }
         }
     }
 }
+@media (min-width:650px){
+    width:48%;
+    button{
+        margin: 2.345rem 0px;
+        font-size: 1.5rem;
+        width: 40%;
+    }
+}
+@media (min-width:900px){
+    width:38% !important;
+}
 `
 
 export let StyledInput = styled.div`
-width: ${({w})=> w + "rem"};
+width: ${({w})=> w + "%"};
 border-radius: 5px;
-margin-right: 1em;
-div {
     label {
-        div{
+        span{
+            display:inline-block;
             font-size: 60%;
             margin: 0px; 
             padding: 0px;
@@ -85,6 +104,5 @@ div {
                 outline: 0;
             }
         }
-    }
 }
 `

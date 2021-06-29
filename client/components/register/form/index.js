@@ -66,107 +66,102 @@ return (
 <Styles>
     <div>
         <form onSubmit={(e)=>e.preventDefault()}>
-            <fieldset>
-                <div><legend>Join the new world, it's quick</legend></div>
-            <div>
-                <div style={{display: "flex", justifyContent: "space-between"}}>
-                   <INPUT 
-                        placeholder="name"
-                        w="12"
-                        name='name'
-                        handleChange={handleChange}
-                    />
-                   <INPUT 
-                        placeholder="username" w="12"
-                        name='username'
-                        handleChange={handleChange}
-                    /> 
+            <div id='fieldset'>
+                <div>
+                    <legend>Join the new world, it's quick</legend>
                 </div>
-            </div>
-            <div>
-                <div style={{display: "flex",justifyContent: "space-between", borderBottom: "1px solid rgba(150, 140, 140, 0.223)", width: "26rem" }}>
-                   <INPUT 
-                        placeholder="email" 
-                        w="14"
-                        name='email'
-                        handleChange={handleChange}
-                    />
-                   <INPUT 
-                        placeholder="anonymous name" 
-                        w="9"
-                        name='anonymousName'
-                        handleChange={handleChange}
-                    /> 
+                <div id="formContent">
+                    <div className="ytr">
+                        <INPUT 
+                            placeholder="name"
+                            w="45"
+                            name='name'
+                            handleChange={handleChange}
+                        />
+                        <INPUT 
+                            placeholder="username" w="40"
+                            name='username'
+                            handleChange={handleChange}
+                        /> 
+                    </div>
+                    <div className="ytr">
+                        <INPUT 
+                            placeholder="email" 
+                            w="40"
+                            name='email'
+                            handleChange={handleChange}
+                        />
+                        <INPUT 
+                            placeholder="anonymous name" 
+                            w="42"
+                            name='anonymousName'
+                            handleChange={handleChange}
+                        /> 
+                    </div>
+                    <div className="ytr">
+                        <INPUT 
+                            placeholder="telephone" w="42" 
+                            type="tel"
+                            name='telephone' 
+                            handleChange={handleChange}
+                        />
+                        <INPUT
+                            placeholder="password" w="42" 
+                            type="password" minLength="8"
+                            name='password'
+                            handleChange={handleChange}
+                        /> 
+                    </div>
+                    <div className="ytr">
+                        <INPUT 
+                            placeholder="security question" 
+                            w="40" 
+                            readOnly="true"
+                            name='securityQuestion'
+                            handleChange={handleChange}
+                        />
+                        <INPUT 
+                            placeholder="answer" 
+                            w="50"
+                            name='securityAnswer'
+                            handleChange={handleChange}
+                        /> 
+                    </div>
+                    <div className="gendo">
+                        Gender
+                        <div>
+                            <RADIO 
+                                value="Female"  
+                                ID="female" 
+                                handleChange={handleChange}
+                                name="gender"
+                            />
+                            <RADIO 
+                                ID="male" 
+                                value="Male" 
+                                handleChange={handleChange}
+                                name="gender"
+                            />
+                            <RADIO 
+                                ID="custom" 
+                                value="Custom" 
+                                handleChange={handleChange}
+                                name="gender"
+                            />
+                        </div>
+                    </div>
                 </div>
+                {values.error && (
+                    <div>{values.error}</div>
+                )}
+                <button 
+                    type="submit" 
+                    onClick={submit}>Create Account
+                </button>
             </div>
-            <div>
-                <div style={{display: "flex",justifyContent: "space-between", width: "25rem" }}>
-                   <INPUT 
-                        placeholder="telephone" w="8" 
-                        type="tel"
-                        name='telephone' 
-                        handleChange={handleChange}
-                    />
-                   <INPUT
-                        placeholder="password" w="12" 
-                        type="password" minLength="8"
-                        name='password'
-                        handleChange={handleChange}
-                    /> 
-                </div>
-            </div>
-
-            <div>
-                <div style={{display: "flex",justifyContent: "space-around", borderBottom: "1px solid rgba(150, 140, 140, 0.223)" }}>
-                   <INPUT 
-                        placeholder="security question" 
-                        w="12" 
-                        readOnly="true"
-                        name='securityQuestion'
-                        handleChange={handleChange}
-                    />
-                   <INPUT 
-                        placeholder="answer" 
-                        w="12"
-                        name='securityAnswer'
-                        handleChange={handleChange}
-                    /> 
-                </div>
-            </div>
-            <div>
-                Gender
-                <div style={{display: "flex",justifyContent: "space-around", width: "25rem" }}>
-                    <RADIO 
-                        value="Female"  
-                        ID="female" 
-                        handleChange={handleChange}
-                        name="gender"
-                    />
-                    <RADIO 
-                        ID="male" 
-                        value="Male" 
-                        handleChange={handleChange}
-                        name="gender"
-                    />
-                    <RADIO 
-                        ID="custom" 
-                        value="Custom" 
-                        handleChange={handleChange}
-                        name="gender"
-                    />
-                </div>
-            </div>
-            {values.error && (
-                <div>{values.error}</div>
-            )}
-            <button type="submit" onClick={submit}>Create Account</button>
-            </fieldset>
         </form>
     </div>
-    <div style={{display: "flex", flexDirection: "column", alignItems: "center"}}>
-        <div>OR</div>
-        <div><Link to="/">Log In</Link></div>
-    </div>
+    <div>or rather <Link to="/">Log In</Link></div>
 </Styles>
 )
 }

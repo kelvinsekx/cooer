@@ -1,10 +1,11 @@
 import React from "react";
+import styled from "styled-components";
 import HomeBanner from "../components/homeBanner"
 import LogForm from "../components/logs";
-import {HomeStyled as Styles} from "./home.styled"
 import {Redirect} from "react-router-dom"
 
 const HOME = (props) => {
+        console.log(props)
         return (
             <div>
                 <Styles>
@@ -17,5 +18,19 @@ const HOME = (props) => {
 }
 
 export const hm = ()=> <Redirect to ="/home" />
+
+const Styles = styled.div`
+display: flex;
+width: 80vw;
+margin: 5% auto;
+align-items: center;
+//border: 2px solid red;
+@media (max-width: 900px){
+    margin-top:0px;
+    flex-direction: column;
+    width: 99.5vw;
+    gap: 3rem;
+}
+`
 
 export default HOME;

@@ -102,6 +102,10 @@ div.muha{
 @media (max-width: 700px) {
     div.muha{
         grid-template-columns: 1fr;
+        div.feed{
+            height:94vh;
+            overflow-y: scroll;
+        }
     }
 }
 `
