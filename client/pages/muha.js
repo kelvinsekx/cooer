@@ -12,7 +12,7 @@ import {LIST} from "../apis/user/api-user"
 
 const MUHA = (props) =>{
     const home = window.APP && window.APP.home
-    const [gists, setGists] = useState(home || []);
+    const [gists, setGists] = useState( []);
     const [members, setMembers] = useState([])
 
     const jwt = auth.isAuthenticated();
