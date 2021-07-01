@@ -33,6 +33,7 @@ div{
             div#formContent{
                 div.ytr{
                     display: flex;
+                    flex-direction: column;
                     justify-content: space-between;
                 }
                 div.gendo{
@@ -55,7 +56,19 @@ div{
     }
 }
 @media (min-width:650px){
+    box-shadow: 1px 1px 1px 1px rgba(150, 140, 140, 0.323);
     width:48%;
+    div {
+        form {
+            #fieldset {
+                div#formContent{
+                    div.ytr{
+                        flex-direction: row;
+                    }
+                }
+            }
+        }
+    }
     button{
         margin: 2.345rem 0px;
         font-size: 1.5rem;
@@ -68,7 +81,9 @@ div{
 `
 
 export let StyledInput = styled.div`
-width: ${({w})=> w + "%"};
+width: ${({w})=> {
+    return  "90%"
+}};
 border-radius: 5px;
     label {
         span{
@@ -96,13 +111,16 @@ border-radius: 5px;
             font-size: 0.77rem;
             background-color: rgba(150, 140, 140, 0.123);
             &::placeholder{
-                color: rgb(7, 2, 2);
-                font-weight: 550;
-                font-size: 1rem;
+                color: #555;
+                font-size: 1.2rem;
             }
             &:focus{
                 outline: 0;
             }
         }
+}
+
+@media (min-width: 660px) {
+    width: ${({w})=> w + "%"};
 }
 `

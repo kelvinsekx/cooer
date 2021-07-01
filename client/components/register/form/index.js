@@ -112,21 +112,7 @@ return (
                             handleChange={handleChange}
                         /> 
                     </div>
-                    <div className="ytr">
-                        <INPUT 
-                            placeholder="security question" 
-                            w="40" 
-                            readOnly="true"
-                            name='securityQuestion'
-                            handleChange={handleChange}
-                        />
-                        <INPUT 
-                            placeholder="answer" 
-                            w="50"
-                            name='securityAnswer'
-                            handleChange={handleChange}
-                        /> 
-                    </div>
+                    
                     <div className="gendo">
                         Gender
                         <div>

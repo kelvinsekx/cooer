@@ -41,8 +41,9 @@ export const HomeBanner = styled.div`
             font-size: 1.3501rem;
         }
         p{
-            font-size: 0.904rem;
+            font-size: 0.95rem;
             width: 100%;
+            font-weight: bold;
        }
     }
 }

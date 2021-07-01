@@ -47,7 +47,8 @@ form{
     display: flex;
     flex-direction: column;
     input, button {
-        padding: 0.89rem 2rem;
+        padding: 0 2rem;
+        min-height: 3rem;
         font-size: 1.6rem;
         border-radius: 0.31rem;
     }
@@ -80,7 +81,26 @@ form{
     }
 }
 
-@media (max-width: 950px){
-    
+@media (max-width: 550px){
+    min-height: 18rem;
+    padding: 1.3rem;
+    width: 90vw;
+    form{
+        input, button {
+            padding: 0.19rem 1rem;
+            font-size: 1.37rem;
+            border-radius: 0.31rem;
+        }
+        input {
+            margin-top: 0.054em;
+            margin-bottom: 0.4rem;
+            &::placeholder{
+                font-size: 1.37rem;
+            }
+        }
+        button{
+            font-size: 99%;
+        }
+    }
 }
 `
