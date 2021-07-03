@@ -1,6 +1,8 @@
 import User from "../models/user.model";
 import extend from "lodash/extend";
 import errorHandler from "../helpers/DBERRHANDLER";
+import profile from "./../../server/images/anonymprofile.png"
+import process from "process"
 
 const CREATE_NEW_USER = async (req, res)=> {
     const user = new User(req.body);
@@ -18,7 +20,7 @@ const CREATE_NEW_USER = async (req, res)=> {
 
 const LIST_ALL_USERS = async (req, res) => {
     try {
-        let users = await User.find().select('username email name photo');
+        let users = await User.find().select('username email name photo bio');
         res.json(users)
     } catch(err){
         return res.status(400).json({
@@ -73,24 +75,28 @@ const UPDATE = async (req, res)=> {
                  user.hashed_password = undefined;      user.salt = undefined      
                  res.json(user)    
             } catch (err) {      
-                return res.status(400).json({        error: errorHandler.getErrorMessage(err)      
+                return res.status(400).json({        
+                    error: errorHandler.GET_ERROR_MESSAGE(err)      
                 })    
             }  
     })
 }
 
-const PHOTO = (req, res) => {  
+const PHOTO = (req, res, next) => {  
     if(req.profile.photo.data){    
         res.set("Content-Type", req.profile.photo.contentType)    
         return res.send(req.profile.photo.data)  
-    }else {
-        return res.send("false");
     }
+    next()
+}
+
+const DEFAULTPHOTO = (req, res) => {
+    return res.sendFile(process.cwd()+"/server/"+profile)
 }
 
 const ADDFOLLOWING = async (req, res, next)=>{
     try {
-            await User.findByIdAndUpdate(req.body.userId, {$push: {following: req.body.followId}});
+            await User.findByIdAndUpdate(req.body.ID, {$push: {following: req.body.followId}});
             next()
     }catch (err) {
         return res.status(400).json({
@@ -101,7 +107,7 @@ const ADDFOLLOWING = async (req, res, next)=>{
 
 const ADDFOLLOWER = async (req, res)=>{
     try {
-            let result = await User.findByIdAndUpdate(req.body.followId, {$push: {followers: req.body.userId}}, {new: true})
+            let result = await User.findByIdAndUpdate(req.body.followId, {$push: {followers: req.body.ID}}, {new: true})
             .populate('following','_id name' )
             .populate('followers', '_id name')
             .exec()
@@ -118,7 +124,7 @@ const ADDFOLLOWER = async (req, res)=>{
 
 const REMOVEFOLLOWING = async (req, res, next)=>{
     try {
-            await User.findByIdAndUpdate(req.body.userId, {$pull: {following: req.body.unfollowId}});
+            await User.findByIdAndUpdate(req.body.ID, {$pull: {following: req.body.unfollowId}});
             next()
     }catch (err) {
         return res.status(400).json({
@@ -129,7 +135,7 @@ const REMOVEFOLLOWING = async (req, res, next)=>{
 
 const REMOVEFOLLOWER = async (req, res)=>{
     try {
-            let result = await User.findByIdAndUpdate(req.body.unfollowId, {$pull: {followers: req.body.userId}}, {new: true})
+            let result = await User.findByIdAndUpdate(req.body.unfollowId, {$pull: {followers: req.body.ID}}, {new: true})
             .populate('following','_id name' )
             .populate('followers', '_id name')
             .exec()
@@ -163,4 +169,4 @@ const DISABLE_ME = (req, res) => {
 }
 
 
-export default {CREATE_NEW_USER, LIST_ALL_USERS, USER_BY_ID, READ, UPDATE, ADDFOLLOWER, ADDFOLLOWING, REMOVEFOLLOWING, REMOVEFOLLOWER, REMOVE, DISABLE_ME, PHOTO}
+export default {CREATE_NEW_USER, LIST_ALL_USERS, USER_BY_ID, READ, UPDATE, ADDFOLLOWER, ADDFOLLOWING, REMOVEFOLLOWING, REMOVEFOLLOWER, REMOVE, DISABLE_ME, PHOTO, DEFAULTPHOTO}

@@ -54,13 +54,14 @@ const PROFILE = ({match})=> {
 
     let handleFollow = function(){
         const jwt = auth.isAuthenticated()
+        console.log(jwt.user._id)
         let fAPI;
         if(user.followers.some(e=>e._id == jwt.user._id)){
             fAPI = UNFOLLOW
         }else{
             fAPI = FOLLOW
         }
-        fAPI({userId: jwt.user._id}, {token: auth.isAuthenticated().token}, user._id).then(data => {
+        fAPI({userId: jwt.user.username}, {token: auth.isAuthenticated().token}, user._id, jwt.user._id).then(data => {
             if (data.error){
                 console.log(data.error)
                 setUser({...user, error: data.error})
@@ -83,8 +84,7 @@ const PROFILE = ({match})=> {
         })
     }
 
-    // const photoUrl = user._id      
-    // ? `/_v1/api/users/photo/${user._id}?${new Date().getTime()}` : "no Img"
+    
 
     return (
         <>

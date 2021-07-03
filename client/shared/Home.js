@@ -22,7 +22,7 @@ export const hm = ()=> <Redirect to ="/home" />
 const Styles = styled.div`
 display: flex;
 width: 80vw;
-margin: 5% auto;
+margin: 8% auto;
 align-items: center;
 //border: 2px solid red;
 @media (max-width: 900px){

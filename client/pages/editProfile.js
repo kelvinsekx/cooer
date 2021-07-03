@@ -9,6 +9,7 @@ const EDIT = ({match}) => {
     const [user, setUser] = useState({error: ""});
 
     const handleChange = (e)=> {
+        console.log(user)
         setUser({...user, [e.target.name]: e.target.value});
     }
 
@@ -22,9 +23,9 @@ const EDIT = ({match}) => {
                 console.log(data.error)
                 setRedirectToSignin(true)
             }else {
-                setUser(data)
+                setUser({...data, photo: ""})
             }
-        }).then(()=> setTimeout((g)=>g, 25));
+        }).then(()=> setTimeout((g)=>g, 5));
 
         return function cleanup () {
             abortController.abort()
@@ -70,7 +71,7 @@ const EDIT = ({match}) => {
             </small>
         </label>
         <div className="edt">
-            <div><BsBriefcaseFill style={{fontSize: "2rem", color: "rgb(27, 214, 10)"}}/></div>
+            <div><BsBriefcaseFill style={{fontSize: "inherit", color: "inherit"}}/></div>
             <div>
                 <span>Bio</span>
                 <span>
@@ -81,7 +82,7 @@ const EDIT = ({match}) => {
             </div>
         </div>
         <div className="edt">
-            <div><BsPersonFill style={{fontSize: "2rem", color: "rgb(27, 214, 10)"}}/></div>
+            <div><BsPersonFill style={{fontSize: "inherit", color: "inherit"}}/></div>
             <div>
                 <span>Name</span>
                 <span><input 
@@ -91,7 +92,7 @@ const EDIT = ({match}) => {
             </div>
         </div>
         <div className="edt">
-            <div><BsPersonCheck style={{fontSize: "2rem", color: "rgb(27, 214, 10)"}}/></div>
+            <div><BsPersonCheck style={{fontSize: "inherit", color: "inherit"}}/></div>
             <div>
                 <span>Anonymous Name</span>
                 <span><input 
@@ -101,7 +102,7 @@ const EDIT = ({match}) => {
             </div>
         </div>
         <div className="edt">
-            <div><BsPhone style={{fontSize: "2rem", color: "rgb(27, 214, 10)"}}/></div>
+            <div><BsPhone style={{fontSize: "inherit", color: "inherit"}}/></div>
             <div>
                 <span>Telephone</span>
                 <span><input 
@@ -124,15 +125,25 @@ div{
             display: flex;
             min-height: 4rem;
             div:nth-child(1){
-                flex-basis: 4rem;
+                flex-basis: 3rem;
+                font-size:120%;
+                color: rgb(27, 214, 10);
             }
             div:nth-child(2){
                 display: flex;
                 flex-direction: column;
-                input{
-                    border: none;
-                    min-height: 2rem;
-                    min-width: 15rem;
+                span:nth-child(1){
+                    color: #444;
+                    font-size: 110%;
+                }
+                span:nth-child(2){
+                    font-size:103%;
+                    input{
+                        border: none;
+                        font-size: inherit;
+                        min-height: 2rem;
+                        min-width: 15rem;
+                    } 
                 }
             }
         }

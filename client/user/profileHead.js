@@ -53,8 +53,9 @@ div.profiler{
     align-items: center;
     gap: 1rem;
     .profilestuff{
-        height: 18em;
-        width: 18em;
+        height: 17rem;
+        width: 17rem;
+        //border: 1px solid red;
         display: inline-block;
         overflow: hidden;
         border-radius: 100%;
@@ -86,7 +87,6 @@ div.profiler{
             justify-content: space-between;
         }
         div:nth-child(3){
-            min-width: 13rem;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -97,6 +97,7 @@ div.profiler{
                 border: none;
                 border-radius: inherit;
                 width: 100%;
+                cursor: pointer;
                 text-align: center;
                 align-self: center;
                 padding: 0.25em 0;
@@ -126,12 +127,11 @@ div.profiler{
     div.profiler{
         flex-direction: row;
         .profilestuff{
-            width: 9em;
-            height: 9em;
+            width: 12rem;
+            height: 8rem;
         }
-        .otherInfoWrapper { 
-            width: 63.4%;
-            //border: 1px solid red;
+        .otherInfoWrapper{
+            margin-right: 1.5em;
         }
     }
 }

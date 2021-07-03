@@ -52,7 +52,7 @@ return (
         <form onSubmit={(e)=>e.preventDefault()}>
         {values.error && <div style={{color: "white", backgroundColor: "rgba(197, 12, 0, 0.45)", padding: "0.3em 1em", fontWeight: "600"}}>{values.error}</div>}
             <input 
-                placeholder="username or email" 
+                placeholder="email: example@gmail.com" 
                 type="text"
                 name="user_email"
                 onChange={handleChange("user_email")}

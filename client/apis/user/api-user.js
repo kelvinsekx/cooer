@@ -66,7 +66,7 @@ export const READ = async (param, token, signal) => {
     }
 }
 
-export const FOLLOW = async (params, credentials, followId) =>{
+export const FOLLOW = async (params, credentials, followId, ID) =>{
     try {
         let response = await fetch(`/_v1/api/users/${params.userId}/follow`, {
             method: 'PUT',
@@ -75,7 +75,7 @@ export const FOLLOW = async (params, credentials, followId) =>{
                 "Accept": "application/json",
                 "Authorization": "Bearer "+ credentials.token
             },
-            body: JSON.stringify({userId: params.userId, followId})
+            body: JSON.stringify({userId: params.userId, followId, ID})
         })
         return await response.json()
     }catch (err){
@@ -83,16 +83,16 @@ export const FOLLOW = async (params, credentials, followId) =>{
     }
 }
 
-export const UNFOLLOW = async (params, credentials, unfollowId) =>{
+export const UNFOLLOW = async (params, credentials, unfollowId, ID) =>{
     try {
-        let response = await fetch(`/_v1/api/users/${userId}/unfollow`, {
+        let response = await fetch(`/_v1/api/users/${params.userId}/unfollow`, {
             method: 'PUT',
             headers: {
                 "Content-Type": "application/json",
                 "Accept": "application/json",
                 "Authorization": "Bearer "+ credentials.token
             },
-            body: JSON.stringify({userId: params.userId, unfollowId})
+            body: JSON.stringify({userId: params.userId, unfollowId, ID})
         })
         return await response.json()
     }catch (err){

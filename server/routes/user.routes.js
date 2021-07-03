@@ -1,5 +1,5 @@
-import express from "express";
-import userCtrl from "../controllers/user.controller";
+import express from "express"
+import userCtrl from "../controllers/user.controller"
 import authCtrl from "../controllers/auth.controller";
 
 const ROUTER = express.Router();
@@ -32,8 +32,10 @@ ROUTER.route("/api/users/:userId/unfollow")
     userCtrl.REMOVEFOLLOWER);
 
 ROUTER.route('/api/users/u/photo/:userId')  
-    .get(userCtrl.PHOTO);
+    .get(userCtrl.PHOTO, userCtrl.DEFAULTPHOTO);
 
+ROUTER.route('/api/users/defaultphoto')  
+    .get(userCtrl.DEFAULTPHOTO)
 
 ROUTER.param("userId", userCtrl.USER_BY_ID);
 

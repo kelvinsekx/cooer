@@ -36,12 +36,9 @@ const REGISTERFORM = ()=>
         const USER = {
             name: values.name || undefined,
             username: values.username || undefined,
-            anonymousName: values.anonymousName || '',
             email: values.email || undefined,
             telephone: values.telephone || undefined,
             password: values.password || undefined,
-            securityQuestion: values.securityQuestion || '',
-            securityAnswer: values.securityAnswer || undefined,
             gender: values.gender || undefined,
         }
         console.log(USER)
@@ -87,14 +84,8 @@ return (
                     <div className="ytr">
                         <INPUT 
                             placeholder="email" 
-                            w="40"
+                            w="60"
                             name='email'
-                            handleChange={handleChange}
-                        />
-                        <INPUT 
-                            placeholder="anonymous name" 
-                            w="42"
-                            name='anonymousName'
                             handleChange={handleChange}
                         /> 
                     </div>
@@ -137,9 +128,7 @@ return (
                         </div>
                     </div>
                 </div>
-                {values.error && (
-                    <div>{values.error}</div>
-                )}
+                {values.error && <div style={{color: "white", backgroundColor: "rgba(197, 12, 0, 0.45)", padding: "0.3em 1em", fontWeight: "600"}}>{values.error}</div>}
                 <button 
                     type="submit" 
                     onClick={submit}>Create Account

@@ -23,9 +23,19 @@ const DEV_CLIENT_CONFIG = {
                 use: ["babel-loader"]
             }, 
             {
-                test: /\.(ttf|eot|svg|gif|jpg|png)(\?[\s\S]+)?$/, 
-                use: "file-loader"
-            }
+                test: /\.(ttf|eot|svg|gif|jpg|png)$/,
+                include: /images/,
+                use: [
+                  {
+                    loader: 'file-loader',
+                    options: {
+                      name: '[name].[ext]',
+                      outputPath: 'images/',
+                      publicPath: 'images/'
+                    }
+                  }
+                ]
+              }
         ]
     },
     plugins: [

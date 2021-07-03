@@ -9,7 +9,7 @@ const routes = [
             // if(req.cookies){
             //     console.log("client cookies",req.cookies.user)
             // }
-            return fetch(`http://localhost:4006/_v1/api/gists/feed/kelvin97`)
+            return fetch(`/_v1/api/gists/feed/kelvin97`)
         }
     },
     {

@@ -1,6 +1,6 @@
-import express from "express";
-import path from "path";
-const CWD = process.cwd()
+import express from "express"
+import path from "path"
+const CWD = process.cwd();
 
 import cookieParser from "cookie-parser";
 import compress from "compression";
@@ -8,10 +8,10 @@ import cors from "cors";
 import helmet from "helmet";
 
 
-//import devBundle from "./devBundle"
+import devBundle from "./devBundle"
 const APP = express();
 
-//devBundle.compile(APP)
+devBundle.compile(APP)
 
 
 /*************

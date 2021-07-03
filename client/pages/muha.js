@@ -68,8 +68,13 @@ const MUHA = (props) =>{
                     header={`Suggested Followers`}
                     body={members.length < 1 ? "": members.map((member, index)=> {
                         return <div className="lilintro" key={index}>
-                        <div className="dp"></div>
-                        <div><Link to={`/profile/${member.username}`}><p>{member.username}</p></Link></div>
+                        <div className="dp"><img src={`/_v1/api/users/u/photo/${member.username}?${new Date().getTime()}`}/></div>
+                        <div>
+                            <Link to={`/profile/${member.username}`}>
+                            <p className="un">{member.username}</p>
+                            <p className='bio'>{member.bio}</p>
+                            </Link>
+                        </div>
                     </div>
                     })}
                 />
@@ -92,10 +97,23 @@ div.muha{
         align-items: center;
         gap: 0.1em;
         padding: 0.5rem 0;
+        .un{
+            font-size: 85%;
+        }
+        .bio{
+            color: #666;
+            font-size:70%;
+        }
         .dp {
-            border: 1px solid red;
-            padding: 0.5em;
+            //border: 1px solid red;
+            width: 3rem;
+            height: 3rem;
             border-radius: 100%;
+            overflow: hidden;
+            img {
+                width: 100%;
+                height: auto;
+            }
         }
     }
 }
