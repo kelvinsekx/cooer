@@ -32,4 +32,4 @@ e.g https://shrouded-thicket-19388.herokuapp.com/graphql
 ## Development
 You can simple clone this repo and use `npm install` to get started. The package.json is well explanatory trust me. If everything is fine, a printout of what url to hit will appear on your terminal.
 
-For now visit https://shrouded-thicket-19388.herokuapp.com to see teh site live...Don't be quick to judge me it is a serious work in progress...Join me to start the Africa change by contributing
+For now visit https://shrouded-thicket-19388.herokuapp.com to see the site live...Don't be quick to judge me it is a serious work in progress...Join me to start the Africa change by contributing
