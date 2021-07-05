@@ -16,18 +16,16 @@ graphql, it is a quick start.
 ## Graphql playground
 In development mode, 
 
-javascript```
+javascript``
  import config from "./config";
 
  http://localhost:${config.port}/graphql
-```
+``
 
 For live instance
 [...]("siteBASEURL")/graphql
 
-`
-e.g https://shrouded-thicket-19388.herokuapp.com/graphql
-`
+`e.g https://shrouded-thicket-19388.herokuapp.com/graphql`
 
 ## Development
 You can simple clone this repo and use `npm install` to get started. The package.json is well explanatory trust me. If everything is fine, a printout of what url to hit will appear on your terminal.
