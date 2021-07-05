@@ -5,11 +5,10 @@ import {
     GraphQLString
 } from "graphql";
 import fetch from "node-fetch";
-import config from "./../config/config"
 
 const baseURL = ()=> {
-  if (process.NODE_ENV == "production")return "https://shrouded-thicket-19388.herokuapp.com"
-  return `http://localhost:${config.port}`
+  if (process.env.NODE_ENV.trim() == "production")return "https://shrouded-thicket-19388.herokuapp.com"
+  return `http://localhost:${4066}`
 }
 
 const PhotoType = new GraphQLObjectType({
