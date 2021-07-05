@@ -161,7 +161,7 @@ nav{
 @media (max-width: 540px) {
     flex-direction: row;
     position: fixed;
-    height: 5.5vh;
+    height: 7.4567vh;
     width: 100vw;
     background-color: white;
     overflow-x: hidden;

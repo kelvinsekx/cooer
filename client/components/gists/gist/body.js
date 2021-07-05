@@ -4,6 +4,7 @@ import styled from "styled-components";
 
 import { FiHeart, FiCompass, FiCopy, FiThumbsUp
 } from "react-icons/fi";
+import { BsHeartFill} from "react-icons/bs"
 
 import BodyPrinter from "./bodyPrinter";
 
@@ -18,7 +19,7 @@ const BODY = ({info, actions})=>
             <div onClick={actions.clickLike}>
                 <span>{info.likes}</span>
                 <span style={{top: "2.3px", fontSize: "77%"}}>
-                    <FiHeart />
+                    {actions.like ? <BsHeartFill style={{color: "red"}}/>: <FiHeart style={{color: "rgba(350, 02, 09, 0.34)"}}/>}
                 </span>
             </div>
             <div>

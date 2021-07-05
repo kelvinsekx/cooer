@@ -35,8 +35,8 @@ const MUHA = (props) =>{
             if(data.error){
                 console.log(data.error)
             }else {
-                //console.log(data)
-                setMembers(data)
+		   const {data: {allPeople}} = data
+                   setMembers(allPeople)
             }
         })
 
@@ -68,7 +68,7 @@ const MUHA = (props) =>{
                     header={`Suggested Followers`}
                     body={members.length < 1 ? "": members.map((member, index)=> {
                         return <div className="lilintro" key={index}>
-                        <div className="dp"><img src={`/_v1/api/users/u/photo/${member.username}?${new Date().getTime()}`}/></div>
+                        <div className="dp"><img src={`${member.photo.data}?${new Date().getTime()}`}/></div>
                         <div>
                             <Link to={`/profile/${member.username}`}>
                             <p className="un">{member.username}</p>
@@ -87,10 +87,11 @@ const MUHA = (props) =>{
 const Styles = styled.div`
 div.muha{
     display: grid;
-    grid-template-columns: 1.5fr 1fr;
-    div.feed{
-        border-right: 0.10rem solid rgba(0, 0, 0, 0.2);
-    }
+    grid-template-columns: 1fr;
+    // div.feed{
+    //     height:93.45vh;
+    //     overflow-y: scroll;
+    // }
     .lilintro{
         display: flex;
         flex-direction: row-reverse;
@@ -117,12 +118,48 @@ div.muha{
         }
     }
 }
-@media (max-width: 700px) {
-    div.muha{
-        grid-template-columns: 1fr;
+ @media (max-width: 540px) { 
+     div.muha{
         div.feed{
-            height:94vh;
-            overflow-y: scroll;
+            height:94.799vh;
+            overflow: scroll;
+            //border: 1px solid red;
+        }
+     }
+ }
+@media (min-width: 900px) {
+    border: 2.45px solid rgba(10, 322, 34, 0.1);
+    div.muha{
+        grid-template-columns: 1.5fr 1fr;
+        div.feed{
+            height:100vh;
+            overflow: hidden;
+            border-right: 0.10rem solid rgba(0, 0, 0, 0.2);
+        }
+        .lilintro{
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
+            gap: 0.1em;
+            padding: 0.5rem 0;
+            .un{
+                font-size: 85%;
+            }
+            .bio{
+                color: #666;
+                font-size:70%;
+            }
+            .dp {
+                //border: 1px solid red;
+                width: 3rem;
+                height: 3rem;
+                border-radius: 100%;
+                overflow: hidden;
+                img {
+                    width: 100%;
+                    height: auto;
+                }
+            }
         }
     }
 }

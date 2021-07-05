@@ -19,7 +19,7 @@ const client = {
             const promises = [];
             let matched;
 
-            const aMatch = routes.find(route => req.path == route.path)
+            const aMatch = false //routes.find(route => req.path == route.path)
 
             // routes.some(route => {
             //     const match = matchPath(req.path, route);

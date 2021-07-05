@@ -18,12 +18,23 @@ export const CREATE = async (user) => {
 export const LIST = async () => {
     try {
         let response = await fetch(
-            "/_v1/api/users/", {
-            method: "GET",
+            "http://localhost:4066/graphql", {
+            method: "POST",
             headers: {
                 "Accept": "application/json",
                 "Content-Type": "application/json"
-            }
+            },
+	   body: JSON.stringify({
+	   	query: `
+		   query{ allPeople{
+    username
+    photo {
+      data
+    }
+    bio
+  }}
+		   `
+	   })
         })
         return await response.json()
     } catch(err){

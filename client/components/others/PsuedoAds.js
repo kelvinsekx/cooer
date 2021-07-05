@@ -34,7 +34,7 @@ justify-content: center;
             text-align: right;
         }
     }
-@media (max-width: 700px) {
+@media (max-width: 900px) {
     visibility: none;
     display: none;
 }

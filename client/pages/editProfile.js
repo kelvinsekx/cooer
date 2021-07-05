@@ -1,9 +1,8 @@
-import React, {useEffect, useState} from "react";
-import styled from "styled-components";
-import auth from "./../helpers/auth.helper";
+import React, {useEffect, useState} from "react"
+import auth from "./../helpers/auth.helper"
 import {READ, UPDATE} from "./../apis/user/api-user"
 
-import { BsBriefcaseFill, BsPersonCheck, BsPersonFill, BsPhone } from "react-icons/bs";
+import EDITPROFILE_COMPONENT from "../components/editProfile/main";
 
 const EDIT = ({match}) => {
     const [user, setUser] = useState({error: ""});
@@ -50,105 +49,16 @@ const EDIT = ({match}) => {
                 }    
     })}
 
-    return (
-<Styles>
-<div>
-    <form onSubmit={(e)=> e.preventDefault()}>
-        <div>Profile Image</div>
-        <label htmlFor="icon-button-file">
-        <input 
-            accept="image/*" 
-            type="file"       
-            onChange={(e)=>{
-                console.log(e.target.files)
-                setUser({...user, photo: e.target.files[0]})}}       
-            style={{display:'none'}}       
-            id="icon-button-file" 
+    return <EDITPROFILE_COMPONENT
+            fileHandler= {
+                (e)=>{
+                    console.log(e.target.files)
+                    setUser({...user, photo: e.target.files[0]})}
+            }
+            handleChange = {handleChange} 
+            user = {user}
+            handleSubmit = {handleSubmit}
         />
-            <span>Upload Photo</span>
-            <small style={{color: 'rgb(27, 214, 10)'}}>    
-                {user.photo ? user.photo.name : ''}
-            </small>
-        </label>
-        <div className="edt">
-            <div><BsBriefcaseFill style={{fontSize: "inherit", color: "inherit"}}/></div>
-            <div>
-                <span>Bio</span>
-                <span>
-                <input 
-                    value={user.bio} 
-                    name="bio"
-                    onChange={handleChange} /></span>
-            </div>
-        </div>
-        <div className="edt">
-            <div><BsPersonFill style={{fontSize: "inherit", color: "inherit"}}/></div>
-            <div>
-                <span>Name</span>
-                <span><input 
-                value={user.name} 
-                name="name"
-                onChange={handleChange}/></span>
-            </div>
-        </div>
-        <div className="edt">
-            <div><BsPersonCheck style={{fontSize: "inherit", color: "inherit"}}/></div>
-            <div>
-                <span>Anonymous Name</span>
-                <span><input 
-                value={user.anonymousname} name="anonymousname" 
-                onChange={handleChange}/></span>
-                <span id="footer">This will be used when you make anonymous comments</span>
-            </div>
-        </div>
-        <div className="edt">
-            <div><BsPhone style={{fontSize: "inherit", color: "inherit"}}/></div>
-            <div>
-                <span>Telephone</span>
-                <span><input 
-                value={user.telephone} 
-                name="telephone" 
-                onChange={handleChange}/></span>
-            </div>
-        </div>
-        <button onClick={handleSubmit}>Submit</button>
-    </form>
-</div>
-</Styles>
-    )
 }
-
-const Styles = styled.div`
-div{
-    form {
-        div.edt{
-            display: flex;
-            min-height: 4rem;
-            div:nth-child(1){
-                flex-basis: 3rem;
-                font-size:120%;
-                color: rgb(27, 214, 10);
-            }
-            div:nth-child(2){
-                display: flex;
-                flex-direction: column;
-                span:nth-child(1){
-                    color: #444;
-                    font-size: 110%;
-                }
-                span:nth-child(2){
-                    font-size:103%;
-                    input{
-                        border: none;
-                        font-size: inherit;
-                        min-height: 2rem;
-                        min-width: 15rem;
-                    } 
-                }
-            }
-        }
-    }
-}
-`
 
 export default EDIT;

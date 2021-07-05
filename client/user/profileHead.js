@@ -121,17 +121,25 @@ div.profiler{
         }
     }
 }
-
 @media (max-width: 1150px) {
     margin-top: 0.7rem;
     div.profiler{
         flex-direction: row;
         .profilestuff{
             width: 12rem;
-            height: 8rem;
+            height: 9rem;
         }
         .otherInfoWrapper{
             margin-right: 1.5em;
+        }
+    }
+}
+@media (max-width: 650px) {
+    margin-top: 0.34rem;
+    div.profiler{
+        .profilestuff{
+            width: 7rem;
+            height: 5rem;
         }
     }
 }
