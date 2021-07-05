@@ -1,6 +1,6 @@
 # cooer
 
-This will be update in progress...
+This will be updated in progress...
 
 Cooer is a monolithic file of both backend and client.
 check [./server/express.js] to see the running server for both backend and client side
@@ -17,7 +17,7 @@ graphql, it is a quick start.
 In development mode, 
 
 js`
- import config from "./config;
+ import config from "./config";
 
  http://localhost:${config.port}/graphql
 `
