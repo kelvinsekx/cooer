@@ -7,6 +7,11 @@ import {
 import fetch from "node-fetch";
 import config from "./../config/config"
 
+const baseURL = ()=> {
+  if (process.NODE_ENV == "production")return "https://shrouded-thicket-19388.herokuapp.com"
+  return `http://localhost:${config.port}`
+}
+
 const PhotoType = new GraphQLObjectType({
    name: 'Photo',
    fields: ()=> ({
@@ -16,7 +21,7 @@ const PhotoType = new GraphQLObjectType({
       },
 	   data: {
 		   type: GraphQLString,
-		   resolve: person => `/_v1/api/users/u/photo/${person.username}`
+		   resolve: person => `${baseURL()}/_v1/api/users/u/photo/${person.username}`
 	  }
    })
 })
@@ -58,7 +63,7 @@ const QueryType = new GraphQLObjectType({
     fields: ()=> ({
         allPeople: {
             type: new GraphQLList(PersonType),
-            resolve: root => fetch("https://shrouded-thicket-19388.herokuapp.com/_v1/api/users")
+            resolve: root => fetch(`${baseURL()}/_v1/api/users`)
                             .then(res => res.json())
                             
         },
@@ -69,7 +74,7 @@ const QueryType = new GraphQLObjectType({
                 userName: {type: GraphQLString}
             },
 		resolve: (root, args)=> fetch(
-			`https://shrouded-thicket-19388.herokuapp.com/_v1/api/users/${args.userName}`)
+			`${baseURL()}/_v1/api/users/${args.userName}`)
 		        .then(res=>res.json())
         }
     })

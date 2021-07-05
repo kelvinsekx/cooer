@@ -18,7 +18,7 @@ export const CREATE = async (user) => {
 export const LIST = async () => {
     try {
         let response = await fetch(
-            "http://localhost:4066/graphql", {
+            "/graphql", {
             method: "POST",
             headers: {
                 "Accept": "application/json",
