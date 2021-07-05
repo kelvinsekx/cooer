@@ -58,7 +58,7 @@ const QueryType = new GraphQLObjectType({
     fields: ()=> ({
         allPeople: {
             type: new GraphQLList(PersonType),
-            resolve: root => fetch("http://localhost:4066/_v1/api/users")
+            resolve: root => fetch("https://shrouded-thicket-19388.herokuapp.com/_v1/api/users")
                             .then(res => res.json())
                             
         },
@@ -69,7 +69,7 @@ const QueryType = new GraphQLObjectType({
                 userName: {type: GraphQLString}
             },
 		resolve: (root, args)=> fetch(
-			`http://localhost:4066/_v1/api/users/${args.userName}`)
+			`https://shrouded-thicket-19388.herokuapp.com/_v1/api/users/${args.userName}`)
 		        .then(res=>res.json())
         }
     })
