@@ -4,28 +4,28 @@ import { BsBriefcaseFill, BsPersonCheck, BsPersonFill, BsPhone } from "react-ico
 import styled from "styled-components";
 
 
-const editInfo = (user)=>[
-    {
-        icon: BsBriefcaseFill,
-        name: 'bio',
-        bio: user.bio
-    },
-    {
-        icon: BsPersonFill,
-        name: 'Name',
-        bio: user.name
-    },
-    {
-        icon: BsPersonCheck,
-        name: 'Anonymous Name',
-        bio: user.anonymousname
-    },
-    {
-        icon: BsPhone,
-        name: 'Telephone',
-        bio:user.telephone
-    }
-]
+const editInfo =  [
+        {
+            icon: BsBriefcaseFill,
+            name: 'bio',
+            bio: 'bio'
+        },
+        {
+            icon: BsPersonFill,
+            name: 'Name',
+            bio: 'name'
+        },
+        {
+            icon: BsPersonCheck,
+            name: 'Anonymous Name',
+            bio: 'anonymousname'
+        },
+        {
+            icon: BsPhone,
+            name: 'Telephone',
+            bio:'telephone'
+        }
+    ]
 
 const EDITPROFILE_COMPONENT = ({handleChange, user, handleSubmit, fileHandler})=> 
 <Styles>
@@ -44,7 +44,13 @@ const EDITPROFILE_COMPONENT = ({handleChange, user, handleSubmit, fileHandler})=
                 {user.photo ? user.photo.name : ''}
             </small>
         </label>
-        
+        {editInfo.map((e, i) => <EDITABLE 
+            key={i}
+            Icon={e.icon}
+            name={e.name}
+            bio={user[e.bio]}
+            handleChange={handleChange}
+        />)}
         <button onClick={handleSubmit}>Save</button>
     </form>
 </Styles>;
