@@ -2,7 +2,7 @@ import React from "react"
 import styled from "styled-components"
 
 
-{/* <span id="footer">This will be used when you make anonymous comments</span> */}
+
 const EDITABLE = ({Icon,bio, name, handleChange})=> 
 <Styles>
     <div><Icon style={{fontSize: "inherit", color: "inherit"}}/></div>
