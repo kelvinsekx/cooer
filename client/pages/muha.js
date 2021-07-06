@@ -6,14 +6,16 @@ import auth from "../helpers/auth.helper";
 
 import {Link} from "react-router-dom"
 import PsuedoAds from "./../components/others/PsuedoAds"
+import AwesomeGuysToFollow from "./../components/toFollowSuggestion/toFollow"
 
-import {LISTNEWFEEDS} from "../apis/gist/api-gist"
-import {LIST} from "../apis/user/api-user"
+import {LISTNEWFEEDS} from "../apis/gist/api-gist" 
+import {LIST,READ} from "../apis/user/api-user"
 
 const MUHA = (props) =>{
     const home = window.APP && window.APP.home
     const [gists, setGists] = useState( []);
-    const [members, setMembers] = useState([])
+    const [members, setMembers] = useState([]);
+    const [isFollowing, setIsFollowing] = useState(1)
 
     const jwt = auth.isAuthenticated();
 
@@ -21,6 +23,15 @@ const MUHA = (props) =>{
         const abortController = new AbortController();
         const signal = abortController.signal;
         
+        console.log('username', jwt.user)
+        READ({userId: jwt.user.username}, {token: jwt.token}, signal).then(data => {
+            if (data && data.error){
+                console.log(data.error)
+            }else {
+                console.log(data.following.length)
+                setIsFollowing(data.following.length)
+            }
+        });
 
         LISTNEWFEEDS({userId: jwt.user.username}, 
             {token: jwt.token}, signal).then(data=> {
@@ -61,7 +72,11 @@ const MUHA = (props) =>{
                         addGist={addGist}
                         jwt = {jwt} />
                 </div>
-                <Gists gists={gists} />
+                {(isFollowing < 1) ? 
+                    <AwesomeGuysToFollow /> :
+                    <Gists gists={gists} />
+                }
+
             </div>
             <div>
                 <PsuedoAds 

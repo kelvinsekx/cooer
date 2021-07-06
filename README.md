@@ -16,11 +16,9 @@ graphql, it is a quick start.
 ## Graphql playground
 In development mode, 
 
-javascript`
- import config from "./config";
+`import config from "./config";
 
- http://localhost:${config.port}/graphql
-`
+http://localhost:${config.port}/graphql`
 
 For live instance
 [...]("siteBASEURL")/graphql
