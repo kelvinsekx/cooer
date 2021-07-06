@@ -56,7 +56,8 @@ const EDIT = ({match}) => {
     return (user !== null) ? <EDITPROFILE_COMPONENT
             fileHandler= {
                 (e)=>{
-                    setUser({...user, photo: e.target.files[0]})}
+                    setUser({...user, photo: e.target.files[0]})
+                }
             }
             handleChange = {handleChange} 
             user = {user}
