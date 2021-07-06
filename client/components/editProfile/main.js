@@ -61,7 +61,7 @@ form{
   color: white;
   width: 6rem;
   font-size: 1.2rem;
-  background-color: rgb(7, 454, 50) 
+  background-color: rgb(7, 454, 50); 
  }
 }
 `

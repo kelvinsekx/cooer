@@ -13,10 +13,10 @@ import {graphqlHTTP} from "express-graphql"
 import schema from "./../graph/graphSchema.graphql"
 
 
-//import devBundle from "./devBundle"
+import devBundle from "./devBundle"
 const APP = express();
 
-//devBundle.compile(APP)
+devBundle.compile(APP)
 
 
 /*************
@@ -69,7 +69,6 @@ APP.use("/graphql", graphqlHTTP({
 
 configManager.handle(APP)
 routeManager.handle(APP)
-
 
 APP.use((err, req, res, next) => {  
     if (err.name === 'UnauthorizedError') {    
