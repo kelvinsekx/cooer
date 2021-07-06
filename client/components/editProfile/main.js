@@ -45,7 +45,7 @@ const EDITPROFILE_COMPONENT = ({handleChange, user, handleSubmit, fileHandler})=
             </small>
         </label>
         {editInfo(user).map((e, i) => <EDITABLE 
-            key={i}
+            
             Icon={e.icon}
             name={e.name}
             bio={e.bio}
