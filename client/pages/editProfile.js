@@ -56,7 +56,6 @@ const EDIT = ({match}) => {
     return (user !== null) ? <EDITPROFILE_COMPONENT
             fileHandler= {
                 (e)=>{
-                    console.log(e.target.files)
                     setUser({...user, photo: e.target.files[0]})}
             }
             handleChange = {handleChange} 
