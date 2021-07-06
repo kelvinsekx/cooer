@@ -72,6 +72,12 @@ const Styles = styled.div`
         padding-bottom: 1.5rem;
         font-weight: bold;
         font-size: 1.1rem;
+        &:hover{
+            color: red;
+        }
+        &:active{
+            background-color : rgba(99, 292, 186, 0.3);  
+        }
     }
 `
 

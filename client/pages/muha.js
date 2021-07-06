@@ -7,6 +7,7 @@ import auth from "../helpers/auth.helper";
 import {Link} from "react-router-dom"
 import PsuedoAds from "./../components/others/PsuedoAds"
 import AwesomeGuysToFollow from "./../components/toFollowSuggestion/toFollow"
+import TxtLoading from "./../components/loading/txtIsLoading"
 
 import {LISTNEWFEEDS} from "../apis/gist/api-gist" 
 import {LIST,READ} from "../apis/user/api-user"
@@ -14,7 +15,7 @@ import {LIST,READ} from "../apis/user/api-user"
 const MUHA = (props) =>{
     const home = window.APP && window.APP.home
     const [gists, setGists] = useState( []);
-    const [members, setMembers] = useState([]);
+    const [members, setMembers] = useState(null);
     const [isFollowing, setIsFollowing] = useState(1)
 
     const jwt = auth.isAuthenticated();
@@ -22,6 +23,7 @@ const MUHA = (props) =>{
     React.useEffect(()=> {
         const abortController = new AbortController();
         const signal = abortController.signal;
+        let isMounted = true;
         
         console.log('username', jwt.user)
         READ({userId: jwt.user.username}, {token: jwt.token}, signal).then(data => {
@@ -46,13 +48,15 @@ const MUHA = (props) =>{
             if(data.error){
                 console.log(data.error)
             }else {
-		   const {data: {allPeople}} = data
+                if(!isMounted)return;
+		        const {data: {allPeople}} = data
                    setMembers(allPeople)
             }
         })
 
         return function cleanup(){
             abortController.abort()
+            isMounted = false;
         }
     }, [])
 
@@ -81,7 +85,7 @@ const MUHA = (props) =>{
             <div>
                 <PsuedoAds 
                     header={`Suggested Followers`}
-                    body={members.length < 1 ? "": members.map((member, index)=> {
+                    body={(members !== null ) ? members.map((member, index)=> {
                         return <div className="lilintro" key={index}>
                         <div className="dp"><img src={`${member.photo.data}?${new Date().getTime()}`}/></div>
                         <div>
@@ -91,7 +95,7 @@ const MUHA = (props) =>{
                             </Link>
                         </div>
                     </div>
-                    })}
+                    }) : <TxtLoading />}
                 />
             </div>
         </div>

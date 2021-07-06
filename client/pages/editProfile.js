@@ -3,9 +3,10 @@ import auth from "./../helpers/auth.helper"
 import {READ, UPDATE} from "./../apis/user/api-user"
 
 import EDITPROFILE_COMPONENT from "../components/editProfile/main";
+import TxtLoading from "./../components/loading/txtIsLoading"
 
 const EDIT = ({match}) => {
-    const [user, setUser] = useState({error: ""});
+    const [user, setUser] = useState(null);
 
     const handleChange = (e)=> {
         console.log(user)
@@ -13,6 +14,7 @@ const EDIT = ({match}) => {
     }
 
     useEffect(()=> {
+        let isMounted = true;
         const abortController = new AbortController;
         const signal = abortController.signal;
         const jwt = auth.isAuthenticated()
@@ -22,14 +24,16 @@ const EDIT = ({match}) => {
                 console.log(data.error)
                 setRedirectToSignin(true)
             }else {
+                if(!isMounted)return;
                 setUser({...data, photo: ""})
             }
         }).then(()=> setTimeout((g)=>g, 5));
 
         return function cleanup () {
             abortController.abort()
+            isMounted = false;
         }
-    }, [])
+    }, [READ])
 
     const handleSubmit = () => {
         const jwt = auth.isAuthenticated()    
@@ -45,11 +49,11 @@ const EDIT = ({match}) => {
                 setUser({...data, error: data.error})      
             } else {
                 console.log(data)       
-                 setUser({...data, redirectToProfile:true})      
-                }    
+                setUser({...data, redirectToProfile:true})      
+            }    
     })}
 
-    return <EDITPROFILE_COMPONENT
+    return (user !== null) ? <EDITPROFILE_COMPONENT
             fileHandler= {
                 (e)=>{
                     console.log(e.target.files)
@@ -58,7 +62,7 @@ const EDIT = ({match}) => {
             handleChange = {handleChange} 
             user = {user}
             handleSubmit = {handleSubmit}
-        />
+        /> : <TxtLoading />
 }
 
 export default EDIT;

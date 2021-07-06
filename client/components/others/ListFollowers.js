@@ -47,12 +47,14 @@ const LISTFOLLOWERS = ({userId, followers}) => {
         rr = aSlice.map((follower, i)=><Link to={`/profile/${follower.username}`} key={`${follower.username}+${i}`}>{follower.name.length > 7 ? follower.name.substring(0, 6) + ".." : follower.name}, </Link>) 
         rr = <span> {rr} {`&`} {(sameFollowers.length - 4)} others you may know</span>
     }
-    
+    console.log(sameFollowers)
     return (
         <Styles >
-            <div className="f">
-               <p> Followed by {rr}.</p>
-            </div>
+            { (sameFollowers.length < 1) ? 
+                "" : <div className="f">
+                        <p> Followed by {rr}.</p>
+                    </div>
+            }
         </Styles> 
         
     )
