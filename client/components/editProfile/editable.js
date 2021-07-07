@@ -1,7 +1,6 @@
 import React from "react"
 import styled from "styled-components";
 
-const l = (name)=>name.toLowerCase().replaceAll(" ", '')
 const EDITABLE = ({Icon,bio, name, handleChange, n})=> 
 <Styles>
     <div><Icon style={{fontSize: "inherit", color: "inherit"}}/></div>
@@ -21,7 +20,9 @@ const Styles = styled.div`
     min-height: 4rem;
     div:nth-child(1){
         flex-basis: 3rem;
+        padding: 0 0.5em;
         font-size:120%;
+        //border: 1px solid red;
         color: rgb(27, 214, 10);
     }
     div:nth-child(2){
