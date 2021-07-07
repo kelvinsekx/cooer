@@ -27,12 +27,12 @@ export const LIST = async () => {
 	   body: JSON.stringify({
 	   	query: `
 		   query{ allPeople{
-    username
-    photo {
-      data
-    }
-    bio
-  }}
+                username
+                photo {
+                data
+                }
+                bio
+            }}
 		   `
 	   })
         })
@@ -60,6 +60,7 @@ export const UPDATE = async (userId, token, user) => {
 }
 
 export const READ = async (param, token, signal) => {
+    console.log(token)
     try {
         let response = await fetch(
             `/_v1/api/users/${param.userId}`, {

@@ -68,13 +68,20 @@ const QueryType = new GraphQLObjectType({
         },
         person: {
             type: PersonType,
-	    description: "individual info, this can't be seen except with authorization",
+	          description: "individual info, this can't be seen except with authentication, if token isnot provided query return data of null",
             args: {
-                userName: {type: GraphQLString}
+                userName: {type: GraphQLString},
+                token: {type: GraphQLString}
             },
-		resolve: (root, args)=> fetch(
-			`${baseURL()}/_v1/api/users/${args.userName}`)
-		        .then(res=>res.json())
+          resolve: (root, args)=> fetch(
+            `${baseURL()}/_v1/api/users/${args.userName}`, {
+              headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+                "Authorization": "Bearer "+ args.token
+            }
+            })
+              .then(res=>res.json())
         }
     })
 })
