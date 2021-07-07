@@ -1,7 +1,7 @@
 import React from "react"
 import styled from "styled-components";
 
-
+const l = (name)=>name.toLowerCase().replaceAll(" ", '')
 const EDITABLE = ({Icon,bio, name, handleChange})=> 
 <Styles>
     <div><Icon style={{fontSize: "inherit", color: "inherit"}}/></div>
@@ -10,7 +10,7 @@ const EDITABLE = ({Icon,bio, name, handleChange})=>
         <span>
         <input 
             value={bio} 
-            name= {name.toLowerCase().replaceAll(" ", '')}
+            name= {l(name)}
             onChange={handleChange} 
         /></span>
     </div>
