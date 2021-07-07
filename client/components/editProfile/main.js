@@ -84,7 +84,7 @@ width: 100%;
     border: 2px solid rgb(20, 354, 70);;
     display: inline-block;
     min-height: 1.3rem;
-    width: 20vw;
+    width: 60vw;
     span{
         display:inherit;
         border: 2px solid white;
@@ -120,7 +120,7 @@ form{
         display: flex;
         flex-direction: column;
         align-items: center;
-        padding-top: 1rem;
+        padding: 1rem 0;
         button {
             border: 1px solid rgb(7, 454,50);
             border-radius: 5px;
@@ -135,6 +135,9 @@ form{
 }
 @media (min-width: 900px){
     width: 40%;
+    .upload {
+        width: 20vw;
+    }
 }
 `
 export default EDITPROFILE_COMPONENT;

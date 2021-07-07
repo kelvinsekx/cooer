@@ -64,7 +64,7 @@ div#gistBody {
         display: flex;
         font-size: 1.2rem;
         div.gistActors{
-            flex-basis: 25rem;
+            flex-basis: 20rem;
             display: flex;
             justify-content: space-between;
             div{
@@ -87,6 +87,16 @@ div#gistBody {
                         font-size: 80%;
                     }
                 }
+            }
+        }
+    }
+}
+
+@media (min-width: 900px) {
+    div#gistBody {
+        div.gistInfo{
+            div.gistActors{
+                flex-basis: 26rem;
             }
         }
     }
