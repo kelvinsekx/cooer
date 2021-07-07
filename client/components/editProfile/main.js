@@ -8,21 +8,25 @@ const editInfo =  [
         {
             icon: BsBriefcaseFill,
             name: 'bio',
+            n: "bio",
             bio: 'bio'
         },
         {
             icon: BsPersonFill,
             name: 'Name',
+            n:  "name",
             bio: 'name'
         },
         {
             icon: BsPersonCheck,
             name: 'Anonymous Name',
+            n: "anonymousname",
             bio: 'anonymousname'
         },
         {
             icon: BsPhone,
             name: 'Telephone',
+            n: "telephone",
             bio:'telephone'
         }
     ]
@@ -48,6 +52,7 @@ const EDITPROFILE_COMPONENT = ({handleChange, user, handleSubmit, fileHandler})=
             key={i}
             Icon={e.icon}
             name={e.name}
+            n= {e.n}
             bio={user[e.bio]}
             handleChange={handleChange}
         />)}
