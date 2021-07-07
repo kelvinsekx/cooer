@@ -57,11 +57,11 @@ const EDITPROFILE_COMPONENT = ({
         <BsPersonFill style={{ fontSize: "inherit", color: "inherit" }} />
       </div>
       <div>
-        <span>{'Name'}</span>
+        <span>Name</span>
         <span>
           <input
             value={user.name}
-            name={"Name".toLocaleLowerCase().replaceAll(" ", "")}
+            name="name"
             onChange={handleChange}
           />
         </span>
