@@ -10,7 +10,7 @@ const EDITABLE = ({Icon,bio, name, handleChange})=>
         <span>
         <input 
             value={bio} 
-            name= {name.toLocaleLowerCase().replaceAll(" ", '')}
+            name= {name.toLowerCase().replaceAll(" ", '')}
             onChange={handleChange} 
         /></span>
     </div>
