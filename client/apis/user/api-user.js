@@ -29,7 +29,7 @@ export const LIST = async () => {
 		   query{ allPeople{
                 username
                 photo {
-                data
+                    data
                 }
                 bio
             }}
@@ -59,18 +59,24 @@ export const UPDATE = async (userId, token, user) => {
     }
 }
 
-export const READ = async (param, token, signal) => {
-    console.log(token)
+export const READ = async (queryDescr, param, token, signal) => {
     try {
         let response = await fetch(
-            `/_v1/api/users/${param.userId}`, {
-            method: "GET",
+            "/graphql", {
+            method: "POST",
             signal,
             headers: {
                 "Accept": "application/json",
-                "Content-Type": "application/json",
-                "Authorization": "Bearer "+ token.token
-            }
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                query: `
+                query {
+                    person(userName: "${param.userId}", token: "${token.token}") {
+                      ${queryDescr}
+                    }
+                  }`
+            })
         })
         return await response.json()
     } catch(err){

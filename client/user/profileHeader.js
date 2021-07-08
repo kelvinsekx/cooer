@@ -20,7 +20,10 @@ const PROFILEHEADER = ({
            profileImage= {profileImage}
        />
        <div className="profileTabs"> 
-            <LISTFOLLOWERS userId={user._id} followers= {user.followers} />
+            <LISTFOLLOWERS 
+                userId={user._id} 
+                followers= {user.followers} 
+            />
            <div id="bar">
                <button onClick={()=>getCoos(user)}>Coos</button>
                <button>Gallery</button>

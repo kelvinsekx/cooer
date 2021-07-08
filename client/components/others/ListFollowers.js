@@ -5,21 +5,29 @@ import auth from "./../../helpers/auth.helper"
 import {READ} from "./../../apis/user/api-user";
 
 const LISTFOLLOWERS = ({userId, followers}) => {
+    console.log(followers)
     if(userId === auth.isAuthenticated().user._id){
         return null
     }
-    const [user, setUser] = React.useState({followers: []})
+    const [follower, setFollower] = React.useState([])
     React.useEffect(() => {
         
         const abortController = new AbortController;
         const signal = abortController.signal;
         const jwt = auth.isAuthenticated()
 
-        READ({userId: auth.isAuthenticated().user.username }, {token: jwt.token}, signal).then(data => {
+        READ(`followers{
+            details{
+              name
+              id
+              username
+            }
+          }`,{userId: auth.isAuthenticated().user.username }, {token: jwt.token}, signal).then(data => {
             if (data && data.error){
                 console.log(data.error)
             }else {
-                setUser(data)
+                const {data: {person: {followers : {details}}}} = data
+                setFollower(details)
             }
         });
 
@@ -28,8 +36,10 @@ const LISTFOLLOWERS = ({userId, followers}) => {
         }
     }, [])
     
-    const yourFollowers = user.followers;
+    const yourFollowers = follower;
     const visitorFollowers = followers;
+
+    console.log(visitorFollowers)
 
     const sameFollowers = yourFollowers.filter( each => {
         for (let x of visitorFollowers) {
@@ -41,13 +51,13 @@ const LISTFOLLOWERS = ({userId, followers}) => {
 
     let rr
     if(sameFollowers.length < 6) {
-        rr = sameFollowers.map((follower)=><Link to={`/profile/${follower.username}`} key={`${follower.username}+${i}`}>{follower.name} </Link>)
+        rr = sameFollowers.map((follower, i)=><Link to={`/profile/${follower.username}`} key={`${follower.username}+${i}`}>{follower.name} </Link>)
     } else {
         let aSlice = sameFollowers.slice(0, 4);
         rr = aSlice.map((follower, i)=><Link to={`/profile/${follower.username}`} key={`${follower.username}+${i}`}>{follower.name.length > 7 ? follower.name.substring(0, 6) + ".." : follower.name}, </Link>) 
         rr = <span> {rr} {`&`} {(sameFollowers.length - 4)} others you may know</span>
     }
-    console.log(sameFollowers)
+    //console.log(sameFollowers)
     return (
         <Styles >
             { (sameFollowers.length < 1) ? 

@@ -8,14 +8,7 @@ import ProfileHeader from "./profileHeader"
 
 const PROFILE = ({match})=> {
     const [st, setSt] = useState(true);
-    const [user, setUser] = useState({
-        name: "",
-        username: "",
-        bio: "",
-        join: new Date(),
-        followers: [],
-        following: []
-    });
+    const [user, setUser] = useState(null);
     const [coos, setCoos] = useState([])
     const [redirectToSignin, setRedirectToSignin] = useState(false);
 
@@ -24,12 +17,48 @@ const PROFILE = ({match})=> {
         const signal = abortController.signal;
         const jwt = auth.isAuthenticated()
 
-        READ({userId: match.params.userId}, {token: jwt.token}, signal).then(data => {
+        READ(`name _id join
+        username
+        bio
+        followers{
+          length
+          details{
+            name
+            _id
+            username
+          }
+        }
+        following{
+            length
+            details{
+                name
+                _id
+                username
+              }
+          }
+        photo{
+          data
+        }
+        `,{userId: match.params.userId}, {token: jwt.token}, signal).then(data => {
             if (data && data.error){
                 console.log(data.error)
                 setRedirectToSignin(true)
             }else {
-                setUser(data)
+                const {data: {person}} = data
+                console.log(person)
+                const r = {
+                    _id : person._id,
+                    name: person.name,
+                    bio: person.bio,
+                    username: person.username,
+                    followers: person.followers.details,
+                    followersLength : person.followers.length,
+                    following: person.following.details,
+                    followingLength: person.following.length,
+                    photo: person.photo.data,
+                    join: person.join
+                }
+                setUser(r)
             }
         });
 
@@ -54,7 +83,6 @@ const PROFILE = ({match})=> {
 
     let handleFollow = function(){
         const jwt = auth.isAuthenticated()
-        console.log(jwt.user._id)
         let fAPI;
         if(user.followers.some(e=>e._id == jwt.user._id)){
             fAPI = UNFOLLOW
@@ -67,7 +95,8 @@ const PROFILE = ({match})=> {
                 setUser({...user, error: data.error})
                 console.log(user.following.length, user.following)
             }else {
-                setUser({...user, ...data, following: !user.following})
+                console.log(data)
+                setUser({...user, ...data, followersLength: data.followers.length, followingLength: data.following.length})
             }
         })
     };
@@ -88,7 +117,7 @@ const PROFILE = ({match})=> {
 
     return (
         <>
-            {st ? (<div/>) :
+            {(user !== null) ?
             (<div>
                 <ProfileHeader 
                     getCoos = {loadCoos}
@@ -96,9 +125,9 @@ const PROFILE = ({match})=> {
                     coos={coos}
                     user={user} 
                     jwt={auth.isAuthenticated()}
-                    profileImage={`/_v1/api/users/u/photo/${user.username}?${new Date().getTime()}`}
+                    profileImage={`${user.photo}?${new Date().getTime()}`}
                 />
-            </div>)}
+            </div>) : "loading..." }
         </>
     )
 }

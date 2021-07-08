@@ -5,35 +5,14 @@ import {READ, UPDATE} from "./../apis/user/api-user"
 import EDITPROFILE_COMPONENT from "../components/editProfile/main";
 import TxtLoading from "./../components/loading/txtIsLoading"
 
-const EDIT = ({match}) => {
-    const [user, setUser] = useState(null);
+const EDIT = (props) => {
+    const {match} = props
+    const {location: {state: {state}}} = props
+    const [user, setUser] = useState({...state, photo: ""});
 
     const handleChange = (e)=> {
-        console.log(user)
         setUser({...user, [e.target.name]: e.target.value});
     }
-
-    useEffect(()=> {
-        let isMounted = true;
-        const abortController = new AbortController;
-        const signal = abortController.signal;
-        const jwt = auth.isAuthenticated()
-
-        READ({userId: match.params.userId}, {token: jwt.token}, signal).then(data => {
-            if (data && data.error){
-                console.log(data.error)
-                setRedirectToSignin(true)
-            }else {
-                if(!isMounted)return;
-                setUser({...data, photo: ""})
-            }
-        }).then(()=> setTimeout((g)=>g, 5));
-
-        return function cleanup () {
-            abortController.abort()
-            isMounted = false;
-        }
-    }, [READ])
 
     const handleSubmit = () => {
         const jwt = auth.isAuthenticated()    

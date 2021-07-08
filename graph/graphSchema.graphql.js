@@ -2,7 +2,8 @@ import {
     GraphQLSchema,
     GraphQLList,
     GraphQLObjectType,
-    GraphQLString
+    GraphQLString,
+    GraphQLInt
 } from "graphql";
 import fetch from "node-fetch";
 
@@ -10,6 +11,20 @@ const baseURL = ()=> {
   if (process.env.NODE_ENV.trim() == "production")return "https://shrouded-thicket-19388.herokuapp.com"
   return `http://localhost:${4066}`
 }
+
+const FollowType = new GraphQLObjectType({
+  name : "Follow",
+  fields: ()=> ({
+    length : {
+      type: GraphQLInt,
+      resolve: f => f.length
+    },
+    details: {
+      type: new GraphQLList(PersonType),
+      resolve: f=> f
+    }
+  })
+})
 
 const PhotoType = new GraphQLObjectType({
    name: 'Photo',
@@ -29,6 +44,14 @@ const PersonType = new GraphQLObjectType({
     name: 'Person',
     description: 'Somebody that you used to know',
     fields: () => ({
+      _id: {
+        type: GraphQLString,
+        resolve: person => person._id
+      },
+      join: {
+        type: GraphQLString,
+        resolve: person => person.join
+      },
       name: {
         type: GraphQLString,
         resolve: person => person.name,
@@ -49,10 +72,20 @@ const PersonType = new GraphQLObjectType({
 	      type: GraphQLString,
       	resolve: person => person.username
       },
-	photo: {
-		type: PhotoType,
-		resolve: person => person
-	}
+	  photo: {
+		  type: PhotoType,
+		  resolve: person => person
+	  },
+    following : {
+      type: FollowType,
+      resolve: person => person.following
+    },
+    followers : {
+      type: FollowType,
+      resolve: person => person.followers
+    }
+
+
     }),
   });
 
@@ -76,15 +109,14 @@ const QueryType = new GraphQLObjectType({
           resolve: (root, args)=> fetch(
             `${baseURL()}/_v1/api/users/${args.userName}`, {
               headers: {
-                "Accept": "application/json",
-                "Content-Type": "application/json",
-                "Authorization": "Bearer "+ args.token
+                "Authorization": `Bearer ${args.token}`
             }
             })
               .then(res=>res.json())
+              //.then(json => console.log(json))
         }
     })
-})
+});
 
 export default new GraphQLSchema({
     query: QueryType,

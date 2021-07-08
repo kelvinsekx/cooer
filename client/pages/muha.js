@@ -25,13 +25,18 @@ const MUHA = (props) =>{
         const signal = abortController.signal;
         let isMounted = true;
         
-        console.log('username', jwt.user)
-        READ({userId: jwt.user.username}, {token: jwt.token}, signal).then(data => {
+        // console.log('username', jwt.user)
+        READ(`
+            followers{
+                length
+            }
+        `,{userId: jwt.user.username}, {token: jwt.token}, signal).then(data => {
             if (data && data.error){
                 console.log(data.error)
             }else {
-                console.log(data.following.length)
-                setIsFollowing(data.following.length)
+                const {data: {person: {followers}}} = data
+                console.log(followers)
+                setIsFollowing(followers.length)
             }
         });
 

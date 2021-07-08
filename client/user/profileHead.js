@@ -24,19 +24,25 @@ const PROFILEHEAD = ({user, jwt, follow, profileImage}) =>
             </p>
         </div>
         <div>
-            {(jwt.user._id == user._id) ? 
-            <Link to={`/profile/${user.username}/edit`} style={{color: "inherit", textDecoration: "none"}}>Edit Profile</Link>: 
-            <button id="followBtn" onClick={follow}>
-                {(user.followers.some(e=>e._id == jwt.user._id)) ? "Unfollow" : "Follow"}
-            </button>}
+            {
+                (jwt.user._id == user._id) ? 
+                <Link to={{
+                    pathname: `/profile/${user.username}/edit`,
+                    state: {state: user}
+                }} style={{color: "inherit", textDecoration: "none"}}>Edit Profile</Link>
+                : 
+                <button id="followBtn" onClick={follow}>
+                    {(user.followers.some(e=>e._id == jwt.user._id)) ? "Unfollow" : "Follow"}
+                </button>
+            }
         </div>
         <div id="foll">
             <div>
                 <span><FiUsers /></span> 
-                <span>{user.followers.length || 0} followers</span>
+                <span>{user.followersLength || 0} followers</span>
             </div>
             <div>
-                <span><FiUserCheck /></span> <span>{user.following.length || 0} following</span>
+                <span><FiUserCheck /></span> <span>{user.followingLength || 0} following</span>
             </div>
         </div>
     </div>
