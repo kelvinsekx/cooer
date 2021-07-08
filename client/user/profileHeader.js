@@ -28,10 +28,11 @@ const PROFILEHEADER = ({
                <button onClick={()=>getCoos(user)}>Coos</button>
                <button>Gallery</button>
            </div> 
-           <div>{
-           coos ? 
-           coos.map( (coo) => <Gist gist={coo} key={coo._id} />) : 
-           ""}</div> 
+           <div>
+            { coos ? 
+                 coos.map( (coo) => <Gist gist={coo} key={coo._id} />) : 
+                <h2 style={{fontSize: "120%"}}>No coo yet</h2> }
+        </div> 
        </div>
    </div>
 </Styles>

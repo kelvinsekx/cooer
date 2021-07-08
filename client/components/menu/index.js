@@ -160,15 +160,11 @@ nav{
 }
 @media (max-width: 540px) {
     flex-direction: row;
-    position: fixed;
-    height: 7.4567vh;
     width: 100vw;
+    height: inherit;
     background-color: white;
     overflow-x: hidden;
     color: black;
-    bottom: -0.5px;
-    border-top: 0.1px solid rgba(0,0,0,0.4);
-    box-shadow: 1px 0 1px 1px rgba(150, 140, 140, 0.693);
     nav {
         flex-direction: row;
         div:nth-child(1){

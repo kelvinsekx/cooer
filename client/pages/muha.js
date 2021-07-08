@@ -112,10 +112,6 @@ const Styles = styled.div`
 div.muha{
     display: grid;
     grid-template-columns: 1fr;
-    // div.feed{
-    //     height:93.45vh;
-    //     overflow-y: scroll;
-    // }
     .lilintro{
         display: flex;
         flex-direction: row-reverse;
@@ -142,15 +138,6 @@ div.muha{
         }
     }
 }
- @media (max-width: 540px) { 
-     div.muha{
-        div.feed{
-            height:94.799vh;
-            overflow: scroll;
-            //border: 1px solid red;
-        }
-     }
- }
 @media (min-width: 900px) {
     border: 2.45px solid rgba(10, 322, 34, 0.1);
     div.muha{

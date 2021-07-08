@@ -12,7 +12,6 @@ import Menu from "./components/menu"
 
 const MAINROUTER = (props) =>
 {
-    console.log(props)
     return <div style={{fontFamily: "sans-serif", color: "#222"}}>
     <Switch>
         {nRoutes.map((route, i) => (
@@ -47,7 +46,7 @@ div#main{
 @media (max-width: 540px) {
     div#main{
         grid-template-rows: 
-        [nav-navEnd] 1fr [bodyStart-bodyEnd] 2rem;
+        [nav-navEnd] 94vh [bodyStart-bodyEnd] 6vh;
         grid-template-columns: [d] 100%;
         grid-template-areas: 
         "d"
@@ -55,10 +54,14 @@ div#main{
         .menuMenu{
             grid-row: 2/3;
             position: sticky;
-            bottom: 0px;
+            display: flex;
+            align-items: center;
+            border-top: 0.1px solid rgba(0,0,0,0.4);
+            box-shadow: 1px 0 1px 1px rgba(150, 140, 140, 0.693);
         }
         .body {
-            grid-row: 1/2;
+             grid-row: 1/2;
+            overflow: scroll;
         }
     }
 }

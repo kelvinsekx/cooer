@@ -92,6 +92,16 @@ div#gistBody {
     }
 }
 
+@media (max-width: 540px){
+    div#gistBody {
+        div.gistInfo{
+            div.gistActors{
+                flex-basis: 15rem;
+            }
+        }
+    }
+}
+
 @media (min-width: 900px) {
     div#gistBody {
         div.gistInfo{
