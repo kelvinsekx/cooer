@@ -3,6 +3,23 @@ import errorHandler from "./../helpers/DBERRHANDLER"
 import Gist from "./../models/gist.model"
 import fs from "fs"
 
+
+export const GET_GIST_ID = async (req, res, next, gistID) => {
+    try {
+        let gist = await Gist.findOne({_id: gistID});
+        if(!gist) {
+            return res.status(400).json({
+                error: "this gist is not found"
+            })
+        }
+        req.gist = gist;
+        next()
+    }catch (e) {
+
+    }
+};
+
+
 export const CREATE = (req, res) => {
     let form = new formidable.IncomingForm();
     form.keepExtensions = true;
@@ -63,6 +80,21 @@ export const LISTNEWFEEDS = async (req, res) => {
     }
 }
 
+export const LIST_A_FEED = async (req, res) => {
+    try {
+        let gists = await Gist.find({_id: req.gist._id })
+        .populate('comments.postedBy', '_id name username')
+        .populate('postedBy', '_id name username')
+        .exec();
+
+        res.json(gists)
+    } catch (err) {
+        return res.status(400).json({
+            error: errorHandler.GET_ERROR_MESSAGE(err)
+        })
+    }
+}
+
 export const LIKE = async (req, res) => {
     try {
         let result = await Gist.findByIdAndUpdate(req.body.gistId, {$push: {likes: req.body.userId}}, {new: true});
@@ -91,8 +123,8 @@ export const COMMENT = async (req, res) => {
     comment.postedBy = req.body.userId
     try {
         let result = await Gist.findByIdAndUpdate(req.body.gistId, {$push: {comments: req.body.comment}}, {new: true})
-        .populate("comments.postedBy", "_id name")
-        .populate("postedBy", "_id name")
+        .populate("comments.postedBy", "_id username")
+        .populate("postedBy", "_id username")
         res.json(result)
     } catch (err) {
         return res.status(400).json({

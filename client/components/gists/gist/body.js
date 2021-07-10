@@ -4,54 +4,63 @@ import styled from "styled-components";
 
 import { FiHeart, FiCompass, FiCopy, FiThumbsUp
 } from "react-icons/fi";
+import $ from "./../../../helpers/gen.helpers"
 import { BsHeartFill} from "react-icons/bs"
 
 import BodyPrinter from "./bodyPrinter";
 
-const BODY = ({info, actions})=>
-<Styles>
-<div id="gistBody">
-    <div className="gistText">
-        <BodyPrinter text={info.text} /> 
-    </div>
-    <div className="gistInfo">
-        <div className="gistActors">
-            <div onClick={actions.clickLike}>
-                <span>{info.likes}</span>
-                <span style={{top: "2.3px", fontSize: "77%"}}>
-                    {actions.like ? <BsHeartFill style={{color: "red"}}/>: <FiHeart style={{color: "rgba(350, 02, 09, 0.34)"}}/>}
-                </span>
-            </div>
-            <div>
-                <span>
-                    {info.commentNumber}
-                </span>
-                <span style={{top: "2px", fontSize: "90%"}}>
-                    <Link to="/:smallQuotFromGist/:commentsId"><FiCompass /></Link>
-                </span>
-            </div>
-
-            <div>
-                <span>
-                    68
-                </span>
-                <span>
-                <FiCopy />
-                </span>
-            </div>
-
-            <div>
-                <span>
-                    6k
-                </span>
-                <span>
-                <FiThumbsUp />
-                </span>
+const BODY = ({info, actions, gist})=> {
+    let someText = info.text.substr(0, 20)
+    const quotesLink = $.getLink(someText)
+    return <Styles>
+    <div id="gistBody">
+        <div className="gistText">
+            <BodyPrinter text={info.text} /> 
+        </div>
+        <div className="gistInfo">
+            <div className="gistActors">
+                <div onClick={actions.clickLike}>
+                    <span>{info.likes}</span>
+                    <span style={{top: "2.3px", fontSize: "77%"}}>
+                        {actions.like ? <BsHeartFill style={{color: "red"}}/>: <FiHeart style={{color: "rgba(350, 02, 09, 0.34)"}}/>}
+                    </span>
+                </div>
+                <div>
+                    <span>
+                        {info.commentNumber}
+                    </span>
+                    <span style={{top: "2px", fontSize: "90%"}}>
+                        <Link 
+                            to={{
+                                pathname:`/${info.username}/${quotesLink}/comments/${info.id}`,
+                                state: {gist}
+                            }}><FiCompass /></Link>
+                    </span>
+                </div>
+    
+                <div>
+                    <span>
+                        68
+                    </span>
+                    <span>
+                    <FiCopy />
+                    </span>
+                </div>
+    
+                <div>
+                    <span>
+                        6k
+                    </span>
+                    <span>
+                    <FiThumbsUp />
+                    </span>
+                </div>
             </div>
         </div>
     </div>
-</div>
-</Styles>
+    </Styles>
+}
+
 
 const Styles = styled.div`
 flex-grow: 1;

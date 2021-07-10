@@ -23,9 +23,13 @@ router.route("/api/gists/new/:userId")
 router.route("/api/gists/feed/:userId")
     .get(gistCtrl.LISTNEWFEEDS);
 
+router.route("/api/gists/feed/singlefeed/:gistId")
+    .get(gistCtrl.LIST_A_FEED)
+
 router.route('/api/gists/by/:userId/getCoos')    
     .get(authCtrl.REQUIRE_SIGNIN, gistCtrl.LISTBYUSER);
     
 router.param("userId", userCtrl.USER_BY_ID);
+router.param("gistId", gistCtrl.GET_GIST_ID);
 
 export default router;

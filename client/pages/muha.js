@@ -14,7 +14,7 @@ import {LIST,READ} from "../apis/user/api-user"
 
 const MUHA = (props) =>{
     const home = window.APP && window.APP.home
-    const [gists, setGists] = useState( []);
+    const [gists, setGists] = useState(null);
     const [members, setMembers] = useState(null);
     const [isFollowing, setIsFollowing] = useState(1)
 
@@ -25,18 +25,19 @@ const MUHA = (props) =>{
         const signal = abortController.signal;
         let isMounted = true;
         
-        // console.log('username', jwt.user)
         READ(`
-            followers{
+            following{
                 length
+                details {
+                    name
+                }
             }
         `,{userId: jwt.user.username}, {token: jwt.token}, signal).then(data => {
             if (data && data.error){
                 console.log(data.error)
             }else {
-                const {data: {person: {followers}}} = data
-                console.log(followers)
-                setIsFollowing(followers.length)
+                const {data: {person: {following}}} = data
+                setIsFollowing(following.length)
             }
         });
 
@@ -45,6 +46,7 @@ const MUHA = (props) =>{
                 if (data.error) {
                     console.log(data.error)
                 } else {
+                    //console.log(data)
                     setGists(data)
                 }
         });
@@ -83,7 +85,8 @@ const MUHA = (props) =>{
                 </div>
                 {(isFollowing < 1) ? 
                     <AwesomeGuysToFollow /> :
-                    <Gists gists={gists} />
+                    (gists !== null) ? 
+                     <Gists gists={gists} /> : <TxtLoading />
                 }
 
             </div>

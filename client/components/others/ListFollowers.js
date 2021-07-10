@@ -5,7 +5,6 @@ import auth from "./../../helpers/auth.helper"
 import {READ} from "./../../apis/user/api-user";
 
 const LISTFOLLOWERS = ({userId, followers}) => {
-    console.log(followers)
     if(userId === auth.isAuthenticated().user._id){
         return null
     }

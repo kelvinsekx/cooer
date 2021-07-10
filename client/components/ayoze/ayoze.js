@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import {CREATE, LISTNEWFEEDS, REACT} from "./../../apis/ayoze/ayoze-api"
 import auth from "./../../helpers/auth.helper"
+import $ from "./../../helpers/gen.helpers"
 import {Link} from "react-router-dom";
 import styled from "styled-components";
 
@@ -68,12 +69,6 @@ const AYOZE = ()=>  {
             }
         })
     }
-    const getLink = (txt) => {
-        txt = txt.replaceAll(/\?/g, '')
-  			txt= txt.trim()
-  			txt = txt.replaceAll(/ /g, '-')
-        return `${txt}`
-    }
     return (
         <Styles>
             <input name="txt" onChange={handleChange} value={values.txt}/> <button onClick={HANDLESUBMIT}>start</button>
@@ -81,7 +76,7 @@ const AYOZE = ()=>  {
 
             {list.map((l, i) => 
                 <div key={i+l.text.substr(0,3)}>
-                    <Link to={`/ayoze/${getLink(l.text)}/${l._id}`}>{l.text}</Link>
+                    <Link to={`/ayoze/${$.getLink(l.text)}/${l._id}`}>{l.text}</Link>
                 </div>)
             }
         </Styles>

@@ -1,22 +1,18 @@
 import React, {useState} from "react";
 import styled from "styled-components"
 import auth from "../../../helpers/auth.helper"
-import { LIKE, UNLIKE, COMMENT } from "../../../apis/gist/api-gist";
+import { LIKE, UNLIKE } from "../../../apis/gist/api-gist";
 
 import DPHEADER from "./Dpheader";
 import BODY from "./body"
 //import ENGAGE from "./engage"
 
 const GIST = ({gist}) => {
-
-    const [comm, setComm] = useState("")
     const jwt = auth.isAuthenticated()
 
-    const handleChange = (e) => {
-        return setComm(e.target.value)
-    }
 
     const checkIfLiked = (likes) => {
+        if(likes == undefined)return;
         let match = likes.indexOf(jwt.user._id) !== -1;
         return match
     }
@@ -48,10 +44,6 @@ const GIST = ({gist}) => {
      like= values.like
     ;
 
-    const doComment = ()=> {
-        return COMMENT({userId: jwt.user._id}, {token: jwt.token}, gist._id, {text: comm})
-    }
-
 return (
     <Styles>
         <div className="h--wrapper">
@@ -61,7 +53,11 @@ return (
             <div id="rest">
                 <DPHEADER info={{ postedBy, created, pigeon}}/>
                 <div className="bd">
-                    <BODY info={{text, likes, commentNumber}} actions={{clickLike, like}}/>
+                    <BODY 
+                        info={{text, likes, commentNumber, username: pigeon,
+                    id: gist._id}} 
+                    actions={{clickLike, like}} 
+                    gist={gist}/>
                 </div>
                 {/* <ENGAGE payload={{ handleChange, doComment, comm, commentNumber}} /> */}
             </div>

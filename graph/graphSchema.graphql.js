@@ -6,11 +6,7 @@ import {
     GraphQLInt
 } from "graphql";
 import fetch from "node-fetch";
-
-const baseURL = ()=> {
-  if (process.env.NODE_ENV.trim() == "production")return "https://shrouded-thicket-19388.herokuapp.com"
-  return `http://localhost:${4066}`
-}
+import {baseURL} from "./graph.utility"
 
 const FollowType = new GraphQLObjectType({
   name : "Follow",

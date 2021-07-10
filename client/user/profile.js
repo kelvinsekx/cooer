@@ -5,6 +5,7 @@ import {READ, FOLLOW, UNFOLLOW} from "./../apis/user/api-user";
 import {LISTBYUSER} from "./../apis/gist/api-gist";
 
 import ProfileHeader from "./profileHeader"
+import TxtLoading from "./../components/loading/txtIsLoading"
 
 const PROFILE = ({match})=> {
     const [st, setSt] = useState(true);
@@ -127,7 +128,7 @@ const PROFILE = ({match})=> {
                     jwt={auth.isAuthenticated()}
                     profileImage={`${user.photo}?${new Date().getTime()}`}
                 />
-            </div>) : "loading..." }
+            </div>) : <TxtLoading /> }
         </>
     )
 }

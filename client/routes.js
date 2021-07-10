@@ -7,6 +7,7 @@ import Ayoze from "./pages/ayoze";
 import Discuss from "./pages/ayozeDiscuss";
 import Profile from "./user/profile"
 import EditProfile from "./pages/editProfile";
+import Comment from "./pages/comment";
 
 export const NonProtectedRoutes = [
     {
@@ -47,5 +48,9 @@ export const protectedRoutes = [
     {
         path: "/ayoze/:gossiptitle/:gossipId",
         component: Discuss
+    },
+    {
+        path: "/:username/:commentQuotes/comments/:commentId",
+        component: Comment
     }
 ]
