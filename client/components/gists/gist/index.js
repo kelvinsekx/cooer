@@ -9,8 +9,10 @@ import BODY from "./body"
 
 const {useState, useEffect} = React;
 const GIST = ({payload}) => {
-    const [gist, setGist] = useState({...payload, like: checkIfLiked(payload.likes)})
     let jwt = auth.isAuthenticated();
+    
+    const [gist, setGist] = useState({...payload, like: checkIfLiked(payload.likes)})
+
     useEffect(() => {
         let isMounted = true;
         if(!isMounted){

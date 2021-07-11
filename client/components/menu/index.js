@@ -10,7 +10,7 @@ import { FiHome, FiSliders, FiUser, FiTag, FiLifeBuoy, FiUserX, FiSmile
  } from "react-icons/fi";
 
 
-const {useState, useEffect} = React;
+const {useState} = React;
 const Menu = withRouter(({history})=> {
 
     const [user , setUser] = useState([])
