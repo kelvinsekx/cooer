@@ -14,60 +14,7 @@ const {useState} = React;
 const Menu = withRouter(({history})=> {
 
     const [user , setUser] = useState([])
-    React.useEffect(()=> {
-        let jwt = auth.isAuthenticated()
-        
-        let isMounted = true;
-
-        const abortController = new AbortController;
-        const signal = abortController.signal;
-
-        READ(`name _id join
-        username
-        bio
-        followers{
-          length
-          details{
-            name
-            _id
-            username
-          }
-        }
-        following{
-            length
-            details{
-                name
-                _id
-                username
-              }
-          }
-        photo{
-          data
-        }
-        `,{userId: jwt.user.username}, {token: jwt.token}, signal).then(data => {
-            if (data && data.error){
-                console.log(data.error)
-                setRedirectToSignin(true)
-            }else {
-               if( !isMounted) return;
-                const {data: {person}} = data
-                
-                const r = {
-                    _id : person._id,
-                    name: person.name,
-                    bio: person.bio,
-                    username: person.username,
-                    followers: person.followers.details,
-                    followersLength : person.followers.length,
-                    following: person.following.details,
-                    followingLength: person.following.length,
-                    photo: person.photo.data,
-                    join: person.join
-                }
-                setUser(r)
-            }
-        });
-    }, [])
+    
     return (
         <Styles>
             <nav>

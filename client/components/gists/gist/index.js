@@ -13,16 +13,6 @@ const GIST = ({payload}) => {
     
     const [gist, setGist] = useState({...payload, like: checkIfLiked(payload.likes)})
 
-    useEffect(() => {
-        let isMounted = true;
-        if(!isMounted){
-            setGist(payload)
-        }
-        return () => {
-            isMounted = false;
-        }
-    }, [])
-
     function checkIfLiked(likes) {
         if(likes == undefined)return;
         let match = likes.indexOf(jwt.user._id) !== -1;

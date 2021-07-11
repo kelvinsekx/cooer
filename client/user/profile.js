@@ -9,10 +9,10 @@ import ProfileHeader from "./profileHeader"
 import TxtLoading from "./../components/loading/txtIsLoading"
 
 const PROFILE = (props)=> {
-    const prevState = getStateFromProps(props.location, "user");
+    //const prevState = getStateFromProps(props.location, "user");
 
     const {match} = props
-    const [user, setUser] = useState(prevState);
+    const [user, setUser] = useState(null);
     const [coos, setCoos] = useState([])
     const [redirectToSignin, setRedirectToSignin] = useState(false);
 
