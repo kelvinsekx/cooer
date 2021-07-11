@@ -9,14 +9,14 @@ import {READ} from "./../../apis/user/api-user"
 import { FiHome, FiSliders, FiUser, FiTag, FiLifeBuoy, FiUserX, FiSmile
  } from "react-icons/fi";
 
-let jwt = auth.isAuthenticated()
-
 
 const {useState, useEffect} = React;
 const Menu = withRouter(({history})=> {
 
     const [user , setUser] = useState([])
     React.useEffect(()=> {
+        let jwt = auth.isAuthenticated()
+        
         let isMounted = true;
 
         const abortController = new AbortController;

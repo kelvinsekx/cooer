@@ -13,7 +13,6 @@ import {LISTNEWFEEDS} from "../apis/gist/api-gist"
 import {LIST,READ} from "../apis/user/api-user"
 
 const MUHA = (props) =>{
-    const home = window.APP && window.APP.home
     const [gists, setGists] = useState(null);
     const [members, setMembers] = useState(null);
     const [isFollowing, setIsFollowing] = useState(1)
