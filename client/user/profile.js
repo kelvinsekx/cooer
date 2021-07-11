@@ -58,9 +58,7 @@ const PROFILE = (props)=> {
                     bio: person.bio,
                     username: person.username,
                     followers: person.followers.details,
-                    followersLength : person.followers.length,
                     following: person.following.details,
-                    followingLength: person.following.length,
                     photo: person.photo.data,
                     join: person.join
                 }
