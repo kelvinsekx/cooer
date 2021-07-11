@@ -6,13 +6,11 @@ import { LIKE, UNLIKE } from "../../../apis/gist/api-gist";
 import DPHEADER from "./Dpheader";
 import BODY from "./body"
 
-let jwt = auth.isAuthenticated();
-
 
 const {useState, useEffect} = React;
 const GIST = ({payload}) => {
     const [gist, setGist] = useState({...payload, like: checkIfLiked(payload.likes)})
-
+    let jwt = auth.isAuthenticated();
     useEffect(() => {
         let isMounted = true;
         if(!isMounted){
