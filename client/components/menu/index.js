@@ -4,58 +4,122 @@ import { withRouter } from "react-router";
 
 import {Link} from "react-router-dom"
 import auth from "../../helpers/auth.helper"
+import {READ} from "./../../apis/user/api-user"
 
 import { FiHome, FiSliders, FiUser, FiTag, FiLifeBuoy, FiUserX, FiSmile
  } from "react-icons/fi";
 
-const Menu = withRouter(({history})=> (
-    <Styles>
-        <nav>
-            <div>
-                <Link to="/home"><span>Kr</span></Link>
-            </div>
+let jwt = auth.isAuthenticated()
 
-            <div>
-                <ul>
-                    <li>
-                        <Link to="/home" className="navIconBtn" style={isActive(history, "/home")}><span><FiHome style={{fontSize: "130%"}}/></span> <span>Home</span></Link>
-                    </li>
-                    <li>
-                        <Link to="/ayoze" style={isActive(history, "/ayoze")}className="navIconBtn"><span><FiTag style={{fontSize: "130%"}}/></span> <span>Ayoze</span></Link>
-                    </li>
-                    <li>
-                        <Link to="/street" style={isActive(history, "/street")}className="navIconBtn"><span><FiSliders style={{fontSize: "130%"}}/></span> <span>Street</span></Link>
-                    </li>
-                    <li>
-                        {
-                            auth.isAuthenticated() && 
-                            <Link 
-                                to={`/profile/${auth.isAuthenticated().user.username}`} 
-                                style={isActive(history, `/profile/${auth.isAuthenticated().user.username}`)}
-                                className="navIconBtn"
-                            >
-                                <span><FiUser style={{fontSize: "130%"}}/></span> <span>Profile</span>
+
+const {useState, useEffect} = React;
+const Menu = withRouter(({history})=> {
+
+    const [user , setUser] = useState([])
+    React.useEffect(()=> {
+        let isMounted = true;
+
+        const abortController = new AbortController;
+        const signal = abortController.signal;
+
+        READ(`name _id join
+        username
+        bio
+        followers{
+          length
+          details{
+            name
+            _id
+            username
+          }
+        }
+        following{
+            length
+            details{
+                name
+                _id
+                username
+              }
+          }
+        photo{
+          data
+        }
+        `,{userId: jwt.user.username}, {token: jwt.token}, signal).then(data => {
+            if (data && data.error){
+                console.log(data.error)
+                setRedirectToSignin(true)
+            }else {
+               if( !isMounted) return;
+                const {data: {person}} = data
+                
+                const r = {
+                    _id : person._id,
+                    name: person.name,
+                    bio: person.bio,
+                    username: person.username,
+                    followers: person.followers.details,
+                    followersLength : person.followers.length,
+                    following: person.following.details,
+                    followingLength: person.following.length,
+                    photo: person.photo.data,
+                    join: person.join
+                }
+                setUser(r)
+            }
+        });
+    }, [])
+    return (
+        <Styles>
+            <nav>
+                <div>
+                    <Link to="/home"><span>Kr</span></Link>
+                </div>
+    
+                <div>
+                    <ul>
+                        <li>
+                            <Link to="/home" className="navIconBtn" style={isActive(history, "/home")}><span><FiHome style={{fontSize: "130%"}}/></span> <span>Home</span></Link>
+                        </li>
+                        <li>
+                            <Link to="/ayoze" style={isActive(history, "/ayoze")}className="navIconBtn"><span><FiTag style={{fontSize: "130%"}}/></span> <span>Ayoze</span></Link>
+                        </li>
+                        <li>
+                            <Link to="/street" style={isActive(history, "/street")}className="navIconBtn"><span><FiSliders style={{fontSize: "130%"}}/></span> <span>Street</span></Link>
+                        </li>
+                        <li>
+                            {
+                                auth.isAuthenticated() && 
+                                <Link 
+                                    to={{
+                                        pathname: `/profile/${auth.isAuthenticated().user.username}`,
+                                        state: {user}
+                                    }} 
+                                    style={isActive(history, `/profile/${auth.isAuthenticated().user.username}`)}
+                                    className="navIconBtn"
+                                >
+                                    <span><FiUser style={{fontSize: "130%"}}/></span> <span>Profile</span>
+                                </Link>
+                            }
+                        </li>
+                        <li>
+                            <Link to="/trending" style={isActive(history, "/trending")}className="navIconBtn">
+                            <span><FiLifeBuoy style={{fontSize: "130%"}}/></span>   <span>Trending</span>
                             </Link>
-                        }
-                    </li>
-                    <li>
-                        <Link to="/trending" style={isActive(history, "/trending")}className="navIconBtn">
-                        <span><FiLifeBuoy style={{fontSize: "130%"}}/></span>   <span>Trending</span>
-                        </Link>
-                    </li>
-                    <li onClick={()=>auth.clearJWT(()=>history.push("/login/?__rd"))} className="navIconBtn">
-                        <span><FiUserX style={{fontSize: "130%"}}/></span>   <span>Log out</span>
-                    </li>
-                </ul>
-            </div>
-
-            <div className="navIconBtn">
-                <span><FiSmile /></span>   
-                <span>Coo</span>
-            </div>
-        </nav>
-    </Styles>
-))
+                        </li>
+                        <li onClick={()=>auth.clearJWT(()=>history.push("/login/?__rd"))} className="navIconBtn">
+                            <span><FiUserX style={{fontSize: "130%"}}/></span>   <span>Log out</span>
+                        </li>
+                    </ul>
+                </div>
+    
+                <div className="navIconBtn">
+                    <span><FiSmile /></span>   
+                    <span>Coo</span>
+                </div>
+            </nav>
+        </Styles>
+    )
+})
 
 const isActive = (history, path) => {
     if (history.location.pathname.includes(path)) {

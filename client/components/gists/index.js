@@ -6,7 +6,7 @@ const Gists = ({gists}) =>
 <Styles>
     {gists.map((gist, i)=> {
         return <Gist 
-        gist={gist} 
+        payload={gist} 
         key={i} />
     })}
 </Styles>;

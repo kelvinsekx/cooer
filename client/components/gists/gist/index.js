@@ -1,47 +1,54 @@
-import React, {useState} from "react";
+import React from "react";
 import styled from "styled-components"
 import auth from "../../../helpers/auth.helper"
 import { LIKE, UNLIKE } from "../../../apis/gist/api-gist";
 
 import DPHEADER from "./Dpheader";
 import BODY from "./body"
-//import ENGAGE from "./engage"
 
-const GIST = ({gist}) => {
-    const jwt = auth.isAuthenticated()
+let jwt = auth.isAuthenticated();
 
 
-    const checkIfLiked = (likes) => {
+const {useState, useEffect} = React;
+const GIST = ({payload}) => {
+    const [gist, setGist] = useState({...payload, like: checkIfLiked(payload.likes)})
+
+    useEffect(() => {
+        let isMounted = true;
+        if(!isMounted){
+            setGist(payload)
+        }
+        return () => {
+            isMounted = false;
+        }
+    }, [])
+
+    function checkIfLiked(likes) {
         if(likes == undefined)return;
         let match = likes.indexOf(jwt.user._id) !== -1;
         return match
     }
 
     const clickLike = () => {
-        let jwt = auth.isAuthenticated()
-        let callApi = values.like ? UNLIKE : LIKE;
+        let callApi = gist.like ? UNLIKE : LIKE;
         callApi({userId: jwt.user._id}, {token: jwt.token}, gist._id).then(data => {
             if (data.error){
                 console.log(data.error);
             }else {
-                setValues({...values, like: !values.like, likes: data.likes.length})
+                console.log(data)
+                setGist({...data, like: !gist.like})
             }
         })
     }
 
-    const [values, setValues] = useState({
-        like: checkIfLiked(gist.likes),
-        likes: gist.likes.length,
-        comments: gist.comments
-    })
+
 
     let postedBy = gist.postedBy.name,
      created = gist.created,
      text = gist.text,
      pigeon = gist.postedBy.username,
-     commentNumber = gist.comments.length,
-     likes= values.likes,
-     like= values.like
+     commentNumber = payload.comments.length,
+     like= gist.like
     ;
 
 return (
@@ -54,7 +61,7 @@ return (
                 <DPHEADER info={{ postedBy, created, pigeon}}/>
                 <div className="bd">
                     <BODY 
-                        info={{text, likes, commentNumber, username: pigeon,
+                        info={{text, likes: gist.likes.length, commentNumber,  pigeon,
                     id: gist._id}} 
                     actions={{clickLike, like}} 
                     gist={gist}/>

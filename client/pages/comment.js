@@ -23,6 +23,7 @@ const Comment = (props)=> {
                 console.log(res.error);
             }else {
                 const [data] = res;
+                //console.log(data)
                 setGistInfo(data)
             }
         })
@@ -50,7 +51,7 @@ const Comment = (props)=> {
     return (
         (gistInfo !== null ) ?
         (<div>
-         <Gist gist ={gistInfo} />
+         <Gist payload ={gistInfo} />
          <hr />
             <div>
                 <input 

@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import auth from "../helpers/auth.helper"
+import {getStateFromProps} from "./../helpers/react.helpers"
 import {Redirect} from "react-router-dom"
 import {READ, FOLLOW, UNFOLLOW} from "./../apis/user/api-user";
 import {LISTBYUSER} from "./../apis/gist/api-gist";
@@ -7,13 +8,17 @@ import {LISTBYUSER} from "./../apis/gist/api-gist";
 import ProfileHeader from "./profileHeader"
 import TxtLoading from "./../components/loading/txtIsLoading"
 
-const PROFILE = ({match})=> {
-    const [st, setSt] = useState(true);
-    const [user, setUser] = useState(null);
+const PROFILE = (props)=> {
+    const prevState = getStateFromProps(props.location, "user");
+
+    const {match} = props
+    const [user, setUser] = useState(prevState);
     const [coos, setCoos] = useState([])
     const [redirectToSignin, setRedirectToSignin] = useState(false);
 
     useEffect(()=> {
+        let isMounted = true;
+
         const abortController = new AbortController;
         const signal = abortController.signal;
         const jwt = auth.isAuthenticated()
@@ -45,8 +50,8 @@ const PROFILE = ({match})=> {
                 console.log(data.error)
                 setRedirectToSignin(true)
             }else {
+               if( !isMounted) return;
                 const {data: {person}} = data
-                console.log(person)
                 const r = {
                     _id : person._id,
                     name: person.name,
@@ -74,6 +79,7 @@ const PROFILE = ({match})=> {
 
         return function cleanup () {
             abortController.abort()
+            isMounted = false;
         }
     }, [match.params.userId])
 

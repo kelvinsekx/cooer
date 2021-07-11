@@ -26,7 +26,8 @@ const MAINROUTER = (props) =>
             <div className="body">
                 {pRoutes.map(
                     (route, i) => (
-                        <Private  key={i}
+                        <Private  
+                            key={i}
                             exact
                             {...route} />
                     ))

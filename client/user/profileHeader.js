@@ -30,7 +30,7 @@ const PROFILEHEADER = ({
            </div> 
            <div>
             { coos ? 
-                 coos.map( (coo) => <Gist gist={coo} key={coo._id} />) : 
+                 coos.map( (coo) => <Gist payload={coo} key={coo._id} />) : 
                 <h2 style={{fontSize: "120%"}}>No coo yet</h2> }
         </div> 
        </div>

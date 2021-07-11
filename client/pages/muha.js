@@ -36,7 +36,8 @@ const MUHA = (props) =>{
             if (data && data.error){
                 console.log(data.error)
             }else {
-                const {data: {person: {following}}} = data
+                const {data: {person: {following}}} = data;
+                if(!isMounted)return;
                 setIsFollowing(following.length)
             }
         });
@@ -47,6 +48,7 @@ const MUHA = (props) =>{
                     console.log(data.error)
                 } else {
                     //console.log(data)
+                    if(!isMounted)return;
                     setGists(data)
                 }
         });

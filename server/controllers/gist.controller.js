@@ -97,7 +97,9 @@ export const LIST_A_FEED = async (req, res) => {
 
 export const LIKE = async (req, res) => {
     try {
-        let result = await Gist.findByIdAndUpdate(req.body.gistId, {$push: {likes: req.body.userId}}, {new: true});
+        let result = await Gist.findByIdAndUpdate(req.body.gistId, {$push: {likes: req.body.userId}}, {new: true})
+        .populate("comments.postedBy", "_id username name")
+        .populate("postedBy", "_id username name");
         res.json(result)
     } catch (err) {
         return res.status(400).json({
@@ -108,7 +110,9 @@ export const LIKE = async (req, res) => {
 
 export const UNLIKE = async (req, res) => {
     try {
-        let result = await Gist.findByIdAndUpdate(req.body.gistId, {$pull: {likes: req.body.userId}}, {new: true});
+        let result = await Gist.findByIdAndUpdate(req.body.gistId, {$pull: {likes: req.body.userId}}, {new: true})
+        .populate("comments.postedBy", "_id username name")
+        .populate("postedBy", "_id username name");
         res.json(result)
     } catch (err) {
         return res.status(400).json({
@@ -123,8 +127,8 @@ export const COMMENT = async (req, res) => {
     comment.postedBy = req.body.userId
     try {
         let result = await Gist.findByIdAndUpdate(req.body.gistId, {$push: {comments: req.body.comment}}, {new: true})
-        .populate("comments.postedBy", "_id username")
-        .populate("postedBy", "_id username")
+        .populate("comments.postedBy", "_id username name")
+        .populate("postedBy", "_id username name")
         res.json(result)
     } catch (err) {
         return res.status(400).json({
@@ -137,8 +141,8 @@ export const UNCOMMENT = async (req, res) => {
     let comment = req.body.comment;
     try {
         let result = await Gist.findByIdAndUpdate(req.body.gistId, {$pull: {comments: {_id: comments._id}}}, {new: true})
-        .populate("comments.postedBy", "_id name")
-        .populate("postedBy", "_id name")
+        .populate("comments.postedBy", "_id username name")
+        .populate("postedBy", "_id username name")
         res.json(result)
     } catch (err) {
         return res.status(400).json({
