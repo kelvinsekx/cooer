@@ -9,10 +9,10 @@ import ProfileHeader from "./profileHeader"
 import TxtLoading from "./../components/loading/txtIsLoading"
 
 const PROFILE = (props)=> {
-    //const prevState = getStateFromProps(props.location, "user");
+    const prevState = getStateFromProps(props.location, "user");
 
     const {match} = props
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState(prevState);
     const [coos, setCoos] = useState([])
     const [redirectToSignin, setRedirectToSignin] = useState(false);
 
@@ -58,7 +58,9 @@ const PROFILE = (props)=> {
                     bio: person.bio,
                     username: person.username,
                     followers: person.followers.details,
+                    followersLength : person.followers.length,
                     following: person.following.details,
+                    followingLength: person.following.length,
                     photo: person.photo.data,
                     join: person.join
                 }
