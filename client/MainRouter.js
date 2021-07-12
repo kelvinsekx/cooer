@@ -60,7 +60,7 @@ div#main{
             align-items: center;
             background-color: white;
             border-top: 0.03px solid rgba(0,0,0,0.2);
-            box-shadow: 1px 0 1px 1px rgba(150, 140, 140, 0.693);
+            box-shadow: 0.3px 0 0.1px 0.3px rgba(150, 140, 140, 0.203);
         }
         .body {
              grid-row: 1/2;
