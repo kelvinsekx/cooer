@@ -226,7 +226,6 @@ nav{
     flex-direction: row;
     width: 100vw;
     height: inherit;
-    background-color: white;
     overflow-x: hidden;
     color: black;
     nav {

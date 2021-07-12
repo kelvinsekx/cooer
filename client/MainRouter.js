@@ -58,6 +58,7 @@ div#main{
             bottom: 0px;
             display: flex;
             align-items: center;
+            background-color: white;
             border-top: 0.1px solid rgba(0,0,0,0.4);
             box-shadow: 1px 0 1px 1px rgba(150, 140, 140, 0.693);
         }
