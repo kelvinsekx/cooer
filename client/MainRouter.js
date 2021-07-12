@@ -55,6 +55,7 @@ div#main{
         .menuMenu{
             grid-row: 2/3;
             position: sticky;
+            bottom: 0px;
             display: flex;
             align-items: center;
             border-top: 0.1px solid rgba(0,0,0,0.4);

@@ -23,7 +23,7 @@ const SIGNIN = async (req, res) => {
         //{ expires: new Date(Date.now() + 900000), httpOnly: true })
 
         res.cookie("user", user.username, {expires: new Date(Date.now()+ 9999999999), sign: true })
-        res.cookie("token", token, {expires: new Date(Date.now()+ 9999999999) })
+        res.cookie("token", token, {expires: new Date(Date.now()+ 9999999999), sign: true })
 
         return res.json({
             token,
