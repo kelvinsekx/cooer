@@ -14,7 +14,6 @@ const client = {
         const router = express.Router();
         
         router.get('*', (req, res)=> {
-            console.log(req)
             const sheet = new ServerStyleSheet();
 
             const promises = [];
