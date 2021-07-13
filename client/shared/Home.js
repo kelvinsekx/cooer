@@ -4,8 +4,9 @@ import HomeBanner from "../components/homeBanner"
 import LogForm from "../components/logs";
 import {Redirect} from "react-router-dom"
 
+import auth from "./../helpers/auth.helper"
+
 const HOME = (props) => {
-        console.log(props)
         return (
             <div>
                 <Styles>
@@ -17,7 +18,13 @@ const HOME = (props) => {
 
 }
 
-export const hm = ()=> <Redirect to ="/home" />
+export const hm = (props)=> {
+	const aut = auth.isAuthenticated()
+	if(aut){
+	 return <Redirect to="/home" />
+	}
+	return <Redirect to ="/login" />
+}
 
 const Styles = styled.div`
 display: flex;
