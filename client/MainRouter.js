@@ -10,10 +10,12 @@ from "./routes";
 
 import Menu from "./components/menu"
 
+
 const MAINROUTER = (props) =>
 {
     return <div style={{fontFamily: "sans-serif", color: "#222"}}>
     <Switch>
+
         {nRoutes.map((route, i) => (
             <Route  key={i}
                 exact
@@ -43,6 +45,10 @@ const MAINSTYLES = styled.div`
 div#main{
     display: grid;
     grid-template-columns: 1fr 4fr;
+    .menumenu{
+        position: sticky;
+        top: 2px;
+    }
 }
 @media (max-width: 540px) {
     div#main{

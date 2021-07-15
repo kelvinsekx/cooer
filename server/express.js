@@ -13,12 +13,6 @@ import {graphqlHTTP} from "express-graphql"
 import schema from "./../graph/graphSchema.graphql"
 
 
-//import devBundle from "./devBundle"
-const APP = express();
-
-//devBundle.compile(APP)
-
-
 /*************
  ************
  ***********
@@ -48,7 +42,7 @@ import authRoutes from "./routes/auth.routes"
 // HACK
 // global.window = undefined;
 // global.document = undefined;
-
+function app (APP){
 APP.use(express.json())
 APP.use(express.urlencoded({extended: true}))
 APP.use(cookieParser())
@@ -79,5 +73,6 @@ APP.use((err, req, res, next) => {
         })    
         console.log(err)  
 }});
-
-export default APP;
+return APP;
+}
+export default app;

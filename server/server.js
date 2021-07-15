@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 import config from "./../config/config";
-import app from "./express";
+import app from "./app";
 
 const mongoURL = ()=> {
     if (process.env.NODE_ENV.trim() == "production") return config.mongoUri;
@@ -18,7 +18,7 @@ mongoose.connect(mongoURL(), {
 
 mongoose.connection.on("error", ()=> {throw new Error(`unable to connect to database: ${mongoURL()}`)});
 
-app.listen(config.port, (err, result)=> {
+app.then(app=> app.listen(config.port, (err, result)=> {
     if(err)console.log(err);
     console.info(`server started on port ${config.port}`)
-})
+}))

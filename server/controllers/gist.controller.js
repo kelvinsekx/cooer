@@ -6,12 +6,13 @@ import fs from "fs"
 
 export const GET_GIST_ID = async (req, res, next, gistID) => {
     try {
-        let gist = await Gist.findOne({_id: gistID});
+        let gist = await Gist.where({_id: gistID}).findOne();
         if(!gist) {
             return res.status(400).json({
                 error: "this gist is not found"
             })
         }
+        console.log(gist)
         req.gist = gist;
         next()
     }catch (e) {

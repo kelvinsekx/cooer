@@ -134,8 +134,6 @@ color: black;
 display: flex;
 background-color: white;
 border-right: 0.10rem solid rgba(0, 0, 0, 0.2);
-position: sticky;
-top: 2px;
 .navIconBtn{
     display: flex;
     align-items: center;

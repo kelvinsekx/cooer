@@ -23,7 +23,7 @@ const Comment = (props)=> {
                 console.log(res.error);
             }else {
                 const [data] = res;
-                //console.log(data)
+                console.log(data)
                 setGistInfo(data)
             }
         })
@@ -61,9 +61,8 @@ const Comment = (props)=> {
                 <button onClick={doComment}>gist</button>
              </div>
              <div>
-                 {gistInfo.comments.map((com, index)=> <div key={index}>
-                     <p>{com.text}</p>
-                 </div>)}
+                 {gistInfo.comments.map((com, index)=>
+                    <Gist payload={com} key={index} />)}
              </div>
         </div>) :
         <TxtLoading />
