@@ -28,6 +28,7 @@ const LIST_ALL_USERS = async (req, res) => {
         })
     }
 }
+
 const USER_BY_ID = async (req, res, next, username)=> {
     try {
         let user = await User.findOne({username})

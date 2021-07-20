@@ -26,7 +26,7 @@ export const LIST = async () => {
             },
 	   body: JSON.stringify({
 	   	query: `
-		   query{ allPeople{
+		   query{ allPeople(limit: 2){
                 username
                 photo {
                     data

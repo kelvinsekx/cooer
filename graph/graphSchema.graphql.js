@@ -3,10 +3,11 @@ import {
     GraphQLList,
     GraphQLObjectType,
     GraphQLString,
-    GraphQLInt
+    GraphQLInt,
+    GraphQLBoolean
 } from "graphql";
 import fetch from "node-fetch";
-import {baseURL} from "./graph.utility"
+import {baseURL, getRandom} from "./graph.utility"
 
 const FollowType = new GraphQLObjectType({
   name : "Follow",
@@ -91,16 +92,25 @@ const QueryType = new GraphQLObjectType({
     fields: ()=> ({
         allPeople: {
             type: new GraphQLList(PersonType),
-            resolve: root => fetch(`${baseURL()}/_v1/api/users`)
-                            .then(res => res.json())
+            description: "Graphql list of users...",
+            args: {
+              limit: {type: GraphQLInt}
+            },
+            resolve: async (root, args) => {
+              if(args) {
+                const result = await fetch(`${baseURL()}/_v1/api/users`).then(res=>res.json())
+                return getRandom(result, args.limit)
+              }
+              return fetch(`${baseURL()}/_v1/api/users`).then(res => res.json())
+            }
                             
         },
         person: {
             type: PersonType,
 	          description: "individual info, this can't be seen except with authentication, if token isnot provided query return data of null",
             args: {
-                userName: {type: GraphQLString},
-                token: {type: GraphQLString}
+              userName: {type: GraphQLString},
+              token: {type: GraphQLString}
             },
           resolve: (root, args)=> fetch(
             `${baseURL()}/_v1/api/users/${args.userName}`, {
