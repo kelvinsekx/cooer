@@ -114,7 +114,8 @@ export const COMMENT = async (params, credentials, gistId, comment) => {
             },
             body: JSON.stringify({userId: params.userId, gistId, comment})
         });
-        return await response.json()
+        const ress = await response.json()
+        return ress
     } catch (err) {
         console.log(err)
 }}

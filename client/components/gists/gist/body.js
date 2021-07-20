@@ -12,6 +12,7 @@ import BodyPrinter from "./bodyPrinter";
 const BODY = ({info, actions, gist})=> {
     let someText = info.text.substr(0, 20)
     const quotesLink = $.getLink(someText)
+    console.log(gist)
     return <Styles>
     <div id="gistBody">
         <div className="gistText">

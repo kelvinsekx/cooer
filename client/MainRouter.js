@@ -16,11 +16,11 @@ const MAINROUTER = (props) =>
     return <div style={{fontFamily: "sans-serif", color: "#222"}}>
     <Switch>
 
-        {nRoutes.map((route, i) => (
-            <Route  key={i}
-                exact
-                {...route} />
-        ))}
+    {nRoutes.map((route, i) => (
+        <Route  key={i}
+            exact
+            {...route} />
+    ))}
 
     <MAINSTYLES>
         <div id="main">

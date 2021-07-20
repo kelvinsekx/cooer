@@ -1,6 +1,7 @@
 import  formidable from "formidable"
 import errorHandler from "./../helpers/DBERRHANDLER"
 import Gist from "./../models/gist.model"
+import Comment from "./../models/comment.model"
 import fs from "fs"
 
 
@@ -12,7 +13,6 @@ export const GET_GIST_ID = async (req, res, next, gistID) => {
                 error: "this gist is not found"
             })
         }
-        console.log(gist)
         req.gist = gist;
         next()
     }catch (e) {
@@ -68,7 +68,14 @@ export const LISTNEWFEEDS = async (req, res) => {
     following.push(req.profile._id);
     try {
         let gists = await Gist.find({postedBy: { $in: req.profile.following}})
-        .populate('comments.postedBy', '_id name username')
+        .populate('comments')
+        .populate({
+            path: "comments",
+            populate: {
+                path: "postedBy",
+                select: "_id name username bio"
+            }
+        })
         .populate('postedBy', '_id name username')
         .sort('-created')
         .exec();
@@ -84,12 +91,19 @@ export const LISTNEWFEEDS = async (req, res) => {
 export const LIST_A_FEED = async (req, res) => {
     try {
         let gists = await Gist.find({_id: req.gist._id })
-        .populate('comments.postedBy', '_id name username')
-        .populate('postedBy', '_id name username')
-        .exec();
-
+        .populate('comments')
+        .populate({
+            path: "comments",
+            populate: {
+                path: "postedBy",
+                select: "_id name username bio"
+            }
+        })
+        .populate('postedBy', 'name username')
+        .exec()
         res.json(gists)
     } catch (err) {
+        console.log(err)
         return res.status(400).json({
             error: errorHandler.GET_ERROR_MESSAGE(err)
         })
@@ -125,13 +139,27 @@ export const UNLIKE = async (req, res) => {
 
 export const COMMENT = async (req, res) => {
     let comment = req.body.comment;
-    comment.postedBy = req.body.userId
+    comment.postedBy = req.body.userId;
     try {
-        let result = await Gist.findByIdAndUpdate(req.body.gistId, {$push: {comments: req.body.comment}}, {new: true})
-        .populate("comments.postedBy", "_id username name")
-        .populate("postedBy", "_id username name")
+        const cc = new Comment(comment)
+        let savedComment = await cc.save();
+        let result = await Gist.findById(req.body.gistId)
+        let upDatedResult = result.comments.unshift(savedComment);
+        await result.save();
+        result = await Gist.findById(req.body.gistId)
+            .populate("comments")
+             .populate({
+            path: "comments",
+            populate: {
+                path: "postedBy",
+                select: "_id name username bio"
+            }
+        })
+        .populate('postedBy', 'name username').exec()
+        console.log(result)
         res.json(result)
     } catch (err) {
+        console.log(err)
         return res.status(400).json({
             error: errorHandler.GET_ERROR_MESSAGE(err)
         })

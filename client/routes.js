@@ -12,7 +12,7 @@ import Comment from "./pages/comment";
 export const NonProtectedRoutes = [
     {
     	path: "/",
-	component: hm
+	    component: hm
     },    
     {
         path: "/login",

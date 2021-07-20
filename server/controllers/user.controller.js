@@ -2,7 +2,7 @@ import User from "../models/user.model";
 import extend from "lodash/extend";
 import errorHandler from "../helpers/DBERRHANDLER";
 import profile from "./../../server/images/anonymprofile.png"
-import process from "process"
+import process from "process";
 
 const CREATE_NEW_USER = async (req, res)=> {
     const user = new User(req.body);

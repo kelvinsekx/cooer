@@ -17,6 +17,8 @@ const MUHA = (props) =>{
     const [members, setMembers] = useState(null);
     const [isFollowing, setIsFollowing] = useState(1)
 
+    console.log(gists)
+
     const jwt = auth.isAuthenticated();
 
     React.useEffect(()=> {

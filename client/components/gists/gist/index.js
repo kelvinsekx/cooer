@@ -9,9 +9,12 @@ import BODY from "./body"
 
 const {useState, useEffect} = React;
 const GIST = ({payload}) => {
+    //console.log(payload)
     let jwt = auth.isAuthenticated();
     
     const [gist, setGist] = useState({...payload, like: checkIfLiked(payload.likes)})
+
+    console.log(gist)
 
     function checkIfLiked(likes) {
         if(likes == undefined)return;
@@ -31,13 +34,16 @@ const GIST = ({payload}) => {
         })
     }
 
+    function replacePostedBy(gist, v){
+        if (gist.postedBy !== undefined)return gist.postedBy[v]
+        else return "remi"
+    }
 
-
-    let postedBy = gist.postedBy.name,
+    let postedBy = replacePostedBy(gist, 'name'),
      created = gist.created,
      text = gist.text,
-     pigeon = gist.postedBy.username,
-     commentNumber = payload.comments.length,
+     pigeon = replacePostedBy(gist, 'username'),
+     commentNumber = gist.comments.length,
      like= gist.like
     ;
 
