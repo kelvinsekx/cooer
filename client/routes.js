@@ -27,7 +27,8 @@ export const NonProtectedRoutes = [
 export const protectedRoutes = [
     {
         path: "/home",
-        component: Muha
+        component: Muha,
+        token: "np"
     },
     {
         path: "/street",

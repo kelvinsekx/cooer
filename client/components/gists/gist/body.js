@@ -12,7 +12,6 @@ import BodyPrinter from "./bodyPrinter";
 const BODY = ({info, actions, gist})=> {
     let someText = info.text.substr(0, 20)
     const quotesLink = $.getLink(someText)
-    console.log(gist)
     return <Styles>
     <div id="gistBody">
         <div className="gistText">
@@ -23,7 +22,7 @@ const BODY = ({info, actions, gist})=> {
                 <div onClick={actions.clickLike}>
                     <span>{info.likes}</span>
                     <span style={{top: "2.3px", fontSize: "77%"}}>
-                        {actions.like ? <BsHeartFill style={{color: "red"}}/>: <FiHeart style={{color: "rgba(350, 02, 09, 0.34)"}}/>}
+                        {actions.like ? <BsHeartFill style={{color: "red"}}/>: <FiHeart />}
                     </span>
                 </div>
                 <div>
@@ -49,11 +48,11 @@ const BODY = ({info, actions, gist})=> {
                 </div>
     
                 <div>
-                    <span>
+                    <span style={{fontSize: '60%', backgroundColor: "rgba(2, 141, 12, 0.8)", borderRadius: "100%", color: "white",minHeight: "1rem", minWidth: "1rem", fontWeight: "bold", display:"inline-block"}}>
                         6k
                     </span>
-                    <span>
-                    <FiThumbsUp />
+                    <span style={{position: "relative", bottom: "0.5em"}}>
+                        savage
                     </span>
                 </div>
             </div>
@@ -77,6 +76,7 @@ div#gistBody {
             flex-basis: 20rem;
             display: flex;
             justify-content: space-between;
+            color: #444;
             div{
                 z-index: 0;
                 display: flex;
@@ -106,7 +106,7 @@ div#gistBody {
     div#gistBody {
         div.gistInfo{
             div.gistActors{
-                flex-basis: 15rem;
+                flex-basis: 21rem;
             }
         }
     }
@@ -120,6 +120,11 @@ div#gistBody {
             }
         }
     }
+}
+
+a{
+    text-decoration:none;
+    color: inherit;
 }
 `
 

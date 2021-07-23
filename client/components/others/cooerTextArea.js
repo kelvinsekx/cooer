@@ -1,8 +1,7 @@
 import React, {useState, useRef} from "react";
-import {CREATE} from "./../../apis/gist/api-gist";
 import styled from "styled-components";
 
-const CooerTextArea = ({addGist, jwt}) => {
+const CooerTextArea = ({clickPost}) => {
     const [text, setText] = useState("");
     const [values, setValues] = useState({
         photo: "",
@@ -14,20 +13,6 @@ const CooerTextArea = ({addGist, jwt}) => {
         setText( e.target.value);
     }
 
-    const clickPost = () => {
-        let gistData = new FormData();
-        gistData.append("text", text)
-        gistData.append("photo", values.photo)
-        CREATE({userId: jwt.user.username}, 
-            {token: jwt.token}, gistData).then(data => {
-                if (data.error) {
-                    setValues({...values, error: data.error})
-                } else {
-                    setText("")
-                    addGist(data)
-                }
-        })
-    }
     return <Styles>
         <div>
             <textarea
@@ -36,7 +21,10 @@ const CooerTextArea = ({addGist, jwt}) => {
                 name={'text'}
                 value = {text} />
         </div>
-        <button onClick={clickPost}>Coo</button>
+        <button onClick={()=>{
+            clickPost(text, values.photo)
+            return setText("")
+        }}>Coo</button>
     </Styles>
 };
 

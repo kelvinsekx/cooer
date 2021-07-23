@@ -7,7 +7,10 @@ import fs from "fs"
 
 export const GET_GIST_ID = async (req, res, next, gistID) => {
     try {
-        let gist = await Gist.where({_id: gistID}).findOne();
+        let gist = await Gist
+        .where({_id: gistID})
+        .findOne()
+        .lean();
         if(!gist) {
             return res.status(400).json({
                 error: "this gist is not found"
@@ -51,7 +54,14 @@ export const CREATE = (req, res) => {
 export const LISTBYUSER = async (req, res) => 
 {  try {    
     let gists = await Gist.find({postedBy: req.profile._id})                          
-    .populate('comments.postedBy', '_id name username')                          
+    .populate('comments')
+        .populate({
+            path: "comments",
+            populate: {
+                path: "postedBy",
+                select: "_id name username bio"
+            }
+        })                         
     .populate('postedBy', '_id name username')                          
     .sort('-created')                          
     .exec()    
@@ -100,7 +110,7 @@ export const LIST_A_FEED = async (req, res) => {
             }
         })
         .populate('postedBy', 'name username')
-        .exec()
+        .lean()
         res.json(gists)
     } catch (err) {
         console.log(err)
@@ -143,9 +153,9 @@ export const COMMENT = async (req, res) => {
     try {
         const cc = new Comment(comment)
         let savedComment = await cc.save();
-        let result = await Gist.findById(req.body.gistId)
-        let upDatedResult = result.comments.unshift(savedComment);
-        await result.save();
+        let result = await Promise.all([Gist.findById(req.body.gistId)]) 
+        [result].comments.unshift(savedComment);
+        await Promise.all([result.save()])
         result = await Gist.findById(req.body.gistId)
             .populate("comments")
              .populate({

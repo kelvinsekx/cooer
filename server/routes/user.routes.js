@@ -1,5 +1,5 @@
 import express from "express"
-import userCtrl from "../controllers/user.controller"
+import userCtrl, {listUserByInstructions} from "../controllers/user.controller"
 import authCtrl from "../controllers/auth.controller";
 
 const ROUTER = express.Router();
@@ -7,6 +7,9 @@ const ROUTER = express.Router();
 ROUTER.route("/api/users")
     .get(userCtrl.LIST_ALL_USERS)
     .post(userCtrl.CREATE_NEW_USER);
+
+ROUTER.route("/api/users/suggest/:limit/:random")
+    .get(listUserByInstructions);
     
 const undoUser = userCtrl.REMOVE;
 ROUTER.route("/api/users/:userId")

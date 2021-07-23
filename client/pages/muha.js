@@ -9,15 +9,13 @@ import PsuedoAds from "./../components/others/PsuedoAds"
 import AwesomeGuysToFollow from "./../components/toFollowSuggestion/toFollow"
 import TxtLoading from "./../components/loading/txtIsLoading"
 
-import {LISTNEWFEEDS} from "../apis/gist/api-gist" 
+import {LISTNEWFEEDS, CREATE} from "../apis/gist/api-gist" 
 import {LIST,READ} from "../apis/user/api-user"
 
 const MUHA = (props) =>{
     const [gists, setGists] = useState(null);
     const [members, setMembers] = useState(null);
     const [isFollowing, setIsFollowing] = useState(1)
-
-    console.log(gists)
 
     const jwt = auth.isAuthenticated();
 
@@ -48,7 +46,7 @@ const MUHA = (props) =>{
                 if (data.error) {
                     console.log(data.error)
                 } else {
-                    //console.log(data)
+                    console.log(data)
                     if(!isMounted)return;
                     setGists(data)
                 }
@@ -73,17 +71,34 @@ const MUHA = (props) =>{
     const addGist = (gist) => {
         const updatedGists = [...gists];
         updatedGists.unshift(gist);
-        setGists(updatedGists);
+        console.log(updatedGists)
+        return updatedGists;
     }
 
+    const clickPost = (text, photo) => {
+        let gistData = new FormData();
+        gistData.append("text", text)
+        gistData.append("photo", photo)
+        CREATE({userId: jwt.user.username}, 
+            {token: jwt.token}, gistData).then(data => {
+                if (data.error) {
+                    console.log(data.error)
+                    // setValues({...values, error: data.error})
+                } else {
+                    const newData = addGist(data);
+                    setGists([...newData])
+                }
+        })
+    }
 
+    console.log(gists)
     return (
         <Styles>
         <div className="muha">
             <div className="feed">
                 <div>
                     <TextArea 
-                        addGist={addGist}
+                        clickPost={clickPost}
                         jwt = {jwt} />
                 </div>
                 {(isFollowing < 1) ? 
@@ -149,8 +164,6 @@ div.muha{
     div.muha{
         grid-template-columns: 1.5fr 1fr;
         div.feed{
-            height:100vh;
-            overflow: hidden;
             border-right: 0.10rem solid rgba(0, 0, 0, 0.2);
         }
         .lilintro{

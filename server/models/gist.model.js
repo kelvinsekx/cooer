@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import {autopopulate} from "./../helpers/autoPopulate"
 
 const GISTSCHEMA = new mongoose.Schema({
     text: {
@@ -24,6 +25,11 @@ const GISTSCHEMA = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "Comment"
     }]
-})
+});
+
+// Always populate the postedBy field
+GISTSCHEMA
+  .pre('findOne', autopopulate('postedBy'))
+  .pre('find', autopopulate('postedBy'));
 
 export default mongoose.model("Gist", GISTSCHEMA)

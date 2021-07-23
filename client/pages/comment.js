@@ -41,6 +41,7 @@ const Comment = (props)=> {
                  console.log(res.error)
              }else {
                 callback("")
+                console.log(res)
                 setGistInfo(res);
              }
          }); 

@@ -78,13 +78,19 @@ const Menu = withRouter(({history})=> {
                 <div>
                     <ul>
                         <li>
-                            <Link to="/home" className="navIconBtn" style={isActive(history, "/home")}><span><FiHome style={{fontSize: "130%"}}/></span> <span>Home</span></Link>
+                            <Link to="/home" className="navIconBtn" style={isActive(history, "/home")}>
+                                <span><FiHome style={{fontSize: "130%"}}/></span> <span>Home</span>
+                            </Link>
                         </li>
                         <li>
-                            <Link to="/ayoze" style={isActive(history, "/ayoze")}className="navIconBtn"><span><FiTag style={{fontSize: "130%"}}/></span> <span>Ayoze</span></Link>
+                            <Link to="/ayoze" style={isActive(history, "/ayoze")}className="navIconBtn">
+                                <span><FiTag style={{fontSize: "130%"}}/></span> <span>Ayoze</span>
+                            </Link>
                         </li>
                         <li>
-                            <Link to="/street" style={isActive(history, "/street")}className="navIconBtn"><span><FiSliders style={{fontSize: "130%"}}/></span> <span>Street</span></Link>
+                            <Link to="/street" style={isActive(history, "/street")}className="navIconBtn">
+                                <span><FiSliders style={{fontSize: "130%"}}/></span> <span>Street</span>
+                            </Link>
                         </li>
                         <li>
                             {
@@ -197,7 +203,7 @@ nav{
     }
 }
 @media (min-width: 840px) {
-    position: relative;
+    position: sticky;
     top:0;
     min-height: 100vh;
     flex-direction: column;
@@ -225,7 +231,6 @@ nav{
 @media (max-width: 540px) {
     flex-direction: row;
     width: 100vw;
-    height: inherit;
     overflow-x: hidden;
     color: black;
     nav {

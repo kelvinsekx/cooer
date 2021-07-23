@@ -9,12 +9,15 @@ import BODY from "./body"
 
 const {useState, useEffect} = React;
 const GIST = ({payload}) => {
-    //console.log(payload)
     let jwt = auth.isAuthenticated();
-    
     const [gist, setGist] = useState({...payload, like: checkIfLiked(payload.likes)})
 
-    console.log(gist)
+    useEffect(()=> {
+        if(payload !== gist){
+            console.log("what happened")
+            setGist(payload)
+        }
+    }, payload)
 
     function checkIfLiked(likes) {
         if(likes == undefined)return;
@@ -73,17 +76,19 @@ border-top: 0.10rem solid rgba(0, 0, 0, 0.2);
 display: flex;
 align-items: center;
 min-height: 6rem;
+padding: 0.3em 0;
 div.h--wrapper {
     flex-grow: 1;
     display: flex;
+    align-items: top;
     div#aside {
-        flex-basis: 5rem;
+        width:19%;
         display:flex;
         justify-content: center;
         span#userAvatar {
             display: inline-block;
             align-self: center;
-            width: 3.5rem;
+            width: 4.5rem;
             max-height: 3.5rem;
             border-radius: 100%;
             box-shadow: 0 0 0 1.4px #f2f2f2;
@@ -95,8 +100,20 @@ div.h--wrapper {
         }
     }
     div#rest {
-        flex-grow: 1;
+        width:80%;
     }
+}
+
+@media (min-width: 600px) {
+    div.h--wrapper {
+        div#aside {
+            width:17%;
+            justify-content: center;
+            span#userAvatar {
+                width: 4rem;
+            }
+        }
+    }   
 }
 `
 

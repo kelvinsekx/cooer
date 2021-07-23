@@ -45,7 +45,7 @@ const MAINSTYLES = styled.div`
 div#main{
     display: grid;
     grid-template-columns: 1fr 4fr;
-    .menumenu{
+    .menuMenu{
         position: sticky;
         top: 2px;
     }
@@ -59,9 +59,11 @@ div#main{
         "d"
         "d";
         .menuMenu{
+            z-index: 400;
             grid-row: 2/3;
             position: sticky;
-            bottom: 0px;
+            height: 3.243rem;
+            bottom: -1px;
             display: flex;
             align-items: center;
             background-color: white;
@@ -70,7 +72,8 @@ div#main{
         }
         .body {
              grid-row: 1/2;
-            overflow: scroll;
+            overflow-y: scroll;
+            overflow-x: hidden;
         }
     }
 }

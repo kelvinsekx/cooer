@@ -29,9 +29,9 @@ const PROFILEHEADER = ({
                <button>Gallery</button>
            </div> 
            <div>
-            { coos ? 
+            { (coos.length > 0) ? 
                  coos.map( (coo) => <Gist payload={coo} key={coo._id} />) : 
-                <h2 style={{fontSize: "120%"}}>No coo yet</h2> }
+                <div id="noCoo">No coo yet</div> }
         </div> 
        </div>
    </div>
@@ -59,6 +59,13 @@ div#header {
             button:nth-child(1){
                 border-bottom: 4px solid rgba(27, 214, 10, 0.95);
             }
+        }
+        div#noCoo{
+            border: 1px solid rgba(27, 214, 10, 0.95);
+            height: 90vh;
+            text-align: center;
+            font-size: 2rem;
+            color: #444;
         }
     }
 }

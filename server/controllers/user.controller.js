@@ -29,6 +29,38 @@ const LIST_ALL_USERS = async (req, res) => {
     }
 }
 
+export const listUserByInstructions = (req, res) => {
+    let r = 0
+    let {limit, random} = req.params;
+    if(random == "true"){
+        r = 1
+    }
+    try {
+        User.countDocuments()
+        .exec(async (err, count) => {
+            if (err) {
+                return res.status(500).json({
+                    error: "there was an error counting the user"
+                })
+            }
+            if(r > 0) {
+                r = 
+                Math.floor(Math.random() * count)
+                console.log("discoverRandom--user.controller", r)
+            }
+            let users = await User.find()
+            .limit(Number(limit))
+            .skip(Number(r))
+            .select('username email name photo bio');
+            res.status(200).json(users)
+        })
+    } catch(err){
+        return res.status(400).json({
+            error: errorHandler.GET_ERROR_MESSAGE(err)
+        })
+    }
+}
+
 const USER_BY_ID = async (req, res, next, username)=> {
     try {
         let user = await User.findOne({username})

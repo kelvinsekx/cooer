@@ -1,90 +1,16 @@
 import { 
-    GraphQLSchema,
-    GraphQLList,
-    GraphQLObjectType,
-    GraphQLString,
-    GraphQLInt,
-    GraphQLBoolean
+  GraphQLSchema,
+  GraphQLList,
+  GraphQLObjectType,
+  GraphQLString,
+  GraphQLInt,
+  GraphQLBoolean,
 } from "graphql";
+
 import fetch from "node-fetch";
-import {baseURL, getRandom} from "./graph.utility"
 
-const FollowType = new GraphQLObjectType({
-  name : "Follow",
-  fields: ()=> ({
-    length : {
-      type: GraphQLInt,
-      resolve: f => f.length
-    },
-    details: {
-      type: new GraphQLList(PersonType),
-      resolve: f=> f
-    }
-  })
-})
-
-const PhotoType = new GraphQLObjectType({
-   name: 'Photo',
-   fields: ()=> ({
-      contentType: {
-         type: GraphQLString,
-	     resolve: person => person.photo.contentType
-      },
-	   data: {
-		   type: GraphQLString,
-		   resolve: person => `${baseURL()}/_v1/api/users/u/photo/${person.username}`
-	  }
-   })
-})
-
-const PersonType = new GraphQLObjectType({
-    name: 'Person',
-    description: 'Somebody that you used to know',
-    fields: () => ({
-      _id: {
-        type: GraphQLString,
-        resolve: person => person._id
-      },
-      join: {
-        type: GraphQLString,
-        resolve: person => person.join
-      },
-      name: {
-        type: GraphQLString,
-        resolve: person => person.name,
-      },
-      bio: {
-        type: GraphQLString,
-        resolve: person => person.bio,
-      },
-      email: {
-	    type: GraphQLString,
-	    resolve: person => person.email
-      },
-      id: {
-	  type: GraphQLString,
-      	resolve: person => person._id
-      },
-      username: {
-	      type: GraphQLString,
-      	resolve: person => person.username
-      },
-	  photo: {
-		  type: PhotoType,
-		  resolve: person => person
-	  },
-    following : {
-      type: FollowType,
-      resolve: person => person.following
-    },
-    followers : {
-      type: FollowType,
-      resolve: person => person.followers
-    }
-
-
-    }),
-  });
+import {PersonType} from "./graphql/personType.schema"
+import {baseURL} from "./graph.utility"
 
 const QueryType = new GraphQLObjectType({
     name: 'Query',
@@ -94,12 +20,19 @@ const QueryType = new GraphQLObjectType({
             type: new GraphQLList(PersonType),
             description: "Graphql list of users...",
             args: {
-              limit: {type: GraphQLInt}
+              limit: {type: GraphQLInt},
+              random: {
+                type: GraphQLBoolean
+              }
             },
             resolve: async (root, args) => {
               if(args) {
-                const result = await fetch(`${baseURL()}/_v1/api/users`).then(res=>res.json())
-                return getRandom(result, args.limit)
+
+                if(args.random == undefined){
+                  args.random = false
+                }
+                 const result = await fetch(`${baseURL()}/_v1/api/users/suggest/${args.limit}/${args.random}`).then(res=>res.json())
+                 return result;
               }
               return fetch(`${baseURL()}/_v1/api/users`).then(res => res.json())
             }
