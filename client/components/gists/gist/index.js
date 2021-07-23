@@ -17,7 +17,7 @@ const GIST = ({payload}) => {
             console.log("what happened")
             setGist(payload)
         }
-    }, payload)
+    }, [payload])
 
     function checkIfLiked(likes) {
         if(likes == undefined)return;
@@ -88,7 +88,7 @@ div.h--wrapper {
         span#userAvatar {
             display: inline-block;
             align-self: center;
-            width: 4.5rem;
+            width: 4rem;
             max-height: 3.5rem;
             border-radius: 100%;
             box-shadow: 0 0 0 1.4px #f2f2f2;
