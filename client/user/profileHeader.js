@@ -1,8 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 import ProfileHead from "./profileHead";
 import styled from "styled-components";
 import Gist from "./../components/gists/gist/index"
 import LISTFOLLOWERS from "./../components/others/ListFollowers";
+import TxtLoading from "./../components/loading/txtIsLoading";
 
 const PROFILEHEADER = ({
     getCoos = (f={})=>f,
@@ -28,14 +29,26 @@ const PROFILEHEADER = ({
                <button onClick={()=>getCoos(user)}>Coos</button>
                <button>Gallery</button>
            </div> 
-           <div>
-            { (coos.length > 0) ? 
-                 coos.map( (coo) => <Gist payload={coo} key={coo._id} />) : 
-                <div id="noCoo">No coo yet</div> }
+        <div>
+            { COO(coos) }
         </div> 
        </div>
    </div>
-</Styles>
+</Styles>;
+
+const COO = (coos)=> {
+    if (coos == null) {
+        return <TxtLoading />
+    }
+    if(coos.length > 1) {
+        return <div>
+            {coos.map( coo => 
+            <Gist payload={coo} key={coo._id} />)
+        }</div>
+    } else {
+        return <div id="noCoo">No coo yet</div>
+    }
+}
 
 
 const Styles = styled.div`

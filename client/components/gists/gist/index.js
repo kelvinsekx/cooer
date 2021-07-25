@@ -7,17 +7,11 @@ import DPHEADER from "./Dpheader";
 import BODY from "./body"
 
 
-const {useState, useEffect} = React;
+const {useState} = React;
 const GIST = ({payload}) => {
     let jwt = auth.isAuthenticated();
-    const [gist, setGist] = useState({...payload, like: checkIfLiked(payload.likes)})
+    const [gist, setGist] = useState({ like: checkIfLiked(payload.likes), likes: payload.likes})
 
-    useEffect(()=> {
-        if(payload !== gist){
-            console.log("what happened")
-            setGist(payload)
-        }
-    }, [payload])
 
     function checkIfLiked(likes) {
         if(likes == undefined)return;
@@ -27,26 +21,25 @@ const GIST = ({payload}) => {
 
     const clickLike = () => {
         let callApi = gist.like ? UNLIKE : LIKE;
-        callApi({userId: jwt.user._id}, {token: jwt.token}, gist._id).then(data => {
+        callApi({userId: jwt.user._id}, {token: jwt.token}, payload._id).then(data => {
             if (data.error){
                 console.log(data.error);
             }else {
-                console.log(data)
-                setGist({...data, like: !gist.like})
+                setGist({ like: !gist.like, likes: data.likes})
             }
         })
     }
 
     function replacePostedBy(gist, v){
-        if (gist.postedBy !== undefined)return gist.postedBy[v]
+        if (payload.postedBy !== undefined)return payload.postedBy[v]
         else return "remi"
     }
 
-    let postedBy = replacePostedBy(gist, 'name'),
-     created = gist.created,
-     text = gist.text,
-     pigeon = replacePostedBy(gist, 'username'),
-     commentNumber = gist.comments.length,
+    let postedBy = replacePostedBy(payload, 'name'),
+     created = payload.created,
+     text = payload.text,
+     pigeon = replacePostedBy(payload, 'username'),
+     commentNumber = payload.comments.length,
      like= gist.like
     ;
 
@@ -60,10 +53,10 @@ return (
                 <DPHEADER info={{ postedBy, created, pigeon}}/>
                 <div className="bd">
                     <BODY 
-                        info={{text, likes: gist.likes.length, commentNumber,  pigeon,
-                    id: gist._id}} 
+                        info={{text, likes: gist.likes, commentNumber,  pigeon,
+                    id: payload._id}} 
                     actions={{clickLike, like}} 
-                    gist={gist}/>
+                    gist={payload}/>
                 </div>
                 {/* <ENGAGE payload={{ handleChange, doComment, comm, commentNumber}} /> */}
             </div>

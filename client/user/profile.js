@@ -13,7 +13,7 @@ const PROFILE = (props)=> {
 
     const {match} = props
     const [user, setUser] = useState(prevState);
-    const [coos, setCoos] = useState([])
+    const [coos, setCoos] = useState(null)
     const [redirectToSignin, setRedirectToSignin] = useState(false);
 
     useEffect(()=> {

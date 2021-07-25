@@ -20,7 +20,7 @@ const BODY = ({info, actions, gist})=> {
         <div className="gistInfo">
             <div className="gistActors">
                 <div onClick={actions.clickLike}>
-                    <span>{info.likes}</span>
+                    <span>{info.likes.length}</span>
                     <span style={{top: "2.3px", fontSize: "77%"}}>
                         {actions.like ? <BsHeartFill style={{color: "red"}}/>: <FiHeart />}
                     </span>

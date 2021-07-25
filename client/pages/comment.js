@@ -12,7 +12,6 @@ const {useState, useEffect} = React;
 const Comment = (props)=> {
     const jwt = auth.isAuthenticated();
     const prevState = getStateFromProps(props.location, "gist");
-    console.log(prevState)
     
     const [gistInfo, setGistInfo] = useState(prevState)
 

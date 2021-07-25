@@ -153,8 +153,9 @@ export const COMMENT = async (req, res) => {
     try {
         const cc = new Comment(comment)
         let savedComment = await cc.save();
-        let result = await Promise.all([Gist.findById(req.body.gistId)]) 
-        [result].comments.unshift(savedComment);
+        let result = await Promise.all([Gist.findById(req.body.gistId)]);
+        [result] = result;
+        result.comments.unshift(savedComment);
         await Promise.all([result.save()])
         result = await Gist.findById(req.body.gistId)
             .populate("comments")
