@@ -69,6 +69,9 @@ div#gistBody {
     flex-direction: column;
     justify-content: space-between;
     gap: 0.45em;
+    div.gistText{
+        font-size:97%;
+    }
     div.gistInfo{
         display: flex;
         font-size: 1.2rem;

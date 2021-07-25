@@ -35,9 +35,12 @@ div#DBHead{
         div.userName{
             display: flex;
             font-size:90%;
-            color: #000;
+            color: #333333;
             font-weight: bold;
             padding-right: 0.3rem;
+            div:nth-child(1){
+                font-size: 120%;
+            }
             div.verify{
                 padding-left: 0.463em;
             }
