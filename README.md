@@ -1,6 +1,8 @@
 # cooer
 
 This will be updated in progress...
+**note** site might be unnecessarily slow because we are handling image with mongobuffer. 
+In no time, images would be moved to a cloud provider. 
 
 Cooer is a monolithic file of both backend and client.
 check [./server/express.js] to see the running server for both backend and client side
