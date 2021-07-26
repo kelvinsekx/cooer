@@ -19,13 +19,17 @@ graphql, it is a quick start.
 In development mode, 
 
 ```shell
-import config from "./config";
+# the use of config would be completely replace by nconf in the future
+import config from "./config/config";
 
 http://localhost:${config.port}/graphql
 ```
 
 For live instance
-[...]("siteBASEURL")/graphql
+```shell
+# In development mood, get the baseURL (most likely: localhost:5000)
+[siteBASEURL](/localhost:${whateverPort})/graphql
+```
 
 `e.g https://shrouded-thicket-19388.herokuapp.com/graphql`
 
