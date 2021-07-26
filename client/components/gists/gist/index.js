@@ -81,7 +81,7 @@ div.h--wrapper {
         span#userAvatar {
             display: inline-block;
             align-self: center;
-            width: 3.5rem;
+            width: 3.4rem;
             max-height: 3.5rem;
             border-radius: 100%;
             box-shadow: 0 0 0 1.4px #f2f2f2;
@@ -103,7 +103,7 @@ div.h--wrapper {
             width:17%;
             justify-content: center;
             span#userAvatar {
-                width: 4rem;
+                width: 3.5rem;
             }
         }
     }   

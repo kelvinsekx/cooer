@@ -11,6 +11,13 @@ export const GET_GIST_ID = async (req, res, next, gistID) => {
         .where({_id: gistID})
         .findOne()
         .lean();
+
+        if(gist == null) {
+            gist = await Comment
+        .where({_id: gistID})
+        .findOne()
+        .lean();
+        }
         if(!gist) {
             return res.status(400).json({
                 error: "this gist is not found"
@@ -19,7 +26,7 @@ export const GET_GIST_ID = async (req, res, next, gistID) => {
         req.gist = gist;
         next()
     }catch (e) {
-
+co
     }
 };
 
@@ -99,19 +106,35 @@ export const LISTNEWFEEDS = async (req, res) => {
 }
 
 export const LIST_A_FEED = async (req, res) => {
+    let ref2 = await Comment.find({_id: req.gist._id })
     try {
-        let gists = await Gist.find({_id: req.gist._id })
-        .populate('comments')
-        .populate({
-            path: "comments",
-            populate: {
-                path: "postedBy",
-                select: "_id name username bio"
-            }
-        })
-        .populate('postedBy', 'name username')
-        .lean()
-        res.json(gists)
+        if (ref2.length < 1){
+            let gists = await Gist.find({_id: req.gist._id })
+            .populate('comments')
+            .populate({
+                path: "comments",
+                populate: {
+                    path: "postedBy",
+                    select: "_id name username bio"
+                }
+            })
+            .populate('postedBy', 'name username')
+            .lean()
+            res.json(gists)
+        }else {
+            let gists = await Comment.find({_id: req.gist._id })
+            .populate('comments')
+            .populate({
+                path: "comments",
+                populate: {
+                    path: "postedBy",
+                    select: "_id name username bio"
+                }
+            })
+            .populate('postedBy', 'name username')
+            .lean()
+            res.json(gists)
+        }
     } catch (err) {
         console.log(err)
         return res.status(400).json({
@@ -167,7 +190,6 @@ export const COMMENT = async (req, res) => {
             }
         })
         .populate('postedBy', 'name username').exec()
-        console.log(result)
         res.json(result)
     } catch (err) {
         console.log(err)
