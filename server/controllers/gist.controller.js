@@ -4,6 +4,27 @@ import Gist from "./../models/gist.model"
 import Comment from "./../models/comment.model"
 import fs from "fs"
 
+export const LIST_A_COMMENT = async (req, res) => {
+    try {
+        let comment = await Comment.find({_id: req.params.commentId })
+        .populate('comments')
+        .populate({
+            path: "comments",
+            populate: {
+                path: "postedBy",
+                select: "_id name username bio"
+            }
+        })
+        .populate('postedBy', 'name username')
+        .lean()
+        res.json(comment)
+    } catch (err) {
+        console.log(err)
+        return res.status(400).json({
+            error: errorHandler.GET_ERROR_MESSAGE(err)
+        })
+    }
+}
 
 export const GET_GIST_ID = async (req, res, next, gistID) => {
     try {
@@ -145,11 +166,22 @@ export const LIST_A_FEED = async (req, res) => {
 
 export const LIKE = async (req, res) => {
     try {
-        let result = await Gist.findByIdAndUpdate(req.body.gistId, {$push: {likes: req.body.userId}}, {new: true})
+        let checker = await Gist.findOne({_id:req.body.gistId}).lean()
+        if(checker){
+            let result = await Gist.findByIdAndUpdate(req.body.gistId, {$push: {likes: req.body.userId}}, {new: true})
         .populate("comments.postedBy", "_id username name")
-        .populate("postedBy", "_id username name");
+        .populate("postedBy", "_id username name")
+        .lean();
         res.json(result)
+        }else {
+            let result = await Comment.findByIdAndUpdate(req.body.gistId, {$push: {likes: req.body.userId}}, {new: true})
+        .populate("comments.postedBy", "_id username name")
+        .populate("postedBy", "_id username name")
+        .lean();
+        res.json(result)
+        }
     } catch (err) {
+        console.log(err)
         return res.status(400).json({
             error: errorHandler.GET_ERROR_MESSAGE(err)
         })
@@ -157,11 +189,21 @@ export const LIKE = async (req, res) => {
 }
 
 export const UNLIKE = async (req, res) => {
+    let checker = await Gist.findOne({_id:req.body.gistId}).lean()
     try {
-        let result = await Gist.findByIdAndUpdate(req.body.gistId, {$pull: {likes: req.body.userId}}, {new: true})
-        .populate("comments.postedBy", "_id username name")
-        .populate("postedBy", "_id username name");
+        if(checker) {
+            let result = await Gist.findByIdAndUpdate(req.body.gistId, {$pull: {likes: req.body.userId}}, {new: true})
+            .populate("comments.postedBy", "_id username name")
+            .populate("postedBy", "_id username name")
+            .lean();
         res.json(result)
+        }else {
+            let result = await Comment.findByIdAndUpdate(req.body.gistId, {$pull: {likes: req.body.userId}}, {new: true})
+        .populate("comments.postedBy", "_id username name")
+        .populate("postedBy", "_id username name")
+        .lean();
+        res.json(result)
+        }
     } catch (err) {
         return res.status(400).json({
             error: errorHandler.GET_ERROR_MESSAGE(err)
@@ -173,14 +215,16 @@ export const UNLIKE = async (req, res) => {
 export const COMMENT = async (req, res) => {
     let comment = req.body.comment;
     comment.postedBy = req.body.userId;
+    let checker = await Gist.findById(req.body.gistId).lean()
     try {
         const cc = new Comment(comment)
         let savedComment = await cc.save();
-        let result = await Promise.all([Gist.findById(req.body.gistId)]);
-        [result] = result;
-        result.comments.unshift(savedComment);
-        await Promise.all([result.save()])
-        result = await Gist.findById(req.body.gistId)
+        if(checker){
+            let result = await Promise.all([Gist.findById(req.body.gistId)]);
+            [result] = result;
+            result.comments.unshift(savedComment);
+            await Promise.all([result.save()])
+            result = await Gist.findById(req.body.gistId)
             .populate("comments")
              .populate({
             path: "comments",
@@ -191,6 +235,23 @@ export const COMMENT = async (req, res) => {
         })
         .populate('postedBy', 'name username').exec()
         res.json(result)
+        }else{
+            let result = await Promise.all([Comment.findById(req.body.gistId)]);
+            [result] = result;
+            result.comments.unshift(savedComment);
+            await Promise.all([result.save()])
+            result = await Comment.findById(req.body.gistId)
+            .populate("comments")
+            .populate({
+            path: "comments",
+            populate: {
+                path: "postedBy",
+                select: "_id name username bio"
+            }
+        })
+        .populate('postedBy', 'name username').exec()
+        res.json(result)
+        }
     } catch (err) {
         console.log(err)
         return res.status(400).json({
@@ -205,6 +266,7 @@ export const UNCOMMENT = async (req, res) => {
         let result = await Gist.findByIdAndUpdate(req.body.gistId, {$pull: {comments: {_id: comments._id}}}, {new: true})
         .populate("comments.postedBy", "_id username name")
         .populate("postedBy", "_id username name")
+        .lean()
         res.json(result)
     } catch (err) {
         return res.status(400).json({

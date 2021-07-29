@@ -46,7 +46,6 @@ const MUHA = (props) =>{
                 if (data.error) {
                     console.log(data.error)
                 } else {
-                    console.log(data)
                     if(!isMounted)return;
                     setGists(data)
                 }
@@ -71,7 +70,6 @@ const MUHA = (props) =>{
     const addGist = (gist) => {
         const updatedGists = [...gists];
         updatedGists.unshift(gist);
-        console.log(updatedGists)
         return updatedGists;
     }
 
@@ -91,7 +89,6 @@ const MUHA = (props) =>{
         })
     }
 
-    console.log(gists)
     return (
         <Styles>
         <div className="muha">

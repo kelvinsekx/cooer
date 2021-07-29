@@ -1,15 +1,15 @@
 import React from "react";
-import Gist from "./../components/gists/gist/index"
+import Gist from "../components/gists/gist/index"
 
-import {COMMENT, LIST_A_COMMENT} from "./../apis/gist/api-gist"
-import auth from "./../helpers/auth.helper"
+import {COMMENT, LIST_A_FEED} from "../apis/gist/api-gist"
+import auth from "../helpers/auth.helper"
 import { getStateFromProps } from "../helpers/react.helpers";
-import TxtLoading from "./../components/loading/txtIsLoading"
+import TxtLoading from "../components/loading/txtIsLoading"
 
-import TABS from "./../components/comment/commentTabs"
+import TABS from "../components/comment/commentTabs"
 
 const {useState, useEffect} = React;
-const Comment = (props)=> {
+const Status = (props)=> {
     const jwt = auth.isAuthenticated();
     const prevState = getStateFromProps(props.location, "gist");
     
@@ -19,7 +19,7 @@ const Comment = (props)=> {
 
         const abort = new AbortController()
         const signal = abort.signal
-        LIST_A_COMMENT(props.match.params.commentId, signal).then(res => {
+        LIST_A_FEED(props.match.params.commentId, signal).then(res => {
             if(res.error){
                 console.log(res.error);
             }else {
@@ -57,13 +57,13 @@ const Comment = (props)=> {
              <div>
                  {gistInfo.comments.map((com, index)=>
                     <Gist 
-                    payload={{...com, comments:[]}} 
-                    key={index}
-                    status='comments' />)}
+                        payload={{...com, comments:[]}}
+                         key={index}
+                         status="comments" />)}
              </div>
         </div>) :
         <TxtLoading />
     )
 };
 
-export default Comment;
+export default Status;

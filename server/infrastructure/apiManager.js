@@ -10,6 +10,6 @@ const API = {
         app.use("/_v1", userRoutes)
         app.use("/_v1", passwordResetRoutes)
     }
-};
+}
 
 export default API;

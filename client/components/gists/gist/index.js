@@ -8,7 +8,7 @@ import BODY from "./body"
 
 
 const {useState} = React;
-const GIST = ({payload}) => {
+const GIST = ({payload, status}) => {
     let jwt = auth.isAuthenticated();
     const [gist, setGist] = useState({ like: checkIfLiked(payload.likes), likes: payload.likes})
 
@@ -53,7 +53,7 @@ return (
                 <DPHEADER info={{ postedBy, created, pigeon}}/>
                 <div className="bd">
                     <BODY 
-                        info={{text, likes: gist.likes, commentNumber,  pigeon,
+                        info={{text, likes: gist.likes, commentNumber,  pigeon, status,
                     id: payload._id}} 
                     actions={{clickLike, like}} 
                     gist={payload}/>

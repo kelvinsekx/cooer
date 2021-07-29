@@ -33,10 +33,11 @@ const Styles = styled.div`
     margin: 0 auto;
     //border: 1px solid red;
     div {
-        padding: 1rem 0 0.5rem 0;
+        padding: 0.4rem 0 0.5rem 0;
         textarea{
             border: 1px solid rgba(0,0,0,0.3);
             width: 100%;
+            height: 3.5rem;
             padding: 0.2rem 1rem;
             border-radius: 5px;
             &::placeholder{

@@ -26,6 +26,9 @@ router.route("/api/gists/feed/:userId")
 router.route("/api/gists/feed/singlefeed/:gistId")
     .get(gistCtrl.LIST_A_FEED)
 
+router.route("/api/gists/feed/singlecomment/:commentId")
+    .get(gistCtrl.LIST_A_COMMENT)
+
 router.route('/api/gists/by/:userId/getCoos')    
     .get(authCtrl.REQUIRE_SIGNIN, gistCtrl.LISTBYUSER);
     

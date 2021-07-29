@@ -32,7 +32,7 @@ const BODY = ({info, actions, gist})=> {
                     <span style={{top: "2px", fontSize: "90%"}}>
                         <Link 
                             to={{
-                                pathname:`/${info.pigeon}/${quotesLink}/comments/${info.id}`,
+                                pathname:`/${info.pigeon}/${quotesLink}/${info.status}/${info.id}`,
                                 state: {gist}
                             }}><FiCompass /></Link>
                     </span>

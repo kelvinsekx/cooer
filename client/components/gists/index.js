@@ -3,10 +3,10 @@ import Gist from "./gist";
 import styled from "styled-components";
 
 const Gists = ({gists}) => {
-    console.log(gists)
     return <Styles>
     {gists.map((gist, i)=> <Gist 
-        payload={gist} 
+        payload={gist}
+        status={"status"} 
         key={i} />)}
 </Styles>
 }

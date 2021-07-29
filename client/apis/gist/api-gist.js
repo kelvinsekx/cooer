@@ -33,6 +33,23 @@ export const LIST_A_FEED = async (gistID, signal) => {
     }
 };
 
+export const LIST_A_COMMENT = async (commentId, signal) => {
+    //console.log(credentials.token)
+    try {
+        let response = await fetch (`/_v1/api/gists/feed/singlecomment/${commentId}`, {
+            method: "GET",
+            signal: signal,
+            headers: {
+                "Accept": "application/json",
+                "Content-Type": "application/json",
+            },
+        });
+        return await response.json()
+    } catch (err) {
+        console.log(err)
+    }
+};
+
 export const LISTBYUSER = async (userId, signal, credentials) => {
    // console.log(username, credentials)
     try {

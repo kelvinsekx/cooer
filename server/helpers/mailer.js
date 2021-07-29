@@ -9,8 +9,8 @@ const sendEmail = async (email, subject, text) => {
             port: 587,
             secure: true,
             auth: {
-                user: //process.env.USER,replace with nconf
-                pass: //process.env.PASS, ''
+                user: `//process.env.USER,replace with nconf`,
+                pass: `//process.env.PASS, ''`
             },
         });
 
