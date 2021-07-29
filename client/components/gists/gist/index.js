@@ -6,6 +6,8 @@ import { LIKE, UNLIKE } from "../../../apis/gist/api-gist";
 import DPHEADER from "./Dpheader";
 import BODY from "./body"
 
+import $ from "./../../../helpers/gen.helpers"
+
 
 const {useState} = React;
 const GIST = ({payload, status}) => {
@@ -42,6 +44,9 @@ const GIST = ({payload, status}) => {
      commentNumber = payload.comments.length,
      like= gist.like
     ;
+    let someText = text.substr(0, 20)
+    const quotesLink = $.getLink(someText)
+    let link = `/${pigeon}/${quotesLink}/${status}/${payload._id}`
 
 return (
     <Styles>
@@ -53,7 +58,7 @@ return (
                 <DPHEADER info={{ postedBy, created, pigeon}}/>
                 <div className="bd">
                     <BODY 
-                        info={{text, likes: gist.likes, commentNumber,  pigeon, status,
+                        info={{text, likes: gist.likes, commentNumber,  pigeon, link,
                     id: payload._id}} 
                     actions={{clickLike, like}} 
                     gist={payload}/>

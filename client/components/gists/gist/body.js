@@ -4,14 +4,11 @@ import styled from "styled-components";
 
 import { FiHeart, FiCompass, FiCopy, FiThumbsUp
 } from "react-icons/fi";
-import $ from "./../../../helpers/gen.helpers"
 import { BsHeartFill} from "react-icons/bs"
 
 import BodyPrinter from "./bodyPrinter";
 
 const BODY = ({info, actions, gist})=> {
-    let someText = info.text.substr(0, 20)
-    const quotesLink = $.getLink(someText)
     return <Styles>
     <div id="gistBody">
         <div className="gistText">
@@ -32,7 +29,7 @@ const BODY = ({info, actions, gist})=> {
                     <span style={{top: "2px", fontSize: "90%"}}>
                         <Link 
                             to={{
-                                pathname:`/${info.pigeon}/${quotesLink}/${info.status}/${info.id}`,
+                                pathname:`${info.link}`,
                                 state: {gist}
                             }}><FiCompass /></Link>
                     </span>

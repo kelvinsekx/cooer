@@ -49,7 +49,9 @@ const Status = (props)=> {
     return (
         (gistInfo !== null ) ?
         (<div>
-         <Gist payload ={gistInfo} />
+         <Gist 
+            payload ={gistInfo}
+            status="status" />
          <hr />
             <TABS 
                 comment = {doComment}
@@ -57,7 +59,7 @@ const Status = (props)=> {
              <div>
                  {gistInfo.comments.map((com, index)=>
                     <Gist 
-                        payload={{...com, comments:[]}}
+                        payload={com}
                          key={index}
                          status="comments" />)}
              </div>

@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import styled from "styled-components"
-import Gists from "../components/gists";
 import TextArea from "./../components/others/cooerTextArea"
+import Gist from "./../components/gists/gist"
 import auth from "../helpers/auth.helper";
 
 import {Link} from "react-router-dom"
@@ -101,7 +101,14 @@ const MUHA = (props) =>{
                 {(isFollowing < 1) ? 
                     <AwesomeGuysToFollow /> :
                     (gists !== null) ? 
-                     <Gists gists={gists} /> : <TxtLoading />
+                    gists.map((gist, i)=> 
+                    <div style={{paddingTop: "10px"}}>
+                    <Gist 
+                        payload={gist}
+                        status={"status"} 
+                        key={i}
+                        link={`hey`} />
+                        </div>) : <TxtLoading />
                 }
 
             </div>

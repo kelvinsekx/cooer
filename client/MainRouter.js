@@ -31,7 +31,8 @@ const MAINROUTER = (props) =>
                         <Private  
                             key={i}
                             exact
-                            {...route} />
+                            {...route} 
+                        />
                     ))
                 }
             </div>
