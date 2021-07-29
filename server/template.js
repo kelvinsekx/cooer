@@ -9,7 +9,12 @@ const TEMPLATE = function ({markup, styles, context, where}) {
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>ONstreet</title>
-        <style>body,*{margin:0;padding:0;box-sizing: border-box;}
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&display=swap" rel="stylesheet">
+        <style>body,*{
+            margin:0;padding:0;box-sizing: border-box;font-family: 'Raleway', sans-serif;
+        }
         </style>
         ${styles}
     </head>
