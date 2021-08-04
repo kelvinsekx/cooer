@@ -20,19 +20,6 @@ const FollowType = new GraphQLObjectType({
   })
 })
 
-const PhotoType = new GraphQLObjectType({
-    name: 'Photo',
-    fields: ()=> ({
-       contentType: {
-          type: GraphQLString,
-          resolve: person => person.photo.contentType
-       },
-        data: {
-            type: GraphQLString,
-            resolve: person => `${baseURL()}/_v1/api/users/u/photo/${person.username}`
-       }
-    })
- })
 
 export const PersonType = new GraphQLObjectType({
   name: "Person",
@@ -67,8 +54,8 @@ export const PersonType = new GraphQLObjectType({
       resolve: (person) => person.username,
     },
     photo: {
-      type: PhotoType,
-      resolve: (person) => person,
+      type: GraphQLString,
+      resolve: (person) => person.photo,
     },
     following: {
       type: FollowType,

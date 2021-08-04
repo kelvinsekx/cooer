@@ -3,8 +3,8 @@ import crypto from "crypto"
 
 const USERSCHEMA = new mongoose.Schema({
     photo: {
-        data: Buffer,    
-        contentType: String
+        type: String,
+        default: "https://res.cloudinary.com/joi-de-vivro/image/upload/v1626030848/sample.jpg"
     },
     username: {
         type: String,

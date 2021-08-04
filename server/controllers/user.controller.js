@@ -1,8 +1,16 @@
 import User from "../models/user.model";
 import extend from "lodash/extend";
 import errorHandler from "../helpers/DBERRHANDLER";
-import profile from "./../../server/images/anonymprofile.png"
+import profile from "./../images/anonymprofile.png"
 import process from "process";
+import cloudinary from "cloudinary"
+import cloudina from "./../../config/cloudinary.config"
+
+cloudinary.config({
+  cloud_name: cloudina.CLOUDINARY_HOST,
+  api_key: cloudina.CLOUDINARY_API_KEY,
+  api_secret: cloudina.CLOUDINARY_API_SECRET
+})
 
 const CREATE_NEW_USER = async (req, res)=> {
     const user = new User(req.body);
@@ -87,38 +95,44 @@ const READ = (req, res) => {
     return res.json(req.profile)
 }
 import formidable from 'formidable'
-import fs from 'fs'
 const UPDATE = async (req, res)=> {
     let form = new formidable.IncomingForm()
     form.keepExtensions = true
     form.parse(req, async (err, fields, files) => {    
         if (err) {      
             return res.status(500).json({        
-                error: "Photo could not be uploaded"      
+                error: "Photo could not be uploaded\n"+ err      
             })    
         }    
         let user = req.profile    
         user = extend(user, fields)    
         user.updated = Date.now()
         if(files.photo){       
-            user.photo.data = fs.readFileSync(files.photo.path)       
-            user.photo.contentType = files.photo.type    }    
-            try {      
-                await user.save()     
-                 user.hashed_password = undefined;      user.salt = undefined      
-                 res.json(user)    
-            } catch (err) {      
-                return res.status(400).json({        
-                    error: errorHandler.GET_ERROR_MESSAGE(err)      
-                })    
-            }  
+            //user.photo = fs.readFileSync(files.photo.path)       
+            //user.photo.contentType = files.photo.type  
+            //parser.single("photo")
+             await cloudinary.v2.uploader.upload(files.photo.path,  (err, result) => {
+                if (err) return err
+                user.photo = result.secure_url
+            } )
+        }    
+        try {      
+            await user.save()     
+                user.hashed_password = undefined;      
+                user.salt = undefined      
+                res.json(user)    
+        } catch (err) { 
+            console.log(error)     
+            return res.status(400).json({        
+                error: errorHandler.GET_ERROR_MESSAGE(err)      
+            })    
+        }  
     })
 }
 
 const PHOTO = (req, res, next) => {  
-    if(req.profile.photo.data){    
-        res.set("Content-Type", req.profile.photo.contentType)    
-        return res.send(req.profile.photo.data)  
+    if(req.profile.photo){       
+        return res.send(req.profile.photo)  
     }
     next()
 }
