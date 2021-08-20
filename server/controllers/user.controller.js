@@ -28,7 +28,7 @@ const CREATE_NEW_USER = async (req, res)=> {
 
 const LIST_ALL_USERS = async (req, res) => {
     try {
-        let users = await User.find().select('username email name photo bio');
+        let users = await User.find().lean().select('username email name photo bio');
         res.json(users)
     } catch(err){
         return res.status(400).json({
@@ -57,6 +57,7 @@ export const listUserByInstructions = (req, res) => {
                 console.log("discoverRandom--user.controller", r)
             }
             let users = await User.find()
+		.lean()
             .limit(Number(limit))
             .skip(Number(r))
             .select('username email name photo bio');

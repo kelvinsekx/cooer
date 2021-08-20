@@ -10,6 +10,7 @@ const COMMENTSCHEMA = new mongoose.Schema({
     text: { type: String, required: "Text is required"},
     photo: { data: Buffer, contentType: String },
     likes: [{type: mongoose.Schema.ObjectId, ref: "User"}],
+    savages: [{type: mongoose.Schema.ObjectId, ref: "User"}],
     comments: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Comment' }],
 },
 {timestamps: true});

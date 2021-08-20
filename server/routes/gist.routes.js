@@ -16,6 +16,9 @@ router.route("/api/gists/like")
 
 router.route("/api/gists/unlike")
     .put(authCtrl.REQUIRE_SIGNIN, gistCtrl.UNLIKE)
+    
+router.route("/api/gists/rateGossip")
+    .put(authCtrl.REQUIRE_SIGNIN, gistCtrl.RATE_GOSSIP)
 
 router.route("/api/gists/new/:userId")
     .post(authCtrl.REQUIRE_SIGNIN, gistCtrl.CREATE)

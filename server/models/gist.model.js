@@ -21,6 +21,8 @@ const GISTSCHEMA = new mongoose.Schema({
 
     likes: [{type: mongoose.Schema.ObjectId, ref: "User"}],
 
+    savages: [{type: mongoose.Schema.ObjectId, ref: "User"}],
+
     comments: [{
         type: mongoose.Schema.Types.ObjectId,
         ref: "Comment"

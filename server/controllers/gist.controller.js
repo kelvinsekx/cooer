@@ -164,6 +164,27 @@ export const LIST_A_FEED = async (req, res) => {
     }
 }
 
+
+export const RATE_GOSSIP = async (req, res) => {
+    try {
+        let checker = await Gist.findOne({_id:req.body.gistId}).lean()
+        if(checker){
+            let result = await Gist.findByIdAndUpdate(req.body.gistId, {$push: {savages: req.body.userId}}, {new: true})
+            .lean();
+        res.json(result)
+        }else {
+            let result = await Comment.findByIdAndUpdate(req.body.gistId, {$push: {savages: req.body.userId}}, {new: true})
+            .lean();
+        res.json(result)
+        }
+    } catch (err) {
+        console.log(err)
+        return res.status(400).json({
+            error: errorHandler.GET_ERROR_MESSAGE(err)
+        })
+    }
+}
+
 export const LIKE = async (req, res) => {
     try {
         let checker = await Gist.findOne({_id:req.body.gistId}).lean()

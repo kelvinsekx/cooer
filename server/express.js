@@ -1,16 +1,9 @@
 import express from "express"
-import path from "path"
-const CWD = process.cwd();
 
 import cookieParser from "cookie-parser"
 import compress from "compression"
 import cors from "cors"
 import helmet from "helmet";
-
-//graphql...
-// in the building...
-import {graphqlHTTP} from "express-graphql"
-import schema from "./../graph/graphSchema.graphql"
 
 
 /*************
@@ -37,11 +30,8 @@ import schema from "./../graph/graphSchema.graphql"
  */
 
 import routeManager from "./infrastructure/routeManager"
-import configManager from "./infrastructure/configManager"
-import authRoutes from "./routes/auth.routes"
-// HACK
-// global.window = undefined;
-// global.document = undefined;
+import configManager from "./infrastructure/configManager";
+
 function app (APP){
 APP.use(express.json())
 APP.use(express.urlencoded({extended: true}))
@@ -50,19 +40,10 @@ APP.use(compress())
 APP.use(helmet())
 APP.use(cors());
 
-
-APP.use("/dist", express.static(path.join(CWD, "dist")))
-
-
-APP.use("/_v1", authRoutes)
-
-APP.use("/graphql", graphqlHTTP({
-    schema,
-    graphiql : true,
-}))
+//App.get("/", (req, res)=>res.send("this is a backend app, visit the /graphql to play with data"))
 
 configManager.handle(APP)
-routeManager.handle(APP)
+routeManager.handle(APP);
 
 APP.use((err, req, res, next) => {  
     if (err.name === 'UnauthorizedError') {    
