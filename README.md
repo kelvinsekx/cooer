@@ -1,12 +1,12 @@
 # &#x1F625; Sorry,
-I will be moving the client to **netlify**, heroku sucks with client deployment especially with react. Many atimes clients would break I don't even know the cause...and heroku has an ugly build experience. This makes client all sucks. However, heroku works well with the backend so our graphql links stays there
+I moved the client to **netlify**, it is here now https://competent-bhabha-9a4049.netlify.app/. Many atimes clients would break I don't even know the cause...and heroku has an ugly build experience. This makes client all sucks. However, heroku works well with the backend so our graphql files stay there
 
 # 🚀🚀🚀 cooer
-**note** site might be unnecessarily slow because we are handling image with mongobuffer. 
-In no time, images would be moved to a cloud provider. 
 
-Cooer is a monolithic file of both backend and client.
-check [server](./server/express.js) to see the running server for both backend and client side
+Cooer is an app intended to allow for better access to memes and regeneration from existing convo.
+The client folder repo is https://github.com/kelvinsekx/cooer-client. 
+But the back-end is hosted here
+check [server](./server/express.js) to see the running server.
 
 ## Graphql &#x1F913;
 Cooer's api is a restAPi wrapped around graphQL. This is intentional to enable both flexibility with either the use of graphQL or a Rest.
